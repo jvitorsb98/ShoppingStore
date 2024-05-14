@@ -27,5 +27,4 @@ public class SpringDoc {
 							.description("link de acesso")
 							.url("https://shoppingstore.com"));
 	}
-
 }
