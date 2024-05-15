@@ -94,7 +94,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
@@ -158,6 +157,28 @@
 		
 	</dependencies>
 
+
+
+
+			<!-- Faker for generating fake data in tests and development -->
+			<dependency>
+				<groupId>com.github.javafaker</groupId>
+				<artifactId>javafaker</artifactId>
+				<version>1.0.2</version> <!-- Updated version -->
+			</dependency>
+		
+
+		
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+			</dependency>
+			
+
+				
+		</dependencies>
+		
 	<build>
 		<plugins>
 			<plugin>
