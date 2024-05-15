@@ -79,8 +79,52 @@
 			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
 
+		<!-- SLF4J for flexible and efficient logging -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.32</version> <!-- Updated version -->
+			</dependency>
+		
+			<!-- Auth0 - JWT for secure JWT-based authentication -->
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>3.18.1</version> <!-- Updated version -->
+			</dependency>
+		
+			<!-- Faker for generating fake data in tests and development -->
+			<dependency>
+				<groupId>com.github.javafaker</groupId>
+				<artifactId>javafaker</artifactId>
+				<version>1.0.2</version> <!-- Updated version -->
+			</dependency>
+		
+			<!-- Starter Mail for easy email integration in Spring applications -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-mail</artifactId>
+				<version>2.6.4</version> <!-- Updated version -->
+			</dependency>
+		
+			<!-- Rest Assured for automated testing of REST APIs -->
+			<dependency>
+				<groupId>io.rest-assured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>4.4.0</version> <!-- Updated version -->
+				<scope>test</scope> <!-- This dependency will only be used for tests -->
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+			</dependency>
+			
+
+				
+		</dependencies>
+		
 	<build>
 		<plugins>
 			<plugin>
