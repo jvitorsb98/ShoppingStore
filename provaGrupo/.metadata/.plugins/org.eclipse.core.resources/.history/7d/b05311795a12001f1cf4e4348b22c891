@@ -1,6 +1,0 @@
-spring.config.activate.on-profile=test
-spring.datasource.driver-class-name=com.
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.postgres
-spring.jpa.show-sql=false
-server.port=8081
