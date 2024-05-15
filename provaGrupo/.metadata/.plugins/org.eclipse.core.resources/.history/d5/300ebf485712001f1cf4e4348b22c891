@@ -1,5 +1,0 @@
-package br.com.cepedi.ShoppingStore.repository;
-
-public class PossibleFacetsRepository {
-
-}
