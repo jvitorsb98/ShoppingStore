@@ -1,9 +1,13 @@
 package br.com.cepedi.ShoppingStore.audit.interceptor;
 
+import br.com.cepedi.ShoppingStore.audit.record.DataRegisterAudit;
+import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import br.com.cepedi.ShoppingStore.audit.service.AuditService;
@@ -30,7 +34,7 @@ public class LoggingAspect {
     public void logServiceAccess(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String description = "Method execution";
-        String userId = null;
+        Long userId = null;
         String origin = clientIpAddress.get();
        
       //arguardando o SpringSecurity para conserta a auditoria e fazer seus testes.
@@ -39,12 +43,13 @@ public class LoggingAspect {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof User) {
             User user = (User) authentication.getPrincipal();				
-            userId = user.getUsername();
+            userId = user.getId();
         }else{
-           userId = "unauthenticated user";
+            userId = null;
         }
- 
-        auditService.logEvent(methodName, description, userId, joinPoint.getTarget().getClass().getSimpleName(), origin);
-    }
+
+        DataRegisterAudit dataRegisterAudit = new DataRegisterAudit(methodName,description,userId,joinPoint.getTarget().getClass().getSimpleName(),origin);
+
+        auditService.logEvent(dataRegisterAudit);    }
     
 }

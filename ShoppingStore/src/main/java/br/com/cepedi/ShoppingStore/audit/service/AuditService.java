@@ -2,6 +2,7 @@ package br.com.cepedi.ShoppingStore.audit.service;
 
 
 
+import br.com.cepedi.ShoppingStore.audit.record.DataRegisterAudit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.cepedi.ShoppingStore.audit.entitys.AuditLog;
@@ -13,14 +14,8 @@ public class AuditService {
     @Autowired
     private AuditLogRepository auditLogRepository;
 
-    public void logEvent(AuditLogDTO auditLogDTO) {
-        AuditLog log = new AuditLog();
-        log.setEventName(auditLogDTO.eventName());
-        log.setEventDescription(auditLogDTO.eventDescription());
-        log.setTimestamp(auditLogDTO.timestamp());
-        log.setUserId(auditLogDTO.userId());
-        log.setAffectedResource(auditLogDTO.affectedResource());
-        log.setOrigin(auditLogDTO.origin());
+    public void logEvent(DataRegisterAudit data) {
+        AuditLog log = new AuditLog(data);
         auditLogRepository.save(log);
     }
 }

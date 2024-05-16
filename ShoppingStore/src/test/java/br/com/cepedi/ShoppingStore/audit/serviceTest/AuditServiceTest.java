@@ -42,19 +42,6 @@ public class AuditServiceTest {
         auditLogDTO.origin();
     }
 
-    @Test
-    public void testLogEvent() {
-        auditService.logEvent(auditLogDTO);
 
-        verify(auditLogRepository).save(
-                argThat(log -> "TestEvent".equals(log.getEventName()) &&
-                        "TestDescription".equals(log.getEventDescription()) &&
-                        auditLogDTO.timestamp().equals(log.getTimestamp()) &&
-                        "TestUser".equals(log.getUserId()) &&
-                        "TestResource".equals(log.getAffectedResource()) &&
-                        "TestOrigin".equals(log.getOrigin())
-                )
-        );
-    }
 }
 

@@ -2,11 +2,8 @@ package br.com.cepedi.ShoppingStore.audit.entitys;
 
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.cepedi.ShoppingStore.audit.record.DataRegisterAudit;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -19,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "audit_log")
 public class AuditLog {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +28,17 @@ public class AuditLog {
     private String eventName;
     private String eventDescription;
     private Date timestamp;
-    private String userId;
+    private Long userId;
     private String affectedResource;
     private String origin;
+
+    public AuditLog(DataRegisterAudit data){
+        this.eventName = data.eventName();
+        this.eventDescription = data.eventDescription();
+        this.timestamp = new Date();
+        this.userId = data.userId();
+        this.affectedResource = data.affectedResource();
+        this.origin = data.origin();
+    }
+
 }
