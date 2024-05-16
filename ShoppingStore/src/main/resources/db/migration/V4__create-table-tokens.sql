@@ -4,6 +4,6 @@ CREATE TABLE tokens (
     user_id BIGINT,
     expire_date TIMESTAMP,
     disabled BOOLEAN,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

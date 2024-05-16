@@ -15,7 +15,7 @@ public record AuditLogDetails(
 ) {
 
     public AuditLogDetails(AuditLog auditLog){
-        this(auditLog.getEventName(),auditLog.getEventDescription(),auditLog.getTimestamp(),auditLog.getUserId(),auditLog.getAffectedResource(),auditLog.getOrigin());
+        this(auditLog.getEventName(),auditLog.getEventDescription(),auditLog.getTimestamp(),auditLog.getUser().getId(),auditLog.getAffectedResource(),auditLog.getOrigin());
     }
 
 

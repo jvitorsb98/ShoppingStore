@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.audit.entitys;
 import java.util.Date;
 
 import br.com.cepedi.ShoppingStore.audit.record.input.DataRegisterAudit;
+import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,15 +29,19 @@ public class AuditLog {
     private String eventName;
     private String eventDescription;
     private Date timestamp;
-    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String affectedResource;
     private String origin;
 
-    public AuditLog(DataRegisterAudit data){
+    public AuditLog(DataRegisterAudit data, User user){
         this.eventName = data.eventName();
         this.eventDescription = data.eventDescription();
         this.timestamp = new Date();
-        this.userId = data.userId();
+        this.user = user;
         this.affectedResource = data.affectedResource();
         this.origin = data.origin();
     }

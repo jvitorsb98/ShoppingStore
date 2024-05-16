@@ -10,9 +10,6 @@ public record DataRegisterAudit(
 
         String eventDescription,
 
-        @NotNull
-        Long userId,
-
         String affectedResource,
 
         @NotNull

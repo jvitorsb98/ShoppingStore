@@ -35,7 +35,7 @@ public class LoggingAspect {
     public void logServiceAccess(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String description = "Method execution";
-        Long userId = null;
+        User user = null;
         String origin = clientIpAddress.get();
        
       //arguardando o SpringSecurity para conserta a auditoria e fazer seus testes.
@@ -43,14 +43,11 @@ public class LoggingAspect {
        // Recupera informações do usuário autenticado
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof User) {
-            User user = (User) authentication.getPrincipal();				
-            userId = user.getId();
-        }else{
-            userId = null;
+            user = (User) authentication.getPrincipal();
         }
 
-        DataRegisterAudit dataRegisterAudit = new DataRegisterAudit(methodName,description,userId,joinPoint.getTarget().getClass().getSimpleName(),origin);
+        DataRegisterAudit dataRegisterAudit = new DataRegisterAudit(methodName,description,joinPoint.getTarget().getClass().getSimpleName(),origin);
 
-        auditService.logEvent(dataRegisterAudit);    }
+        auditService.logEvent(dataRegisterAudit, user);    }
     
 }
