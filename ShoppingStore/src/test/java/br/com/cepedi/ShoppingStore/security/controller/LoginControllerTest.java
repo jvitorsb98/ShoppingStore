@@ -4,8 +4,7 @@ import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataAuth;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataRegisterUser;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -19,6 +18,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@DisplayName("LoginController Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 public class LoginControllerTest {
 
     @Mock
@@ -31,11 +32,13 @@ public class LoginControllerTest {
     private LoginController loginController;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
+    @DisplayName("Test efetuarLogin with successful authentication")
     void testEfetuarLogin_SuccessfulAuthentication() {
         // Mocking the expected behavior of Authentication and User
         User user = mock(User.class);

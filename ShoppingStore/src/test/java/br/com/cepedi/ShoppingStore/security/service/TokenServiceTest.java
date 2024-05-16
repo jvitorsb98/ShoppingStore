@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.Random.class)
+@DisplayName("TokenService Tests")
 public class TokenServiceTest {
 
     @Mock
@@ -31,12 +32,11 @@ public class TokenServiceTest {
     @InjectMocks
     private TokenService tokenService;
 
-
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(tokenService, "secret", "testSecret123");
-
     }
 
     @Test
@@ -135,6 +135,7 @@ public class TokenServiceTest {
     }
 
     @Test
+    @DisplayName("Test getSubject with Invalid Token")
     void getSubject_InvalidToken_ThrowsException() {
         // Arrange
         String invalidToken = "invalidToken";
@@ -144,7 +145,6 @@ public class TokenServiceTest {
             tokenService.getSubject(invalidToken);
         });
     }
-
 
     @Test
     @DisplayName("Test generateTokenForActivatedEmail")
@@ -167,5 +167,3 @@ public class TokenServiceTest {
     }
 
 }
-
-

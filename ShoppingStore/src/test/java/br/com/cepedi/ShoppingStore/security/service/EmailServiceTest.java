@@ -8,9 +8,7 @@ import freemarker.template.TemplateException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.Session;
 import jakarta.mail.internet.MimeMessage;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -20,7 +18,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-
 import java.util.Map;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -28,8 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@DisplayName("EmailService Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 public class EmailServiceTest {
-
 
     @Mock
     private JavaMailSender emailSender;
@@ -53,16 +51,16 @@ public class EmailServiceTest {
     private EmailService emailService;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
-
-        MockitoAnnotations.openMocks(this); // Inicializa os mocks
-
+        MockitoAnnotations.openMocks(this); // Initialize mocks
 
         MimeMessage mimeMessage = Mockito.mock(MimeMessage.class);
         when(emailSender.createMimeMessage()).thenReturn(mimeMessage);
     }
 
     @Test
+    @DisplayName("Test sendResetPasswordEmail with valid parameters")
     void sendResetPasswordEmail_ValidParameters_EmailSent() throws Exception {
         // Arrange
         String name = "John Doe";
@@ -85,6 +83,7 @@ public class EmailServiceTest {
     }
 
     @Test
+    @DisplayName("Test sendResetPasswordEmail with template processing exception")
     void sendResetPasswordEmail_TemplateProcessingException_ExceptionThrown() throws Exception {
         // Arrange
         String name = "John Doe";
@@ -105,6 +104,7 @@ public class EmailServiceTest {
     }
 
     @Test
+    @DisplayName("Test sendActivationEmail with valid parameters")
     void sendActivationEmail_ValidParameters_EmailSent() throws Exception {
         // Arrange
         String name = "John Doe";

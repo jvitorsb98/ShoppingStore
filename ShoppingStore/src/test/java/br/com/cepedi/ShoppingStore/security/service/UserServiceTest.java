@@ -16,6 +16,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.Random.class)
+@DisplayName("UserService Tests")
 public class UserServiceTest {
 
     @Mock
@@ -28,6 +29,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }

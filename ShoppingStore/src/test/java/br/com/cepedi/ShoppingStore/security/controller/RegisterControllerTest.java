@@ -5,8 +5,7 @@ import br.com.cepedi.ShoppingStore.security.model.records.input.DataRegisterUser
 import br.com.cepedi.ShoppingStore.security.service.AuthService;
 import br.com.cepedi.ShoppingStore.security.service.EmailService;
 import jakarta.mail.MessagingException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 
-
+@TestMethodOrder(MethodOrderer.Random.class)
+@DisplayName("RegisterControllerTest Tests")
 public class RegisterControllerTest {
 
     private MockMvc mockMvc;
@@ -44,10 +44,10 @@ public class RegisterControllerTest {
     @WithMockUser
     void testRegisterUser_SuccessfulRegistration() throws Exception {
         // Mocking the expected behavior of AuthService and EmailService
-        DataRegisterUser testData = new DataRegisterUser("Jon", "john.doe@example.com", "Jhon Doe" , "Jhon1234*");
+        DataRegisterUser testData = new DataRegisterUser("Jon", "john.doe@example.com", "Jhon Doe", "Jhon1234*");
         DataDetailsRegisterUser expectedData = new DataDetailsRegisterUser("Jon", "Jhon Doe", "john.doe@example.com");
         when(authService.register(testData)).thenReturn(expectedData);
-        when(emailService.sendActivationEmail("John Doe", "john.doe@example.com")).thenReturn("testToken");
+        when(emailService.sendActivationEmail("Jhon Doe", "john.doe@example.com")).thenReturn("testToken");
 
         // Calling the method directly
         ResponseEntity<String> response = registerController.registerUser(testData);
@@ -60,9 +60,4 @@ public class RegisterControllerTest {
         verify(authService, times(1)).register(testData);
         verify(emailService, times(1)).sendActivationEmail("Jhon Doe", "john.doe@example.com");
     }
-
-
-
-
-
 }

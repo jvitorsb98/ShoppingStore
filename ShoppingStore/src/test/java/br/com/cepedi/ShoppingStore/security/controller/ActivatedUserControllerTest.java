@@ -2,8 +2,7 @@ package br.com.cepedi.ShoppingStore.security.controller;
 
 import br.com.cepedi.ShoppingStore.security.service.AuthService;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -13,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@DisplayName("ActivatedUserController Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 class ActivatedUserControllerTest {
 
     @Mock
@@ -25,11 +26,13 @@ class ActivatedUserControllerTest {
     private ActivatedUserController activatedUserController;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
+    @DisplayName("Test activateAccount with valid token")
     void testActivateAccount_ValidToken() {
         // Arrange
         String validToken = "validToken";
@@ -47,6 +50,7 @@ class ActivatedUserControllerTest {
     }
 
     @Test
+    @DisplayName("Test activateAccount with invalid token")
     void testActivateAccount_InvalidToken() {
         // Arrange
         String invalidToken = "invalidToken";
@@ -63,6 +67,7 @@ class ActivatedUserControllerTest {
     }
 
     @Test
+    @DisplayName("Test activateAccount with exception")
     void testActivateAccount_Exception() {
         // Arrange
         String token = "exceptionToken";

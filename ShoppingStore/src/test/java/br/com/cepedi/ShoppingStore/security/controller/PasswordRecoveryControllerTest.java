@@ -6,8 +6,7 @@ import br.com.cepedi.ShoppingStore.security.model.records.input.DataResetPasswor
 import br.com.cepedi.ShoppingStore.security.service.EmailService;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
 import br.com.cepedi.ShoppingStore.security.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -17,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@DisplayName("PasswordRecoveryController Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 class PasswordRecoveryControllerTest {
 
     @Mock
@@ -32,11 +33,13 @@ class PasswordRecoveryControllerTest {
     private PasswordRecoveryController passwordRecoveryController;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
+    @DisplayName("Test resetPasswordRequest with user found")
     void testResetPasswordRequest_UserFound() {
         // Arrange
         DataRequestResetPassword dataResetPassword = new DataRequestResetPassword("test@example.com");
@@ -55,6 +58,7 @@ class PasswordRecoveryControllerTest {
     }
 
     @Test
+    @DisplayName("Test resetPasswordRequest with user not found")
     void testResetPasswordRequest_UserNotFound() {
         // Arrange
         DataRequestResetPassword dataResetPassword = new DataRequestResetPassword("test@example.com");
@@ -71,6 +75,7 @@ class PasswordRecoveryControllerTest {
     }
 
     @Test
+    @DisplayName("Test resetPassword with valid token")
     void testResetPassword_ValidToken() {
         // Arrange
         DataResetPassword dataResetPassword = new DataResetPassword("testToken", "newPassword");
@@ -92,6 +97,7 @@ class PasswordRecoveryControllerTest {
     }
 
     @Test
+    @DisplayName("Test resetPassword with invalid token")
     void testResetPassword_InvalidToken() {
         // Arrange
         DataResetPassword dataResetPassword = new DataResetPassword("invalidToken", "newPassword");

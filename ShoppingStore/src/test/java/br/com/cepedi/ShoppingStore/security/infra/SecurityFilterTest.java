@@ -7,9 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,6 +18,8 @@ import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
+@DisplayName("SecurityFilter Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 public class SecurityFilterTest {
 
     @Mock
@@ -32,6 +32,7 @@ public class SecurityFilterTest {
     private SecurityFilter securityFilter;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
@@ -61,6 +62,4 @@ public class SecurityFilterTest {
         verify(repository).findByLogin(subject);
         verify(filterChain).doFilter(request, response);
     }
-
-
 }

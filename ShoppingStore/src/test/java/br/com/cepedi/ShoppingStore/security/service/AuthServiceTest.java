@@ -8,9 +8,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,13 +21,13 @@ import java.util.Date;
 
 import static org.mockito.Mockito.eq;
 
-
-
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+@DisplayName("AuthService Tests")
+@TestMethodOrder(MethodOrderer.Random.class)
 public class AuthServiceTest {
 
     @Mock
@@ -38,12 +36,11 @@ public class AuthServiceTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
-
-
     @InjectMocks
     private AuthService authService;
 
     @BeforeEach
+    @DisplayName("Set up")
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
@@ -65,7 +62,7 @@ public class AuthServiceTest {
     @Test
     @DisplayName("Test register")
     void testRegister() {
-        DataRegisterUser dataRegisterUser = new DataRegisterUser("john_doe", "john.doe@example.com","jhon doe", "Password123*");
+        DataRegisterUser dataRegisterUser = new DataRegisterUser("john_doe", "john.doe@example.com", "jhon doe", "Password123*");
         User user = new User(dataRegisterUser, passwordEncoder);
 
         when(userRepository.save(user)).thenReturn(user);
@@ -83,7 +80,7 @@ public class AuthServiceTest {
         String email = "john.doe@example.com";
         DataRegisterUser dataRegisterUser = new DataRegisterUser("john_doe", email, "jhon doe", "Password123*");
         User user = new User(dataRegisterUser, passwordEncoder);
-        user.setEmail(email); // Definindo o e-mail do usuário
+        user.setEmail(email); // Setting the user's email
 
         String secret = "your_secret_key";
         String token = JWT.create()
@@ -91,9 +88,7 @@ public class AuthServiceTest {
                 .withExpiresAt(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
                 .sign(Algorithm.HMAC256(secret));
 
-
-
-        // Configurando o mock para retornar o usuário quando o e-mail correto for passado como parâmetro
+        // Configuring the mock to return the user when the correct email is passed as a parameter
         when(userRepository.findUserByEmail(eq(email))).thenReturn(user);
         when(userRepository.findUserByEmail(isNull())).thenReturn(user);
 
