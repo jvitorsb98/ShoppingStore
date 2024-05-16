@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.audit.record;
+package br.com.cepedi.ShoppingStore.audit.record.input;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

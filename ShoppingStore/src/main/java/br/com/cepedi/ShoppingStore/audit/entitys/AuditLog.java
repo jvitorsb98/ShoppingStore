@@ -2,7 +2,7 @@ package br.com.cepedi.ShoppingStore.audit.entitys;
 
 import java.util.Date;
 
-import br.com.cepedi.ShoppingStore.audit.record.DataRegisterAudit;
+import br.com.cepedi.ShoppingStore.audit.record.input.DataRegisterAudit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

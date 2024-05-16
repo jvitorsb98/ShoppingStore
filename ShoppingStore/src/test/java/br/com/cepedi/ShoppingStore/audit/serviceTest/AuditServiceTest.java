@@ -4,18 +4,14 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Date;
 
-import static org.mockito.ArgumentMatchers.argThat;
-
 
 import org.junit.Before;
-import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.cepedi.ShoppingStore.audit.repositorys.AuditLogRepository;
 import br.com.cepedi.ShoppingStore.audit.service.AuditService;
-import br.com.cepedi.ShoppingStore.record.AuditLogDTO;
 
 @SpringBootTest
 public class AuditServiceTest {
