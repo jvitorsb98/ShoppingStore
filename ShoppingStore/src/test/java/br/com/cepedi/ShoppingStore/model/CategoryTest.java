@@ -1,5 +1,6 @@
 package br.com.cepedi.ShoppingStore.model;
 
+import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,9 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.cepedi.ShoppingStore.model.PossibleFacets;
+import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
 import br.com.cepedi.ShoppingStore.repository.PossibleFacetsRepository;
-import br.com.cepedi.ShoppingStore.service.PossibleFacetsService;
 
 @TestMethodOrder(OrderAnnotation.class)
 public class PossibleFacetsServiceTest {

@@ -1,9 +1,9 @@
-package br.com.cepedi.ShoppingStore.records.mail.input;
+package br.com.cepedi.ShoppingStore.model.records.mail.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record DataRegisterMailDTO(
+public record DataRegisterMail(
     Long id,
     
     @Email

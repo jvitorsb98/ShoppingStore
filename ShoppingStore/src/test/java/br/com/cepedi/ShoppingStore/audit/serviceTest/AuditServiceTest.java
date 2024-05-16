@@ -16,27 +16,27 @@ import br.com.cepedi.ShoppingStore.audit.service.AuditService;
 @SpringBootTest
 public class AuditServiceTest {
 
-    @Mock
-    private AuditLogRepository auditLogRepository;
-
-    @InjectMocks
-    private AuditService auditService;
-
-    @InjectMocks
-    private AuditLogDTO auditLogDTO;
-
-    @Before
-    public void setUp() {
-   
-
-    	auditLogDTO = new AuditLogDTO("TestEvent","TestDescription", "TestUser","TestResource", "TestOrigin", new Date());
-        auditLogDTO.eventName();
-        auditLogDTO.eventDescription();
-        auditLogDTO.timestamp();
-        auditLogDTO.userId();
-        auditLogDTO.affectedResource();
-        auditLogDTO.origin();
-    }
+//    @Mock
+//    private AuditLogRepository auditLogRepository;
+//
+//    @InjectMocks
+//    private AuditService auditService;
+//
+//    @InjectMocks
+//    private AuditLogDTO auditLogDTO;
+//
+//    @Before
+//    public void setUp() {
+//
+//
+//    	auditLogDTO = new AuditLogDTO("TestEvent","TestDescription", "TestUser","TestResource", "TestOrigin", new Date());
+//        auditLogDTO.eventName();
+//        auditLogDTO.eventDescription();
+//        auditLogDTO.timestamp();
+//        auditLogDTO.userId();
+//        auditLogDTO.affectedResource();
+//        auditLogDTO.origin();
+//    }
 
 
 }

@@ -1,6 +1,6 @@
 package br.com.cepedi.ShoppingStore.repository;
 
-import br.com.cepedi.ShoppingStore.model.Category;
+import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

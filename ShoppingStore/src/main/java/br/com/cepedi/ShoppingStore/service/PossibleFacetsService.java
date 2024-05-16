@@ -1,6 +1,6 @@
 package br.com.cepedi.ShoppingStore.service;
 
-import br.com.cepedi.ShoppingStore.model.PossibleFacets;
+import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
 import br.com.cepedi.ShoppingStore.repository.PossibleFacetsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

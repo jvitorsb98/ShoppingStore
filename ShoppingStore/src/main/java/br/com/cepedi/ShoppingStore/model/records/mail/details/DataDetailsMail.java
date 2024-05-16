@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.records.mail.details;
+package br.com.cepedi.ShoppingStore.model.records.mail.details;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Mail;
 

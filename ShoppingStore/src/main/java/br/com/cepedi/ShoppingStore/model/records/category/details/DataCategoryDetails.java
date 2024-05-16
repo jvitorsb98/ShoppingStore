@@ -1,11 +1,11 @@
-package br.com.cepedi.ShoppingStore.dto.details;
+package br.com.cepedi.ShoppingStore.model.records.category.details;
 
 import lombok.Data;
 
 @Data
-public class PossibleFacetsDetailsDTO {
+public class DataCategoryDetails {
     private Long id;
     private String name;
     private String description;
-  
+   
 }
