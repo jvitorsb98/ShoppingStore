@@ -1,8 +1,6 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 
-import br.com.cepedi.ShoppingStore.model.records.ProductCartItem.input.DataRegisterProductCartItem;
-import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,7 @@ import java.math.BigInteger;
 @Getter
 @Setter
 @Table(name = "shopping_cart_item")
-public class ProductCartItem {
+public class ShoppingCartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
