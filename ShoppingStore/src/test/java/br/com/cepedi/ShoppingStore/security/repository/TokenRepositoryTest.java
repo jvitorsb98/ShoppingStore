@@ -45,18 +45,16 @@ public class TokenRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test save token")
+    @DisplayName("Test find id")
     public void testFindId() {
         // Given
         Token token = new Token();
-        token.setId(1L);
         token.setToken("TOKEN");
 
         // When
         Token savedToken = tokenRepository.save(token);
 
-        Token token2 = tokenRepository.getReferenceById(1L);
-
+        Token token2 = tokenRepository.getReferenceById(savedToken.getId());
         // Then
         assertNotNull(savedToken.getId());
         assertEquals(token.getId(), token2.getId());
