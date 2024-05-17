@@ -1,18 +1,11 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Optional;
-
+import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
-import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("Test entity Category")
@@ -54,8 +47,6 @@ class CategoryTest {
         Assertions.assertNotEquals(category1, category2);
     }
 
-
-
     @Test
     @DisplayName("Test constructor and getters")
     void testConstructorAndGetters() {
@@ -68,6 +59,42 @@ class CategoryTest {
         assertEquals("Electronics", category.getName());
         assertEquals("Electronic devices and accessories", category.getDescription());
     }
+
+    @Test
+    @DisplayName("Teste de hash code - igualdade")
+    public void testCategoryHashCodeEquality() {
+        Category category1 = new Category();
+        category1.setId(1L);
+        category1.setName("Eletrônicos");
+
+        Category category2 = new Category();
+        category2.setId(1L);
+        category2.setName("Eletrônicos");
+
+        assertEquals(category1.hashCode(), category2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Teste de hash code - desigualdade")
+    public void testCategoryHashCodeInequality() {
+        Category category1 = new Category();
+        category1.setId(1L);
+        category1.setName("Eletrônicos");
+
+        Category category2 = new Category();
+        category2.setId(2L);
+        category2.setName("Roupas");
+
+        Assertions.assertNotEquals(category1.hashCode(), category2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Teste do construtor com DataRegisterCategory")
+    public void testConstructorWithDataRegisterCategory() {
+        DataRegisterCategory data = new DataRegisterCategory("Livros", "Categoria de livros");
+        Category category = new Category(data);
+
+        assertEquals("Livros", category.getName());
+        assertEquals("Categoria de livros", category.getDescription());
+    }
 }
-
-

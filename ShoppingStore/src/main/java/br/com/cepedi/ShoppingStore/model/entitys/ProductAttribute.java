@@ -1,5 +1,6 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
+import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,9 @@ public class ProductAttribute {
 	private String value;
 	
 	
-	//Quando criar a tabela produto, criar um product_id para fazer relação
+	public ProductAttribute(DataRegisterProductAttribute data){
+		this.name = data.name();
+		this.value = data.value();
+	}
 	
 }

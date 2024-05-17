@@ -21,8 +21,9 @@ public class ProductRating {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-//        @Column(name = "product_id")
-//        private Product product;
+        @ManyToOne
+        @JoinColumn(name = "product_id")
+        private Product product;
 
         @Column(name = "rating_stars")
         private BigDecimal ratingStars;
@@ -33,8 +34,11 @@ public class ProductRating {
         @Column(name = "user_id")
         private User user;
 
-//        public ProductRating(DataRegisterProductRating data , User user , Product product){
-//
-//        }
+        public ProductRating(DataRegisterProductRating data , User user , Product product){
+                this.ratingStars = data.ratingStars();
+                this.review = data.review();
+                this.user = user;
+                this.product = product;
+        }
 
 }

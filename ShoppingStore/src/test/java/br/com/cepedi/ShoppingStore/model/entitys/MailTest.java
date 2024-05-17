@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 
 @TestMethodOrder(MethodOrderer.Random.class)
-@DisplayName("Test entity doctor")
+@DisplayName("Test entity Mail")
 class MailTest {
 		
 	 @DisplayName("Test mail object creation")

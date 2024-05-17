@@ -27,8 +27,7 @@ public class AuditLog {
     private Long id;
     
     @NotNull(message = "EventName must not be null") // Validação no nível da aplicação
-    @Size(min = 5, max = 50, message = "EventName must be between 5 and 50 characters long")
-    @Column(unique = true, nullable = false) // Restrições a nível de banco de dados
+    @Column(unique = true, nullable = false)
     private String eventName;
     private String eventDescription;
     private Date timestamp;

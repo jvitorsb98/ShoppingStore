@@ -2,8 +2,7 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 
 import com.github.javafaker.Faker;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@TestMethodOrder(MethodOrderer.Random.class)
+@DisplayName("Test entity ProductAttributeTest")
 public class ProductAttributeTest {
 
     @Mock
     private ProductAttribute mockAttribute;
-    
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -64,7 +66,7 @@ public class ProductAttributeTest {
         when(mockAttribute.getId()).thenReturn(id);
         when(mockAttribute.getName()).thenReturn(name); // Configuração do mock para retornar o nome gerado pelo Faker
         when(mockAttribute.getValue()).thenReturn(value);
-        
+
         // Then
         mockAttribute.setId(id);
         mockAttribute.setName(name);

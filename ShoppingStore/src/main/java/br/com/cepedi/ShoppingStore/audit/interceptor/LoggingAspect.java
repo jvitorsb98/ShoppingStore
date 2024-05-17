@@ -31,7 +31,7 @@ public class LoggingAspect {
     }
 
     // Exclui AuditService do observado para evitar loop infinito
-    @Before("execution(* br.com.cepedi.ShoppingStore.audit.service.*.*(..)) && !target(br.com.cepedi.ShoppingStore.AuditService)")
+    @Before("execution(* br.com.cepedi.ShoppingStore.audit.service.*.*(..)) && !target(br.com.cepedi.ShoppingStore.audit.service.AuditService)")
     public void logServiceAccess(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         String description = "Method execution";

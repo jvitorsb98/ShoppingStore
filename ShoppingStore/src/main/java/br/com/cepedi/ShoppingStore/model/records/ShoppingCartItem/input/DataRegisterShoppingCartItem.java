@@ -9,16 +9,12 @@ import java.math.BigInteger;
 
 public record DataRegisterShoppingCartItem(
 
-        @NotBlank
-        String name,
-
         @NotNull
         @Positive
-        BigDecimal price,
+        BigInteger quantity,
 
         @NotNull
-        @Positive
-        BigInteger quantity
+        Long productId
 
 ) {
 }

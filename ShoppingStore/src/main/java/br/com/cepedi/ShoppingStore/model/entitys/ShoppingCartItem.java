@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 
+import br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.input.DataRegisterShoppingCartItem;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,17 +27,22 @@ public class ShoppingCartItem {
     private BigDecimal pricePurchase;
 
     @ManyToOne
-    @JoinColumn(name = "shopping_cart")
+    @JoinColumn(name = "shopping_cart_id")
     private ShoppingCart shoppingCart;
 
 
     private BigInteger quantity;
-//    @ManyToOne
-//    @JoinColumn(name = "product_id")
-//    private Product product;
 
-//    public ProductCartItem(DataRegisterProductCartItem data, ShoppingCart shoppingCart , BigInteger quantity , Product product){
-//
-//    }
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    public ShoppingCartItem(DataRegisterShoppingCartItem data, ShoppingCart shoppingCart , BigInteger quantity , Product product){
+        this.name = product.getName();
+        this.pricePurchase = product.getPrice();
+        this.shoppingCart = shoppingCart;
+        this.product = product;
+        this.quantity = quantity;
+    }
 
 }

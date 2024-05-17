@@ -1,5 +1,6 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
+import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,4 +26,12 @@ public class Mail {
     private String to;
     private String content;
     private String subject;
+
+
+    public Mail(DataRegisterMail data){
+        this.from = data.from();
+        this.to = data.to();
+        this.content = data.content();
+        this.subject = data.subject();
+    }
 }

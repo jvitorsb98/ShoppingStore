@@ -24,7 +24,7 @@ public class ShoppingCart {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
