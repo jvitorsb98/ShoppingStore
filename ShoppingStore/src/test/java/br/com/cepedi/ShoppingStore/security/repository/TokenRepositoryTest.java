@@ -45,7 +45,7 @@ public class TokenRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test save token")
+    @DisplayName("Test find id")
     public void testFindId() {
         // Given
         Token token = new Token();
