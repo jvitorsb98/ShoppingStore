@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.model;
+package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import org.junit.jupiter.api.DisplayName;

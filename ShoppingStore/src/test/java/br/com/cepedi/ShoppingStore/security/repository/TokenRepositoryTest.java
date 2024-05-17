@@ -49,13 +49,12 @@ public class TokenRepositoryTest {
     public void testFindId() {
         // Given
         Token token = new Token();
-        token.setId(1L);
         token.setToken("TOKEN");
 
         // When
         Token savedToken = tokenRepository.save(token);
 
-        Token token2 = tokenRepository.getReferenceById(1L);
+        Token token2 = tokenRepository.getReferenceById(savedToken.getId());
 
         // Then
         assertNotNull(savedToken.getId());

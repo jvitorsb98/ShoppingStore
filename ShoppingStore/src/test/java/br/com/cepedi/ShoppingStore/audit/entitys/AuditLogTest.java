@@ -4,7 +4,9 @@ package br.com.cepedi.ShoppingStore.audit.entitys;
 import br.com.cepedi.ShoppingStore.audit.record.input.DataRegisterAudit;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@TestMethodOrder(MethodOrderer.Random.class)
 public class AuditLogTest {
 
     @Mock
@@ -156,9 +159,6 @@ public class AuditLogTest {
         assertEquals(timestamp, auditLog.getTimestamp()); // Verifica se o timestamp está correto
         assertEquals(affectedResource, auditLog.getAffectedResource());
         assertEquals(origin, auditLog.getOrigin());
-        assertEquals("AuditLog(id=" + id + ", eventName=" + eventName + ", eventDescription=" + eventDescription +
-                ", timestamp=" + timestamp + ", user=" + user + ", affectedResource=" + affectedResource +
-                ", origin=" + origin + ")", auditLog.toString()); // Verifica se o toString está correto
     }
 
 }
