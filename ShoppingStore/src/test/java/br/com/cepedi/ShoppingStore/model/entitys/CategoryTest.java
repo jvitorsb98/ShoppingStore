@@ -95,4 +95,3 @@ class CategoryRepositoryTest {
         assertThat(deletedCategory).isNotPresent();
     }
 }
->>>>>>> origin/Sub_equipe_2_Sprint2
