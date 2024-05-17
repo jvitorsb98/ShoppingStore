@@ -13,9 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.Random.class)
@@ -26,11 +26,11 @@ public class CategoryRepositoryTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @AfterEach
     public void deleteAllCategory() {
         categoryRepository.deleteAll();
     }
-
 
     // Test to verify if a category can be saved correctly in the database
     @Test
@@ -48,20 +48,60 @@ public class CategoryRepositoryTest {
     // Test to verify if all categories can be retrieved correctly from the database
     @Test
     public void testFindAllCategories() {
-
+        // Create a new category instance
         Category category = new Category();
         category.setName("Test Category");
         category.setDescription("Test Description");
 
-        // Save the category in the database and verify if the ID was generated
-        Category savedCategory = categoryRepository.save(category);
+        // Save the category in the database
+        categoryRepository.save(category);
 
         // Retrieve all categories from the database
         List<Category> categories = categoryRepository.findAll();
 
         // Verify if the number of retrieved categories matches the expected number
-        assertEquals(1, categories.size()); 
+        assertEquals(1, categories.size());
     }
 
-    // Add more tests as needed for other repository methods
+    // Test to verify if a category can be deleted correctly from the database
+    @Test
+    public void testDeleteCategory() {
+        // Create a new category instance
+        Category category = new Category();
+        category.setName("Test Category");
+        category.setDescription("Test Description");
+
+        // Save the category in the database
+        Category savedCategory = categoryRepository.save(category);
+
+        // Delete the category from the database
+        categoryRepository.delete(savedCategory);
+
+        // Verify if the category was deleted
+        Optional<Category> deletedCategory = categoryRepository.findById(savedCategory.getId());
+        assertFalse(deletedCategory.isPresent());
+    }
+
+    // Test to verify if a category can be updated correctly in the database
+    @Test
+    public void testUpdateCategory() {
+        // Create a new category instance
+        Category category = new Category();
+        category.setName("Test Category");
+        category.setDescription("Test Description");
+
+        // Save the category in the database
+        Category savedCategory = categoryRepository.save(category);
+
+        // Update the category details
+        savedCategory.setName("Updated Category");
+        savedCategory.setDescription("Updated Description");
+
+        // Save the updated category in the database
+        Category updatedCategory = categoryRepository.save(savedCategory);
+
+        // Verify if the updated category details are correct
+        assertEquals("Updated Category", updatedCategory.getName());
+        assertEquals("Updated Description", updatedCategory.getDescription());
+    }
 }
