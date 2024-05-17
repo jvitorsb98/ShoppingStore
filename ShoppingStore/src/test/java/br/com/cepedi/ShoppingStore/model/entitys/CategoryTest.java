@@ -56,13 +56,17 @@ class CategoryTest {
 
 
     @Test
-    @DisplayName("Teste de hashing")
-    public void testCategoryHashing() {
+    @DisplayName("Test constructor and getters")
+    void testConstructorAndGetters() {
         Category category = new Category();
         category.setId(1L);
-        category.setName("Eletrônicos");
+        category.setName("Electronics");
+        category.setDescription("Electronic devices and accessories");
 
-        int hashCode = category.hashCode();
-        Assertions.assertNotEquals(0, hashCode);
+        assertEquals(1L, category.getId());
+        assertEquals("Electronics", category.getName());
+        assertEquals("Electronic devices and accessories", category.getDescription());
     }
 }
+
+
