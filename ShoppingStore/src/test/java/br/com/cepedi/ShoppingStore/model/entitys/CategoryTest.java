@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ class CategoryTest {
         category2.setId(1L);
         category2.setName("Eletrônicos");
 
-        Assertions.assertEquals(category1, category2);
+        assertEquals(category1, category2);
     }
 
     @Test
