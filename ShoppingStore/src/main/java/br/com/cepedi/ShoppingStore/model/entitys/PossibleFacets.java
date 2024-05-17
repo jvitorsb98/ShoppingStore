@@ -1,8 +1,8 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
+
 import jakarta.persistence.*;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
