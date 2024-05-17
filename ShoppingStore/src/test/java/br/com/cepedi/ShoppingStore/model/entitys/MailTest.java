@@ -8,7 +8,8 @@ import org.junit.jupiter.api.*;
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("Test entity doctor")
 class MailTest {
-
+		
+	 @DisplayName("Test mail object creation")
 	 @Test
 	    void testMailObjectCreation() {
 	        // Arrange
@@ -29,6 +30,7 @@ class MailTest {
 	        assertEquals(subject, mail.getSubject());
 	    }
 
+	    @DisplayName("Test mail object creation with null values")
 	    @Test
 	    void testMailObjectCreationWithNullValues() {
 	        // Arrange
