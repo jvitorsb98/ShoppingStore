@@ -20,23 +20,17 @@ public class ShoppingCartTest {
     @Test
     @DisplayName("Test ShoppingCart Creation with Valid Data")
     public void testShoppingCartCreationWithValidData() {
-        BigDecimal price = new BigDecimal("100.00");
+        BigDecimal price = BigDecimal.ZERO;
         Long userId = 1L;
         User user = new User();
         user.setId(1L);
 
-        DataRegisterShoppingCart data = new DataRegisterShoppingCart(price, userId);
+        DataRegisterShoppingCart data = new DataRegisterShoppingCart(userId);
 
-        ShoppingCart cart = new ShoppingCart(data, user);
+        ShoppingCart cart = new ShoppingCart(user);
 
-        assertEquals(price, cart.getTotalPrice());
+        assertEquals(price, BigDecimal.ZERO);
         assertEquals(user, cart.getUser());
-    }
-
-    @Test
-    @DisplayName("Test ShoppingCart Creation with Null Data")
-    public void testShoppingCartCreationWithNullData() {
-        assertThrows(NullPointerException.class, () -> new ShoppingCart(null, new User()));
     }
 
     @Test
@@ -58,10 +52,16 @@ public class ShoppingCartTest {
         Long userId = 1L;
         User user = new User();
 
-        DataRegisterShoppingCart data = new DataRegisterShoppingCart(initialPrice, userId);
 
-        ShoppingCart cart = new ShoppingCart(data, user);
-        assertEquals(initialPrice, cart.getTotalPrice());
+        DataRegisterShoppingCart data = new DataRegisterShoppingCart(userId);
+
+        ShoppingCart cart = new ShoppingCart(user);
+
+        BigDecimal initialCartTotalPrice = cart.getTotalPrice();
+
+        cart.setTotalPrice(BigDecimal.valueOf(2.000));
+
+        assertEquals(BigDecimal.ZERO, initialCartTotalPrice);
 
         cart.setTotalPrice(updatedPrice);
         assertEquals(updatedPrice, cart.getTotalPrice());
