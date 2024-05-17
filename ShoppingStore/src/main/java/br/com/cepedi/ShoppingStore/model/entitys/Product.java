@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 import java.math.BigDecimal;
 import java.util.List;
 
+import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,4 +42,17 @@ public class Product {
 //
 //	    @OneToMany(mappedBy = "product")
 //	    private List<ProductRating> productRating;
+
+
+		public Product(DataRegisterProduct data, Category category){
+			this.name = data.name();
+			this.description = data.description();
+			this.price = data.price();
+			this.sku = data.sku();
+			this.imageUrl = data.imageUrl();
+			this.quantity = data.quantity();
+			this.manufacturer = data.manufacturer();
+			this.featured = data.featured();
+			this.category = category;
+		}
 }

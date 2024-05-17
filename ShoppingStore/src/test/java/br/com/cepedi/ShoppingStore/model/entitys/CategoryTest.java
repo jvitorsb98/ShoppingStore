@@ -16,82 +16,53 @@ import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("Test entity Category")
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-class CategoryRepositoryTest {
+class CategoryTest {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-    
-    @DisplayName(" Test save category")
     @Test
-    void testSaveCategory() {
-        // Arrange
+    @DisplayName("Teste de criação básico")
+    public void testCategoryCreation() {
         Category category = new Category();
-        category.setName("Electronics");
-        category.setDescription("All kinds of electronic items");
-
-        // Act
-        Category savedCategory = categoryRepository.save(category);
-
-        // Assert
-        assertThat(savedCategory).isNotNull();
-        assertThat(savedCategory.getId()).isNotNull();
-        assertThat(savedCategory.getName()).isEqualTo("Electronics");
+        Assertions.assertNotNull(category);
     }
-    
-    @DisplayName(" Test find category by id")
-    @Test
-    void testFindById() {
-        // Arrange
-        Category category = new Category();
-        category.setName("Electronics");
-        category.setDescription("All kinds of electronic items");
-        category = categoryRepository.save(category);
 
-        // Act
-        Optional<Category> foundCategory = categoryRepository.findById(category.getId());
-
-        // Assert
-        assertThat(foundCategory).isPresent();
-        assertThat(foundCategory.get().getName()).isEqualTo("Electronics");
-    }
-    
-	@DisplayName(" Test find all categories")
     @Test
-    void testFindAll() {
-        // Arrange
+    @DisplayName("Teste de igualdade")
+    public void testCategoryEquality() {
         Category category1 = new Category();
-        category1.setName("Electronics");
-        category1.setDescription("All kinds of electronic items");
+        category1.setId(1L);
+        category1.setName("Eletrônicos");
 
         Category category2 = new Category();
-        category2.setName("Books");
-        category2.setDescription("Various genres of books");
+        category2.setId(1L);
+        category2.setName("Eletrônicos");
 
-        categoryRepository.save(category1);
-        categoryRepository.save(category2);
-
-        // Act
-        Iterable<Category> categories = categoryRepository.findAll();
-
-        // Assert
-        assertThat(categories).hasSize(2);
+        Assertions.assertEquals(category1, category2);
     }
-	
-	@DisplayName(" Test delete category")
+
     @Test
-    void testDeleteCategory() {
-        // Arrange
+    @DisplayName("Teste de desigualdade")
+    public void testCategoryInequality() {
+        Category category1 = new Category();
+        category1.setId(1L);
+        category1.setName("Eletrônicos");
+
+        Category category2 = new Category();
+        category2.setId(2L);
+        category2.setName("Roupas");
+
+        Assertions.assertNotEquals(category1, category2);
+    }
+
+
+
+    @Test
+    @DisplayName("Teste de hashing")
+    public void testCategoryHashing() {
         Category category = new Category();
-        category.setName("Electronics");
-        category.setDescription("All kinds of electronic items");
-        category = categoryRepository.save(category);
+        category.setId(1L);
+        category.setName("Eletrônicos");
 
-        // Act
-        categoryRepository.delete(category);
-        Optional<Category> deletedCategory = categoryRepository.findById(category.getId());
-
-        // Assert
-        assertThat(deletedCategory).isNotPresent();
+        int hashCode = category.hashCode();
+        Assertions.assertNotEquals(0, hashCode);
     }
 }
