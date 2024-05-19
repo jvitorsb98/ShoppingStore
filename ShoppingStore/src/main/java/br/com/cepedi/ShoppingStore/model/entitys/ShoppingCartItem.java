@@ -37,12 +37,12 @@ public class ShoppingCartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public ShoppingCartItem(DataRegisterShoppingCartItem data, ShoppingCart shoppingCart , BigInteger quantity , Product product){
+    public ShoppingCartItem(DataRegisterShoppingCartItem data, ShoppingCart shoppingCart , Product product){
         this.name = product.getName();
         this.pricePurchase = product.getPrice();
         this.shoppingCart = shoppingCart;
         this.product = product;
-        this.quantity = quantity;
+        this.quantity = data.quantity();
     }
 
 }

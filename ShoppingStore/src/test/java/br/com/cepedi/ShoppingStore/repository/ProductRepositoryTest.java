@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,7 +55,7 @@ class ProductRepositoryTest {
             BigDecimal.valueOf(19.99),
             "SKU12345",
             "http://example.com/image.jpg",
-            10,
+                BigInteger.valueOf(10),
             "Manufacturer",
             true,
             category

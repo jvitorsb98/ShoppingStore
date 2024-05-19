@@ -1,5 +1,6 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets;
 import com.github.javafaker.Faker;
 
 import br.com.cepedi.ShoppingStore.controller.PossibleFacetsController;
@@ -59,5 +60,22 @@ public class PossibleFacetsTest {
         assertEquals(possibleFacets.getName(), savedPossibleFacets.getName());
         assertEquals(possibleFacets.getCategory(), savedPossibleFacets.getCategory());
     }
+
+    @Test
+    public void testConstructor() {
+        // Dados de exemplo
+        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets("Test Name");
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Test Category");
+
+        // Criar uma instância de PossibleFacets usando o construtor
+        PossibleFacets possibleFacets = new PossibleFacets(data, category);
+
+        // Verificar se os valores foram atribuídos corretamente
+        assertEquals("Test Name", possibleFacets.getName());
+        assertEquals(category, possibleFacets.getCategory());
+    }
+
 }
 

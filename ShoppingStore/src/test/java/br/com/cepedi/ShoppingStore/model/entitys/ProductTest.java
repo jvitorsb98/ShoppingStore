@@ -2,6 +2,8 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 
 import org.junit.jupiter.api.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +28,7 @@ class ProductTest {
         product1.setPrice(BigDecimal.valueOf(999.99));
         product1.setSku("SKU123");
         product1.setImageUrl("https://example.com/image.jpg");
-        product1.setQuantity(10);
+        product1.setQuantity(BigInteger.valueOf(10));
         product1.setManufacturer("Manufacturer");
         product1.setFeatured(true);
 
@@ -37,7 +39,7 @@ class ProductTest {
         product2.setPrice(BigDecimal.valueOf(999.99));
         product2.setSku("SKU123");
         product2.setImageUrl("https://example.com/image.jpg");
-        product2.setQuantity(10);
+        product2.setQuantity(BigInteger.valueOf(10));
         product2.setManufacturer("Manufacturer");
         product2.setFeatured(true);
 
@@ -68,7 +70,7 @@ class ProductTest {
         product1.setPrice(BigDecimal.valueOf(999.99));
         product1.setSku("SKU123");
         product1.setImageUrl("https://example.com/image.jpg");
-        product1.setQuantity(10);
+        product1.setQuantity(BigInteger.valueOf(10));
         product1.setManufacturer("Manufacturer");
         product1.setFeatured(true);
 
@@ -79,7 +81,7 @@ class ProductTest {
         product2.setPrice(BigDecimal.valueOf(999.99));
         product2.setSku("SKU123");
         product2.setImageUrl("https://example.com/image.jpg");
-        product2.setQuantity(10);
+        product2.setQuantity(BigInteger.valueOf(10));
         product2.setManufacturer("Manufacturer");
         product2.setFeatured(true);
 

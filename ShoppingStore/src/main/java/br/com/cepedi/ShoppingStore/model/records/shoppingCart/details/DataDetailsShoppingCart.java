@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 
 public record DataDetailsShoppingCart(
 
+        Long id,
+
         BigDecimal totalPrice,
 
         Long UserId
@@ -15,7 +17,7 @@ public record DataDetailsShoppingCart(
 ) {
 
     public DataDetailsShoppingCart(ShoppingCart shoppingCart){
-        this(shoppingCart.getTotalPrice(),shoppingCart.getUser().getId());
+        this(shoppingCart.getId() , shoppingCart.getTotalPrice(),shoppingCart.getUser().getId());
     }
 
 }

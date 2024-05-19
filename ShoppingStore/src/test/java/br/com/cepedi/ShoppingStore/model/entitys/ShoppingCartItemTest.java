@@ -34,7 +34,7 @@ public class ShoppingCartItemTest {
         data = mock(DataRegisterShoppingCartItem.class);
 
         // Create instance of ShoppingCartItem
-        shoppingCartItem = new ShoppingCartItem(data, shoppingCart, new BigInteger("2"), product);
+        shoppingCartItem = new ShoppingCartItem(data, shoppingCart, product);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ShoppingCartItemTest {
         assertEquals(new BigDecimal("19.99"), shoppingCartItem.getPricePurchase());
         assertEquals(shoppingCart, shoppingCartItem.getShoppingCart());
         assertEquals(product, shoppingCartItem.getProduct());
-        assertEquals(new BigInteger("2"), shoppingCartItem.getQuantity());
+        assertEquals(data.quantity(), shoppingCartItem.getQuantity());
     }
 
     @Test

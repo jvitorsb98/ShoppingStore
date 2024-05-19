@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
@@ -29,7 +30,7 @@ public class Product {
 	    private BigDecimal price;
 	    private String sku;
 	    private String imageUrl;  
-	    private Integer quantity;
+	    private BigInteger quantity;
 	    private String manufacturer;
 	    private boolean featured;
 

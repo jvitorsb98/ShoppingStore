@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.records.product.details;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
@@ -14,7 +15,7 @@ public record DataProductDetails(
     String sku,
     String imageUrl,
     Long categoryId,
-    Integer quantity,
+    BigInteger quantity,
     String manufacturer,
     boolean featured
  // List<ProductAttribute> productAttributeList,
@@ -31,9 +32,7 @@ public record DataProductDetails(
             product.getCategory().getId(),
             product.getQuantity(),
             product.getManufacturer(),
-            product.isFeatured() //Aqui usamos isFeatured()em vez de get() para boolean no Lombok 
-//          product.getProductAttributeList(),
-//          product.getProductRating()   
+            product.isFeatured() //Aqui usamos isFeatured()em vez de get() para boolean no Lombok
        );
     }
 }
