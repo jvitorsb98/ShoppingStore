@@ -1,10 +1,9 @@
-package br.com.cepedi.ShoppingStore.service.mailservice;
+package br.com.cepedi.ShoppingStore.service.mail;
 
 import br.com.cepedi.ShoppingStore.security.model.entitys.Mail;
 import br.com.cepedi.ShoppingStore.model.records.mail.details.DataDetailsMail;
 import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
 import br.com.cepedi.ShoppingStore.repository.MailRepository;
-import br.com.cepedi.ShoppingStore.service.mailservice.validations.mail.MailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

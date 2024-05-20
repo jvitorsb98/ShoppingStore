@@ -1,9 +1,10 @@
-package br.com.cepedi.ShoppingStore.service;
+package br.com.cepedi.ShoppingStore.service.category;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import br.com.cepedi.ShoppingStore.model.records.category.details.DataCategoryDetails;
 import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
+import br.com.cepedi.ShoppingStore.service.category.CategoryService;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,9 +59,9 @@ public class CategoryServiceTest {
         DataCategoryDetails result = categoryService.registerCategory(testData);
 
         // Then
-        assertEquals(categoryId, result.getId());
-        assertEquals(categoryName, result.getName());
-        assertEquals(categoryDescription, result.getDescription());
+        assertEquals(categoryId, result.id());
+        assertEquals(categoryName, result.name());
+        assertEquals(categoryDescription, result.description());
     }
 
 
@@ -102,9 +103,9 @@ public class CategoryServiceTest {
         DataCategoryDetails result = categoryService.getCategoryById(categoryId);
 
         // Then
-        assertEquals(mockCategory.getId(), result.getId());
-        assertEquals(mockCategory.getName(), result.getName());
-        assertEquals(mockCategory.getDescription(), result.getDescription());
+        assertEquals(mockCategory.getId(), result.id());
+        assertEquals(mockCategory.getName(), result.name());
+        assertEquals(mockCategory.getDescription(), result.description());
     }
 
 
