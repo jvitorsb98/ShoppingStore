@@ -12,9 +12,6 @@ import br.com.cepedi.ShoppingStore.model.entitys.Product;
 public record DataRegisterProductRating(
 
 		@NotNull(message = "User ID cannot be null")
-		Long id,
-		
-		@NotNull(message = "User ID cannot be null")
 		Long productId,
 		
 		@Positive(message = "Quantity must be a positive value")

@@ -20,11 +20,21 @@ public class Category {
     private Long id;
     private String name;
     private String description;
+    private Boolean disabled;
 
 
     public Category(DataRegisterCategory data){
         this.name = data.name();
         this.description = data.description();
+        this.disabled = false;
+    }
+
+    public void disable() {
+        this.disabled = true;
+    }
+
+    public void enable() {
+        this.disabled = false;
     }
 
 }

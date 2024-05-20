@@ -10,8 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("ShoppingCart Test - Random Order")
@@ -90,6 +89,70 @@ public class ShoppingCartTest {
         cart.setUser(user);
 
         assertEquals(user, cart.getUser());
+    }
+
+    @Test
+    @DisplayName("Test equals method with same object")
+    public void testEqualsWithSameObject() {
+        ShoppingCart cart1 = new ShoppingCart();
+        ShoppingCart cart2 = cart1;
+
+        assertTrue(cart1.equals(cart2));
+    }
+
+    @Test
+    @DisplayName("Test equals method with null")
+    public void testEqualsWithNull() {
+        ShoppingCart cart = new ShoppingCart();
+
+        assertFalse(cart.equals(null));
+    }
+
+    @Test
+    @DisplayName("Test equals method with different class")
+    public void testEqualsWithDifferentClass() {
+        ShoppingCart cart = new ShoppingCart();
+        Object obj = new Object();
+
+        assertFalse(cart.equals(obj));
+    }
+
+
+
+    @Test
+    @DisplayName("Test hashCode method")
+    public void testHashCode() {
+        ShoppingCart cart1 = new ShoppingCart();
+        ShoppingCart cart2 = new ShoppingCart();
+
+        assertEquals(cart1.hashCode(), cart2.hashCode());
+    }
+
+    @Test
+    @DisplayName("Test canEqual method with same object")
+    public void testCanEqualWithSameObject() {
+        ShoppingCart cart1 = new ShoppingCart();
+        ShoppingCart cart2 = cart1;
+
+        assertTrue(cart1.canEqual(cart2));
+    }
+
+    @Test
+    @DisplayName("Test canEqual method with different class")
+    public void testCanEqualWithDifferentClass() {
+        ShoppingCart cart = new ShoppingCart();
+        Object obj = new Object();
+
+        assertFalse(cart.canEqual(obj));
+    }
+
+    @Test
+    @DisplayName("Test canEqual method with different objects")
+    public void testCanEqualWithDifferentObjects() {
+        ShoppingCart cart1 = new ShoppingCart();
+        ShoppingCart cart2 = new ShoppingCart();
+
+        assertTrue(cart1.canEqual(cart2));
     }
 
 }

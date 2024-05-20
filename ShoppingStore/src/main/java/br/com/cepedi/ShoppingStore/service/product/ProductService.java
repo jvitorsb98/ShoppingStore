@@ -1,6 +1,8 @@
 package br.com.cepedi.ShoppingStore.service.product;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
 	@Autowired
-    private List<ValidationProduct> validators;
+    private List<ValidationProduct> validatorsRegister;
 	
 	@Autowired
     private List<ValidationUpdateProduct> validatorsUpdateProduct;
@@ -38,24 +40,13 @@ public class ProductService {
 
     public DataProductDetails register(DataRegisterProduct data) {
         // Validar os dados de entrada usando uma lista de validadores
-        validators.forEach(validator -> validator.validation(data));
+        validatorsRegister.forEach(validator -> validator.validation(data));
 
         // Obter a referência da categoria pelo ID
         Category category = categoryRepository.getReferenceById(data.categoryId());
 
         // Criar um novo objeto de produto
-        Product product = new Product(
-            null,
-            data.name(),
-            data.description(),
-            data.price(),
-            data.sku(),
-            data.imageUrl(),
-            data.quantity(),
-            data.manufacturer(),
-            data.featured(),
-            category
-        );
+        Product product = new Product(data, category);
 
         // Salvar o produto no repositório
         productRepository.save(product);
@@ -72,8 +63,8 @@ public class ProductService {
 		return new DataProductDetails(productRepository.getReferenceById(id));
 	}
 	
-	public DataProductDetails detailsProductCategory(Long id) {
-		return new DataProductDetails(productRepository.getReferenceById(id));
+	public Page<DataProductDetails> detailsProductCategory(Long id, Pageable pageable) {
+		return productRepository.findAllByCategoryId(id,pageable).map(DataProductDetails::new);
 	}
 	
 	public DataProductDetails updateProduct(Long id, DataUpdateProduct data) {

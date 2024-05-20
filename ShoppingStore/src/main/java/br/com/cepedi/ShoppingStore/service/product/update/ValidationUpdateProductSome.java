@@ -1,5 +1,6 @@
 package br.com.cepedi.ShoppingStore.service.product.update;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
@@ -8,7 +9,8 @@ import jakarta.validation.ValidationException;
 
 @Component
 public class ValidationUpdateProductSome implements ValidationUpdateProduct{
-	
+
+	@Autowired
 	private  ProductRepository repositoryProduct;
 	
 	@Override

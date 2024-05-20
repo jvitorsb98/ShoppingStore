@@ -17,9 +17,9 @@ import jakarta.persistence.Table;
 
 import lombok.*;
 
-@Data
 @NoArgsConstructor
-@AllArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "product")
 public class Product {
@@ -33,9 +33,12 @@ public class Product {
 	    private String imageUrl;  
 	    private BigInteger quantity;
 	    private String manufacturer;
-	    private boolean featured;
+	    private Boolean featured;
 
-	    @JoinColumn(name = "category_id")
+		private Boolean disabled;
+
+
+	@JoinColumn(name = "category_id")
 	    @ManyToOne 
 	    private Category category;
 
@@ -56,6 +59,15 @@ public class Product {
 			this.manufacturer = data.manufacturer();
 			this.featured = data.featured();
 			this.category = category;
+			this.disabled = false;
+		}
+
+		public void disable() {
+			this.disabled = true;
+		}
+
+		public void enable() {
+			this.disabled = false;
 		}
 
 		public void updateDataProduct(DataUpdateProduct data) {
@@ -84,6 +96,7 @@ public class Product {
 			 if(data.categoryId() != null){
 				 this.id = data.id();
 			 }
+
 
 //			 if(data.featured() != null){
 //				 this.featured = data.featured();

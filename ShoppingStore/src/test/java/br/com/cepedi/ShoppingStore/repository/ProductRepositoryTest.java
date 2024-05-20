@@ -4,10 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.Optional;
 
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,9 +17,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
+import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 
 @DataJpaTest
-@TestMethodOrder(MethodOrderer.Random.class)
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -39,29 +36,28 @@ class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
-//      category = new Category(null, "Electronics", null);
-    	category = new Category();//remover esse ao decomentar o de cima
+        category = new Category();
         categoryRepository.save(category);
     }
-    
+
     @DisplayName("Test Product save")
     @Test
     void testSaveProduct() {
-        // Arrange
-        Product product = new Product(
-            null,
-            "Product Name",
-            "Product Description",
-            BigDecimal.valueOf(19.99),
-            "SKU12345",
-            "http://example.com/image.jpg",
+        // Data for registration
+        DataRegisterProduct dataRegisterProduct = new DataRegisterProduct(
+                "Product Name",
+                "Product Description",
+                BigDecimal.valueOf(19.99),
+                "SKU12345",
+                "http://example.com/image.jpg",
+                category.getId(),
                 BigInteger.valueOf(10),
-            "Manufacturer",
-            true,
-            category
-//            List.of(),
-//            List.of()
+                "Manufacturer",
+                false
         );
+
+        // Arrange
+        Product product = new Product(dataRegisterProduct, category);
 
         // Act
         Product savedProduct = productRepository.save(product);
@@ -71,4 +67,5 @@ class ProductRepositoryTest {
         assertThat(savedProduct.getId()).isNotNull();
         assertThat(savedProduct.getName()).isEqualTo("Product Name");
     }
+
 }

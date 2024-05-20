@@ -1,0 +1,2 @@
+ALTER TABLE possible_facets
+ADD COLUMN disabled BOOLEAN DEFAULT FALSE;

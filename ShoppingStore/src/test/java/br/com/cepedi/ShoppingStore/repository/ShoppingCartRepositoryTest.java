@@ -1,7 +1,8 @@
 package br.com.cepedi.ShoppingStore.repository;
 
+import br.com.cepedi.ShoppingStore.config.TestConfig;
 import br.com.cepedi.ShoppingStore.model.entitys.ShoppingCart;
-import br.com.cepedi.ShoppingStore.security.config.TestConfig;
+
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataRegisterUser;
 import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
@@ -110,4 +111,5 @@ public class ShoppingCartRepositoryTest {
         // Then
         assertTrue(shoppingCartRepository.findById(savedCart.getId()).isEmpty());
     }
+
 }

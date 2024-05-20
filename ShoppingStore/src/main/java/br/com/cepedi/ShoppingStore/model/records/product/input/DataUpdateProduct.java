@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.model.records.product.input;
 
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import jakarta.validation.constraints.NotBlank;
@@ -38,7 +39,7 @@ public record DataUpdateProduct(
 
     @NotNull(message = "Quantity cannot be null")
     @Positive(message = "Quantity must be a positive value")
-    Integer quantity,
+    BigInteger quantity,
 
     @NotBlank(message = "Manufacturer cannot be null or empty")
     @Size(max = 100, message = "Manufacturer cannot exceed 100 characters")

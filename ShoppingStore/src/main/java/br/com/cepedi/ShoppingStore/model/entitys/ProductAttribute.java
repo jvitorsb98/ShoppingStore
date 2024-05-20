@@ -6,30 +6,40 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Setter
+@Getter
 @Table(name = "product_attribute")
 public class ProductAttribute {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message = "Name cannot be blank")
+
 	private String name;
 	
-	@NotBlank(message = "Value cannot be blank")
 	private String value;
 
 	@ManyToOne
-	@JoinColumn(name = "product_id", nullable = false)
+	@JoinColumn(name = "product_id")
 	private Product product;
-	
+
+	private Boolean disabled;
+
+
 	public ProductAttribute(DataRegisterProductAttribute data, Product product){
 		this.name = data.name();
 		this.value = data.value();
 		this.product = product;
+		this.disabled = false;
+	}
+
+	public void disable() {
+		this.disabled = true;
+	}
+
+	public void enable() {
+		this.disabled = false;
 	}
 	
 }

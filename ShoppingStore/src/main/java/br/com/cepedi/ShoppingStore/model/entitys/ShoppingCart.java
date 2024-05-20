@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "shopping_cart")
 public class ShoppingCart {
@@ -34,6 +33,8 @@ public class ShoppingCart {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Boolean disabled;
+
 //    @OneToMany(mappedBy = "shopping_cart", fetch = FetchType.LAZY)
 //    @JsonInclude(JsonInclude.Include.NON_EMPTY)
 //    private Set<ShoppingCartItem> shoppingCartItems = new HashSet<>();
@@ -41,5 +42,13 @@ public class ShoppingCart {
     public ShoppingCart(User user){
         this.totalPrice = BigDecimal.ZERO;
         this.user = user;
+    }
+
+    public void disable() {
+        this.disabled = true;
+    }
+
+    public void enable() {
+        this.disabled = false;
     }
 }

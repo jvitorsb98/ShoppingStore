@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     
@@ -21,6 +23,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                 WHERE p.id = :id
             """)
     Boolean findActivatedById(Long id);
+
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
+    Page<Product> findAllByCategoryId(Long categoryId, Pageable pageable);
  
     
     

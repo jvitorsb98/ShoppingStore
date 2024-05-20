@@ -29,11 +29,23 @@ public class PossibleFacets {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    
+
+
+    private Boolean disabled;
+
 
     public PossibleFacets(DataRegisterPossibleFacets data , Category category ){
         this.name = data.name();
         this.category = category;
+        this.disabled = false;
+    }
+
+    public void disable() {
+        this.disabled = true;
+    }
+
+    public void enable() {
+        this.disabled = false;
     }
 
 }

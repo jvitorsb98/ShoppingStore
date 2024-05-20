@@ -37,12 +37,24 @@ public class ShoppingCartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    private Boolean disabled;
+
+
     public ShoppingCartItem(DataRegisterShoppingCartItem data, ShoppingCart shoppingCart , Product product){
         this.name = product.getName();
         this.pricePurchase = product.getPrice();
         this.shoppingCart = shoppingCart;
         this.product = product;
         this.quantity = data.quantity();
+        this.disabled = false;
+    }
+
+    public void disable() {
+        this.disabled = true;
+    }
+
+    public void enable() {
+        this.disabled = false;
     }
 
 }

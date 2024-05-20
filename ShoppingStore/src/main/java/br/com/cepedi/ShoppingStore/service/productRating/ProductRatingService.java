@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.model.entitys.ProductRating;
-import br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDetails;
-import br.com.cepedi.ShoppingStore.model.records.productAttribute.details.DataProductAttributeDetails;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
-import br.com.cepedi.ShoppingStore.model.records.productRating.input.details.DataProductRatingDetails;
+import br.com.cepedi.ShoppingStore.model.records.productRating.details.DataProductRatingDetails;
 import br.com.cepedi.ShoppingStore.repository.ProductRatingRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
@@ -24,11 +22,14 @@ public class ProductRatingService {
 	
 	@Autowired
 	private  ProductRatingRepository productRatingRepository;
-	
+
+	@Autowired
 	private UserRepository userRepository;
-	
+
+	@Autowired
 	private ProductRepository productRepository;
-	
+
+	@Autowired
 	private List<ValidationProductRatingRegister> validatorsRegister;
 	
 	

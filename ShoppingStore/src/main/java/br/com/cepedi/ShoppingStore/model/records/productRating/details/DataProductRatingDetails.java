@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.model.records.productRating.input.details;
+package br.com.cepedi.ShoppingStore.model.records.productRating.details;
 
 import java.math.BigDecimal;
 

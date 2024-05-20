@@ -32,7 +32,7 @@ public record DataProductDetails(
             product.getCategory().getId(),
             product.getQuantity(),
             product.getManufacturer(),
-            product.isFeatured() //Aqui usamos isFeatured()em vez de get() para boolean no Lombok
+            product.getFeatured()//Aqui usamos isFeatured()em vez de get() para boolean no Lombok
        );
     }
 }

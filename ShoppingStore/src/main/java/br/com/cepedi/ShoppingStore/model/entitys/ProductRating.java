@@ -34,11 +34,23 @@ public class ProductRating {
         @Column(name = "user_id")
         private User user;
 
+        private Boolean disabled;
+
+
         public ProductRating(DataRegisterProductRating data , User user , Product product){
                 this.ratingStars = data.ratingStars();
                 this.review = data.review();
                 this.user = user;
                 this.product = product;
+                this.disabled = false;
+        }
+
+        public void disable() {
+                this.disabled = true;
+        }
+
+        public void enable() {
+                this.disabled = false;
         }
 
 }
