@@ -1,6 +1,6 @@
 package br.com.cepedi.ShoppingStore.repository;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Mail;
+import br.com.cepedi.ShoppingStore.security.model.entitys.Mail;
 
 import java.util.List;
 

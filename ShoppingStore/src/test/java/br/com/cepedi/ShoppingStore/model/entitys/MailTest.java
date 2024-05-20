@@ -3,11 +3,9 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 import static org.junit.jupiter.api.Assertions.*;
 
 import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
+import br.com.cepedi.ShoppingStore.security.model.entitys.Mail;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("Test entity Mail")

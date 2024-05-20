@@ -1,6 +1,6 @@
 package br.com.cepedi.ShoppingStore.model.records.mail.details;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Mail;
+import br.com.cepedi.ShoppingStore.security.model.entitys.Mail;
 
 public record DataDetailsMail(
 		 Long id,

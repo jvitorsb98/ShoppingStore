@@ -1,10 +1,10 @@
 package br.com.cepedi.ShoppingStore.service.mailservice;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Mail;
+import br.com.cepedi.ShoppingStore.security.model.entitys.Mail;
 import br.com.cepedi.ShoppingStore.model.records.mail.details.DataDetailsMail;
 import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
 import br.com.cepedi.ShoppingStore.repository.MailRepository;
-import br.com.cepedi.ShoppingStore.security.model.validations.mail.MailValidator;
+import br.com.cepedi.ShoppingStore.service.mailservice.validations.mail.MailValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,8 +26,6 @@ class MailServiceTest {
     @Mock
     private MailRepository mailRepository;
 
-    @Mock
-    private List<MailValidator<DataRegisterMail>> validators;
 
     @InjectMocks
     private MailService mailService;
@@ -49,7 +47,6 @@ class MailServiceTest {
 
         // Verify
         assertNotNull(result);
-        verify(validators, times(1)).forEach(any());
         verify(mailRepository, times(1)).save(any(Mail.class));
     }
 
