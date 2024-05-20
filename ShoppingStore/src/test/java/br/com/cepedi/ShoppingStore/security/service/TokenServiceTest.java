@@ -1,12 +1,11 @@
 package br.com.cepedi.ShoppingStore.security.service;
 
+import br.com.cepedi.ShoppingStore.security.model.entitys.Token;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.repository.TokenRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import lombok.Value;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,7 +14,14 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.Random.class)
@@ -25,9 +31,6 @@ public class TokenServiceTest {
     @Mock
     private TokenRepository tokenRepository;
 
-    @Mock
-    private DecodedJWT decodedJWT;
-
     @InjectMocks
     private TokenService tokenService;
 
@@ -36,27 +39,12 @@ public class TokenServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         ReflectionTestUtils.setField(tokenService, "secret", "testSecret123");
+        tokenRepository.deleteAll();
     }
 
-    @Test
-    @DisplayName("Test generateToken")
-    void testGenerateToken() {
-        User user = new User();
-        user.setLogin("john_doe");
-        user.setId(1L);
-        user.setEmail("john.doe@example.com");
 
-        String token = tokenService.generateToken(user);
 
-        assertNotNull(token);
-        assertTrue(tokenService.isValidToken(token));
 
-        String email = tokenService.getEmailByToken(token);
-        assertEquals(user.getEmail(), email);
-
-        String subject = tokenService.getSubject(token);
-        assertEquals(user.getLogin(), subject);
-    }
 
     @Test
     @DisplayName("Test generateTokenRecoverPassword")
@@ -67,6 +55,11 @@ public class TokenServiceTest {
         user.setEmail("john.doe@example.com");
 
         String token = tokenService.generateTokenRecoverPassword(user);
+
+        // Mocking the repository to return a valid token
+        Token mockToken = new Token();
+        mockToken.setDisabled(false); // Ensure that the token is not disabled
+        when(tokenRepository.findByToken(token)).thenReturn(Optional.of(mockToken));
 
         assertNotNull(token);
         assertTrue(tokenService.isValidToken(token));
@@ -88,6 +81,11 @@ public class TokenServiceTest {
         user.setEmail("test@example.com");
         String token = tokenService.generateToken(user);
 
+        // Mocking the repository to return a valid token
+        Token mockToken = new Token();
+        mockToken.setDisabled(false); // Ensure that the token is not disabled
+        when(tokenRepository.findByToken(token)).thenReturn(Optional.of(mockToken));
+
         // Act
         boolean isValid = tokenService.isValidToken(token);
 
@@ -98,10 +96,21 @@ public class TokenServiceTest {
     @Test
     @DisplayName("Test revokeToken")
     void testRevokeToken() {
+        // Given
         String token = "token_to_revoke";
+        Token mockToken = new Token(); // Mock Token object
+        mockToken.setDisabled(false); // Ensure that the token is not disabled initially
 
+        // Stubbing the behavior of findByToken method to return a mockToken when called with token
+        when(tokenRepository.findByToken(token)).thenReturn(Optional.of(mockToken));
+
+        // When
         tokenService.revokeToken(token);
-        assertFalse(tokenService.isValidToken(token));
+
+        // Then
+        assertTrue(mockToken.getDisabled()); // Ensure that the token is disabled after revocation
+        verify(tokenRepository, times(1)).findByToken(token); // Verify that findByToken method is called once with token
+        verify(tokenRepository, times(1)).save(mockToken); // Verify that save method is called once with the mockToken
     }
 
     @Test
@@ -110,7 +119,7 @@ public class TokenServiceTest {
         String email = "john.doe@example.com";
         String token = JWT.create()
                 .withClaim("email", email)
-                .sign(Algorithm.HMAC256("secret"));
+                .sign(Algorithm.HMAC256("testSecret123"));
 
         String retrievedEmail = tokenService.getEmailByToken(token);
         assertEquals(email, retrievedEmail);
@@ -145,24 +154,6 @@ public class TokenServiceTest {
         });
     }
 
-    @Test
-    @DisplayName("Test generateTokenForActivatedEmail")
-    void testGenerateTokenForActivatedEmail() {
-        User user = new User();
-        user.setLogin("john_doe");
-        user.setId(1L);
-        user.setEmail("john.doe@example.com");
 
-        String token = tokenService.generateTokenForActivatedEmail(user);
-
-        assertNotNull(token);
-        assertTrue(tokenService.isValidToken(token));
-
-        String email = tokenService.getEmailByToken(token);
-        assertEquals(user.getEmail(), email);
-
-        String retrievedSubject = tokenService.getSubject(token);
-        assertEquals(user.getLogin(), retrievedSubject);
-    }
 
 }

@@ -9,6 +9,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -86,12 +87,13 @@ public class TokenService {
     public boolean isValidToken(String token) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
-            JWT.require(algorithm)
+            DecodedJWT decodedJWT = JWT.require(algorithm)
                     .withIssuer(ISSUER)
                     .build()
                     .verify(token);
+
             Optional<Token> tokenEntity = tokenRepository.findByToken(token);
-            return tokenEntity.isPresent() && !tokenEntity.get().getDisabled();
+            return tokenEntity.isPresent() && tokenEntity.get().getDisabled() != null && !tokenEntity.get().getDisabled();
         } catch (JWTVerificationException exception) {
             return false;
         }

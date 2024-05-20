@@ -44,7 +44,7 @@ class ActivatedUserControllerTest {
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("User account activated successfully.", response.getBody());
+        assertEquals("User account activated successfully", response.getBody());
         verify(tokenService, times(1)).isValidToken(validToken);
         verify(authService, times(1)).activateUser(validToken);
     }

@@ -33,18 +33,18 @@ public class PasswordRecoveryController {
         User user = userService.getUserActivatedByEmail(dataResetPassword.email());
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("E-mail não encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("E-mail not found");
         }
 
         String token = tokenService.generateTokenRecoverPassword(user);
 
         try {
             emailService.sendResetPasswordEmail(user.getName(), dataResetPassword.email(), token);
-            String responseMessage = "Um email para redefinição de senha foi enviado para " + dataResetPassword.email();
+            String responseMessage = "A password reset email has been sent to " + dataResetPassword.email();
             return ResponseEntity.ok(responseMessage);
         } catch (MessagingException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao enviar o email");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send email");
         }
     }
 
@@ -54,9 +54,9 @@ public class PasswordRecoveryController {
             String email = tokenService.getEmailByToken(dataResetPassword.token());
             userService.updatePassword(email, dataResetPassword.password());
             tokenService.revokeToken(dataResetPassword.token());  // Invalida o token após redefinição da senha
-            return ResponseEntity.ok("Senha atualizada com sucesso");
+            return ResponseEntity.ok("Password updated successfully");
         } else {
-            return ResponseEntity.badRequest().body("Token inválido ou expirado");
+            return ResponseEntity.badRequest().body("Invalid or expired token");
         }
     }
 }
