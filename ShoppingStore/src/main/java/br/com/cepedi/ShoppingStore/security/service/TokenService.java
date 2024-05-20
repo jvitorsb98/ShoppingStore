@@ -17,8 +17,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
-
 
 @Service
 public class TokenService {
@@ -26,15 +26,18 @@ public class TokenService {
     @Autowired
     private TokenRepository tokenRepository;
 
-    @Value("${api.security.toke.secret}")
+    @Value("${api.security.token.secret}")
     private String secret;
 
     private static final String ISSUER = "API Voll.med";
 
-    private final Set<String> revokedTokens = new HashSet<>();
-
     public void revokeToken(String token) {
-        revokedTokens.add(token);
+        Optional<Token> tokenEntity = tokenRepository.findByToken(token);
+        if (tokenEntity.isPresent()) {
+            Token tokenToUpdate = tokenEntity.get();
+            tokenToUpdate.disabled();
+            tokenRepository.save(tokenToUpdate);
+        }
     }
 
     public String generateToken(User user) {
@@ -44,16 +47,14 @@ public class TokenService {
                     .withIssuer("API Voll.med")
                     .withSubject(user.getLogin())
                     .withClaim("id", user.getId())
-                    .withClaim("email",user.getEmail())
+                    .withClaim("email", user.getEmail())
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
 
-            registerToken(token,user);
+            registerToken(token, user);
 
             return token;
-
-
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar o token JWT", exception);
         }
     }
@@ -72,11 +73,12 @@ public class TokenService {
                     .withIssuer("API Voll.med")
                     .withSubject(user.getLogin())
                     .withClaim("id", user.getId())
-                    .withClaim("email",user.getEmail())
+                    .withClaim("email", user.getEmail())
                     .withExpiresAt(expirationDateRecoverPassword())
                     .sign(algorithm);
+            registerToken(token, user);  // Register the token in the database
             return token;
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar o token JWT", exception);
         }
     }
@@ -88,26 +90,24 @@ public class TokenService {
                     .withIssuer(ISSUER)
                     .build()
                     .verify(token);
-            return !revokedTokens.contains(token);
+            Optional<Token> tokenEntity = tokenRepository.findByToken(token);
+            return tokenEntity.isPresent() && !tokenEntity.get().getDisabled();
         } catch (JWTVerificationException exception) {
             return false;
         }
     }
 
-
-
-    private Instant expirationDate () {
+    private Instant expirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
-    private Instant expirationDateRecoverPassword () {
+    private Instant expirationDateRecoverPassword() {
         return LocalDateTime.now().plusMinutes(10).toInstant(ZoneOffset.of("-03:00"));
     }
 
     public String getEmailByToken(String token) {
         return JWT.decode(token).getClaim("email").asString();
     }
-
 
     public String getSubject(String tokenJWT) throws JWTVerificationException {
         try {

@@ -18,13 +18,9 @@ public class ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
-
-
+    
     @Autowired
     private UserRepository userRepository;
-
-
-
 
     public DataDetailsShoppingCart register(DataRegisterPurchase data){
         User user = userRepository.getReferenceById(data.dataRegisterShoppingCart().userId());
