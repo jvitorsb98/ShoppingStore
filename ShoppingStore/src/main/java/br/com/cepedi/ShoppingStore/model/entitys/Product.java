@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
+import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,5 +55,38 @@ public class Product {
 			this.manufacturer = data.manufacturer();
 			this.featured = data.featured();
 			this.category = category;
+		}
+
+		public void updateDataProduct(DataUpdateProduct data) {
+			 if(data.name() != null){
+				 this.name = data.name();
+			 }
+			 if(data.description() != null){
+				 this.description = data.description();
+			 }
+			 if(data.price() != null){
+				 this.price = data.price();
+			 }
+			 if(data.sku() != null){
+				 this.sku = data.sku();
+			 }
+			 if(data.imageUrl() != null){
+				 this.imageUrl = data.imageUrl();
+			 }
+			 if(data.quantity() != null){
+				 this.quantity = data.quantity();
+			 }
+			 if(data.manufacturer() != null){
+				 this.manufacturer = data.manufacturer();
+			 }
+
+			 if(data.categoryId() != null){
+				 this.id = data.id();
+			 }
+
+//			 if(data.featured() != null){
+//				 this.featured = data.featured();
+//			 }
+			
 		}
 }

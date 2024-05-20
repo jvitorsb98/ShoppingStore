@@ -11,8 +11,10 @@ import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDetails;
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
+import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
+import br.com.cepedi.ShoppingStore.service.product.update.ValidationUpdateProduct;
 import br.com.cepedi.ShoppingStore.service.product.validations.ValidationProduct;
 
 @Service
@@ -25,7 +27,10 @@ public class ProductService {
     private ProductRepository productRepository;
 
 	@Autowired
-    private List<ValidationProduct> validators; 
+    private List<ValidationProduct> validators;
+	
+	@Autowired
+    private List<ValidationUpdateProduct> validatorsUpdateProduct;
 
     public DataProductDetails register(DataRegisterProduct data) {
         // Validar os dados de entrada usando uma lista de validadores
@@ -58,4 +63,25 @@ public class ProductService {
     public Page<DataProductDetails> list(Pageable pageable) {
         return productRepository.findAll(pageable).map(DataProductDetails::new);
     }
+    
+	public DataProductDetails detailsProduct(Long id) {
+		return new DataProductDetails(productRepository.getReferenceById(id));
+	}
+	
+	public DataProductDetails detailsProductCategory(Long id) {
+		return new DataProductDetails(productRepository.getReferenceById(id));
+	}
+	
+	public DataProductDetails updateProduct(Long id, DataUpdateProduct data) {
+		validatorsUpdateProduct.forEach(validatorsUpdateProduct -> validatorsUpdateProduct.validation(id, data));
+		 Product product = productRepository.getReferenceById(id);
+		 product.updateDataProduct(data);	
+		 return new DataProductDetails(product);
+	}
+	
+//	 public DataDetailsProduct deleteProduct(Long id) {
+//		productRepository.deleteById(id);
+//		return new DataDetailsProduct(id);
+//	}
+	
 }
