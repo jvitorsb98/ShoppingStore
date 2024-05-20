@@ -28,7 +28,7 @@ public class ProductAttributeService {
     private List<ValidationProductAttribute> validators;
 
     public DataProductAttributeDetails register(DataRegisterProductAttribute data){
-        validators.forEach(validator -> validator.validateIfProductExist(data));
+        validators.forEach(validator -> validator.validation(data));
         Product product = productRepository.getReferenceById(data.productId());
         ProductAttribute productAttribute = new ProductAttribute(data, product);
         productAttributeRepository.save(productAttribute);

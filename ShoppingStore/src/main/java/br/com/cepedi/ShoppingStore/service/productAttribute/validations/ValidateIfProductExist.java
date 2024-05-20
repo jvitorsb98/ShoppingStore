@@ -13,7 +13,7 @@ public class ValidateIfProductExist implements ValidationProductAttribute {
     private ProductRepository productRepository;
 
     @Override
-    public void validateIfProductExist(DataRegisterProductAttribute data) {
+    public void validation(DataRegisterProductAttribute data) {
         if (data.productId() != null && !productRepository.existsById(data.productId())){
             throw new ValidationException("The provided product id does not exist");
         }
