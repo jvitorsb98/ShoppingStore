@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.product.validations;
+package br.com.cepedi.ShoppingStore.service.product.register;
 
 import org.springframework.stereotype.Component;
 

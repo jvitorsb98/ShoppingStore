@@ -14,8 +14,9 @@ import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProdu
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
+import br.com.cepedi.ShoppingStore.service.product.cancel.ValidationCancelProduct;
+import br.com.cepedi.ShoppingStore.service.product.register.ValidationProduct;
 import br.com.cepedi.ShoppingStore.service.product.update.ValidationUpdateProduct;
-import br.com.cepedi.ShoppingStore.service.product.validations.ValidationProduct;
 
 @Service
 public class ProductService {
@@ -31,6 +32,9 @@ public class ProductService {
 	
 	@Autowired
     private List<ValidationUpdateProduct> validatorsUpdateProduct;
+	
+	@Autowired
+    private List<ValidationCancelProduct> validatorsCancelProduct;
 
     public DataProductDetails register(DataRegisterProduct data) {
         // Validar os dados de entrada usando uma lista de validadores
@@ -79,9 +83,11 @@ public class ProductService {
 		 return new DataProductDetails(product);
 	}
 	
-//	 public DataDetailsProduct deleteProduct(Long id) {
-//		productRepository.deleteById(id);
-//		return new DataDetailsProduct(id);
-//	}
+	public DataProductDetails deleteProduct(Long id) {
+        validatorsCancelProduct.forEach(validator -> validator.validation(id));
+        Product product = productRepository.getReferenceById(id);
+        productRepository.delete(product);
+        return new DataProductDetails(product);
+    }
 	
 }

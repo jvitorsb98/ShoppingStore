@@ -3,10 +3,12 @@ package br.com.cepedi.ShoppingStore.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -27,4 +29,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             WHERE p.category.id = :id
             """)
     Boolean findProductNamesByCategoryId(Long id);
+    
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Product p WHERE p.id = :id")
+    void deleteById(Long id);
 }
