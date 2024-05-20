@@ -91,7 +91,6 @@ public class MailTest {
 		DataRegisterMail dataRegisterMail = new DataRegisterMail(id, from, to, content, subject);
 		Mail mail = new Mail(dataRegisterMail);
 
-
 		// Assert
 		assertEquals(from, mail.getFrom());
 		assertEquals(to, mail.getTo());
