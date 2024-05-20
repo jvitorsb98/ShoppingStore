@@ -84,7 +84,7 @@ public class ProductService {
 	}
 	
 	public DataProductDetails deleteProduct(Long id) {
-        validatorsCancelProduct.forEach(validator -> validator.validation(id));
+        validatorsCancelProduct.forEach(validatorsCancelProduct -> validatorsCancelProduct.validation(id));
         Product product = productRepository.getReferenceById(id);
         productRepository.delete(product);
         return new DataProductDetails(product);

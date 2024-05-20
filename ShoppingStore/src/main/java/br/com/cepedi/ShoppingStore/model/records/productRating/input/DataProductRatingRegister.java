@@ -1,21 +1,20 @@
 package br.com.cepedi.ShoppingStore.model.records.productRating.input;
 
+import java.math.BigDecimal;
+
+import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
-
-import br.com.cepedi.ShoppingStore.model.entitys.Product;
-
-public record DataRegisterProductRating(
-
+public record DataProductRatingRegister(
+		
 		@NotNull(message = "User ID cannot be null")
 		Long id,
 		
 		@NotNull(message = "User ID cannot be null")
-		Long productId,
+		Long productI,
 		
 		@Positive(message = "Quantity must be a positive value")
 		@NotBlank(message = "Description cannot be null or empty")
@@ -27,13 +26,10 @@ public record DataRegisterProductRating(
 		String review,
 		
 		@NotNull(message = "User ID cannot be null")
-        Long Userid
-
-
-) {
+		Long Userid) {
 
 
 
-
+	
 
 }
