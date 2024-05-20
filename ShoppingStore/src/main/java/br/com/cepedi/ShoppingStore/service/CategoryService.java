@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -24,18 +23,25 @@ public class CategoryService {
     }
 
     public Page<DataCategoryDetails> listAllCategories(Pageable pageable) {
-        return categoryRepository.findAll(pageable).map(category -> new DataCategoryDetails(
-                category.getId(), category.getName(), category.getDescription()));
+        return categoryRepository.findAll(pageable)
+                .map(category -> new DataCategoryDetails(category.getId(), category.getName(), category.getDescription()));
+    }
+
+    public Page<DataCategoryDetails> listCategoriesByName(String name, Pageable pageable) {
+        return categoryRepository.findByNameContaining(name, pageable)
+                .map(category -> new DataCategoryDetails(category.getId(), category.getName(), category.getDescription()));
+    }
+
+    public Page<DataCategoryDetails> listCategoriesByDescription(String description, Pageable pageable) {
+        return categoryRepository.findByDescriptionContaining(description, pageable)
+                .map(category -> new DataCategoryDetails(category.getId(), category.getName(), category.getDescription()));
     }
 
     public DataCategoryDetails getCategoryById(Long id) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()) {
-            Category cat = category.get();
-            return new DataCategoryDetails(cat.getId(), cat.getName(), cat.getDescription());
-        } else {
-            throw new RuntimeException("Category not found");
-        }
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        return new DataCategoryDetails(category.getId(), category.getName(), category.getDescription());
     }
 }
+
 
