@@ -1,5 +1,5 @@
 package br.com.cepedi.ShoppingStore.service.product.validations.cancel;
 
-public interface ValidationCancelProduct {
+public interface ValidationDisabledProduct {
 	void validation(Long id);
 }

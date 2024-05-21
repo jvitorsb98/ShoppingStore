@@ -14,8 +14,8 @@ public class ValidationUpdateProductSome implements ValidationUpdateProduct{
 	private  ProductRepository repositoryProduct;
 	
 	@Override
-	public void validation(Long id, DataUpdateProduct data) {
-		 if (data.id() != null && !repositoryProduct.existsById(data.id())) {
+	public void validation(DataUpdateProduct data) {
+		 if (!repositoryProduct.existsById(data.id())) {
              throw new ValidationException("The provided product id does not exist");
          }
 		

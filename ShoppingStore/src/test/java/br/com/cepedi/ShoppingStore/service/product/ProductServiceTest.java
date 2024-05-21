@@ -6,8 +6,8 @@ import br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDeta
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
-import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationCancelProduct;
-import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationDisabledProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationRegisterProduct;
 import br.com.cepedi.ShoppingStore.service.product.validations.update.ValidationUpdateProduct;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,13 +40,13 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @Mock
-    private List<ValidationProduct> validatorsRegister;
+    private List<ValidationRegisterProduct> validatorsRegister;
 
     @Mock
     private List<ValidationUpdateProduct> validatorsUpdateProduct;
 
     @Mock
-    private List<ValidationCancelProduct> validatorsCancelProduct;
+    private List<ValidationDisabledProduct> validatorsCancelProduct;
 
     private Faker faker;
 

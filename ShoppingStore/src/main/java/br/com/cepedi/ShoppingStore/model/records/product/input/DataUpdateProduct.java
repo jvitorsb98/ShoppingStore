@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 
 public record DataUpdateProduct(
 
+    @NotNull
     Long id,
 
     @Size(max = 100, message = "Name cannot exceed 100 characters")

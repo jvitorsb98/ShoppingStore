@@ -8,7 +8,7 @@ import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProdu
 import jakarta.validation.ValidationException;
 
 @Component
-public class ValidationCategoryExists implements ValidationProduct {
+public class ValidationCategoryExists implements ValidationRegisterProduct {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -18,6 +18,5 @@ public class ValidationCategoryExists implements ValidationProduct {
     	 if (data.categoryId() != null && !categoryRepository.existsById(data.categoryId())) {
              throw new ValidationException("The provided category id does not exist");
          }
-		   
-	   }
+    }
 }

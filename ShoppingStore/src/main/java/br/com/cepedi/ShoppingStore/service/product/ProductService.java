@@ -14,8 +14,8 @@ import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProdu
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
-import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationCancelProduct;
-import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationDisabledProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationRegisterProduct;
 import br.com.cepedi.ShoppingStore.service.product.validations.update.ValidationUpdateProduct;
 
 @Service
@@ -28,28 +28,19 @@ public class ProductService {
     private ProductRepository productRepository;
 
 	@Autowired
-    private List<ValidationProduct> validatorsRegister;
+    private List<ValidationRegisterProduct> validatorsRegister;
 	
 	@Autowired
     private List<ValidationUpdateProduct> validatorsUpdateProduct;
 	
 	@Autowired
-    private List<ValidationCancelProduct> validatorsCancelProduct;
+    private List<ValidationDisabledProduct> validatorsCancelProduct;
 
     public DataProductDetails register(DataRegisterProduct data) {
-        // Validar os dados de entrada usando uma lista de validadores
         validatorsRegister.forEach(validator -> validator.validation(data));
-
-        // Obter a referência da categoria pelo ID
         Category category = categoryRepository.getReferenceById(data.categoryId());
-
-        // Criar um novo objeto de produto
         Product product = new Product(data, category);
-
-        // Salvar o produto no repositório
         productRepository.save(product);
-
-        // Retornar os detalhes do produto registrado
         return new DataProductDetails(product);
     }
 
@@ -65,9 +56,9 @@ public class ProductService {
 		return productRepository.findAllByCategoryId(id,pageable).map(DataProductDetails::new);
 	}
 	
-	public DataProductDetails updateProduct(Long id, DataUpdateProduct data) {
-		validatorsUpdateProduct.forEach(validatorsUpdateProduct -> validatorsUpdateProduct.validation(id, data));
-		 Product product = productRepository.getReferenceById(id);
+	public DataProductDetails updateProduct(DataUpdateProduct data) {
+		validatorsUpdateProduct.forEach(validatorsUpdateProduct -> validatorsUpdateProduct.validation(data));
+		 Product product = productRepository.getReferenceById(data.id());
 		 product.updateDataProduct(data);	
 		 return new DataProductDetails(product);
 	}
