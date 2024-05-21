@@ -15,7 +15,7 @@ public class ValidationProductDisabledForUpdateProduct implements ValidationUpda
 
     @Override
     public void validation(DataUpdateProduct data) {
-        if (!productRepository.existsById(data.id())) {
+        if (productRepository.existsById(data.id())) {
             Product product = productRepository.getReferenceById(data.id());
             if(product.getDisabled()){
                 throw new ValidationException("The provided product is disabled");

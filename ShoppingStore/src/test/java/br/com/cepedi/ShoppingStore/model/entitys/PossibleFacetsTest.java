@@ -1,69 +1,95 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets;
-import com.github.javafaker.Faker;
-
-import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
-
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets;
 import org.junit.jupiter.api.*;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @TestMethodOrder(MethodOrderer.Random.class)
-@DisplayName("Test entity possibleFacetsTest")
+@DisplayName("Test entity PossibleFacets")
 public class PossibleFacetsTest {
 
-    @Test
-    void testConstructorWithDataRegisterPossibleFacets() {
-        // Mock data
-        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets("Test Facet");
-        Category category = new Category();
-        category.setId(1L);
-        category.setName("Test Category");
-        category.setDescription("Test Description");
+    private Category mockCategory;
+    private DataRegisterPossibleFacets mockDataRegister;
+    private PossibleFacets possibleFacets;
 
-        // Create PossibleFacets instance
-        PossibleFacets possibleFacets = new PossibleFacets(data, category);
+    @BeforeEach
+    void setUp() {
+        // Initialize the mock data
+        mockCategory = new Category();
+        mockCategory.setId(1L);
+        mockCategory.setName("Test Category");
+        mockCategory.setDescription("Test Description");
 
-        // Assertions
-        assertNotNull(possibleFacets);
-        assertEquals("Test Facet", possibleFacets.getName());
-        assertEquals(category, possibleFacets.getCategory());
+        mockDataRegister = new DataRegisterPossibleFacets("Test Facet", 1L);
+
+        // Initialize PossibleFacets instance with mock data
+        possibleFacets = new PossibleFacets(mockDataRegister, mockCategory);
     }
 
     @Test
+    @DisplayName("Test constructor with DataRegisterPossibleFacets")
+    void testConstructorWithDataRegisterPossibleFacets() {
+        // Assertions
+        assertNotNull(possibleFacets);
+        assertEquals("Test Facet", possibleFacets.getName());
+        assertEquals(mockCategory, possibleFacets.getCategory());
+        assertFalse(possibleFacets.getDisabled());
+    }
+
+    @Test
+    @DisplayName("Test no-args constructor")
     void testNoArgsConstructor() {
         // Create PossibleFacets instance using no-args constructor
-        PossibleFacets possibleFacets = new PossibleFacets();
+        PossibleFacets possibleFacetsNoArgs = new PossibleFacets();
 
         // Assertions
-        assertNotNull(possibleFacets);
-        assertNull(possibleFacets.getName());
-        assertNull(possibleFacets.getCategory());
+        assertNotNull(possibleFacetsNoArgs);
+        assertNull(possibleFacetsNoArgs.getName());
+        assertNull(possibleFacetsNoArgs.getCategory());
+        assertNull(possibleFacetsNoArgs.getDisabled());
     }
 
     @Test
+    @DisplayName("Test setters and getters")
     void testSettersAndGetters() {
         // Create PossibleFacets instance
-        PossibleFacets possibleFacets = new PossibleFacets();
-
-        // Create Category instance
-        Category category = new Category();
-        category.setId(1L);
-        category.setName("Test Category");
-        category.setDescription("Test Description");
+        PossibleFacets possibleFacetsSetters = new PossibleFacets();
 
         // Set values
-        possibleFacets.setName("Test Facet");
-        possibleFacets.setCategory(category);
+        possibleFacetsSetters.setName("Updated Facet");
+        possibleFacetsSetters.setCategory(mockCategory);
+        possibleFacetsSetters.setDisabled(true);
 
         // Assertions
-        assertEquals("Test Facet", possibleFacets.getName());
-        assertEquals(category, possibleFacets.getCategory());
+        assertEquals("Updated Facet", possibleFacetsSetters.getName());
+        assertEquals(mockCategory, possibleFacetsSetters.getCategory());
+        assertTrue(possibleFacetsSetters.getDisabled());
+    }
+
+    @Test
+    @DisplayName("Test update data PossibleFacets")
+    void testUpdateDataPossibleFacets() {
+        // Create DataUpdatePossibleFacets instance
+        DataUpdatePossibleFacets updateData = new DataUpdatePossibleFacets(1L, "Updated Facet", 1L);
+
+        // Update PossibleFacets instance
+        possibleFacets.updateDataPossibleFacets(updateData, mockCategory);
+
+        // Assertions
+        assertEquals("Updated Facet", possibleFacets.getName());
+        assertEquals(mockCategory, possibleFacets.getCategory());
+    }
+
+    @Test
+    @DisplayName("Test disable and enable methods")
+    void testDisableAndEnable() {
+        // Disable the PossibleFacets instance
+        possibleFacets.disable();
+        assertTrue(possibleFacets.getDisabled());
+
+        // Enable the PossibleFacets instance
+        possibleFacets.enable();
+        assertFalse(possibleFacets.getDisabled());
     }
 }
-
