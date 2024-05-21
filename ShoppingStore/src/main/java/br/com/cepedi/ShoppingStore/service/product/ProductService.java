@@ -74,11 +74,10 @@ public class ProductService {
 		 return new DataProductDetails(product);
 	}
 	
-	public DataProductDetails deleteProduct(Long id) {
+	public void deleteProduct(Long id) {
         validatorsCancelProduct.forEach(validatorsCancelProduct -> validatorsCancelProduct.validation(id));
         Product product = productRepository.getReferenceById(id);
-        productRepository.delete(product);
-        return new DataProductDetails(product);
+        product.disable();
     }
 	
 }
