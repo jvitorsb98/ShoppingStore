@@ -48,6 +48,9 @@ public class ShoppingCartItemService {
         return shoppingCartItemsDetailsList;
     }
 
-
+    public void disabled(Long id){
+        ShoppingCartItem shoppingCartItem = shoppingCartItemRepository.getReferenceById(id);
+        shoppingCartItem.disable();
+    }
 
 }

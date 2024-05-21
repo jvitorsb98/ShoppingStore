@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.service.purchase.ShoppingCartService;
 
 import br.com.cepedi.ShoppingStore.model.entitys.ShoppingCart;
+import br.com.cepedi.ShoppingStore.model.entitys.ShoppingCartItem;
 import br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.input.DataRegisterShoppingCartItem;
 import br.com.cepedi.ShoppingStore.model.records.purchase.register.DataRegisterPurchase;
 import br.com.cepedi.ShoppingStore.model.records.shoppingCart.details.DataDetailsShoppingCart;
@@ -10,6 +11,8 @@ import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataRegisterUser;
 import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
 import br.com.cepedi.ShoppingStore.service.purchase.shoppingCart.ShoppingCartService;
+import br.com.cepedi.ShoppingStore.service.purchase.shoppingCart.validations.disabled.ValidationsDisabledShoppingCart;
+import br.com.cepedi.ShoppingStore.service.purchase.shoppingCartItem.ShoppingCartItemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,6 +40,12 @@ public class ShoppingCartServiceTest {
 
     @Mock
     private ShoppingCartRepository shoppingCartRepository;
+
+    @Mock
+    private List<ValidationsDisabledShoppingCart> validationsDisabledShoppingCarts;
+
+    @Mock
+    private ShoppingCartItemService shoppingCartItemService;
 
     @Mock
     private UserRepository userRepository;
@@ -134,5 +143,27 @@ public class ShoppingCartServiceTest {
 
         // Verify interactions
         verify(shoppingCartRepository).findAllByUser(pageable, userId);
+    }
+
+    @Test
+    public void testDisabled() {
+        // Mock data
+        ShoppingCart shoppingCart = mock(ShoppingCart.class);
+        ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
+        shoppingCartItem.setId(1L); // Definindo um ID válido para o item do carrinho de compras
+        List<ShoppingCartItem> shoppingCartItems = List.of(shoppingCartItem);
+
+        // Mock repository behavior
+        when(shoppingCartRepository.getReferenceById(anyLong())).thenReturn(shoppingCart);
+        when(shoppingCartRepository.findAllByShoppingCartId(anyLong())).thenReturn(shoppingCartItems);
+
+        // Call the method
+        shoppingCartService.disabled(1L);
+
+        // Verify interactions
+        verify(validationsDisabledShoppingCarts).forEach(any());
+        verify(shoppingCart).disable();
+        verify(shoppingCartRepository).findAllByShoppingCartId(anyLong());
+        verify(shoppingCartItemService).disabled(1L); // Verifica se o método disabled é chamado com o ID correto
     }
 }

@@ -72,4 +72,19 @@ public class ShoppingCartItemServiceTest {
         verify(productRepository).getReferenceById(anyLong());
         verify(shoppingCartItemRepository, times(1)).save(any(ShoppingCartItem.class));
     }
+
+    @Test
+    public void testDisabled() {
+        // Mock data
+        ShoppingCartItem shoppingCartItemMock = mock(ShoppingCartItem.class);
+        when(shoppingCartItemRepository.getReferenceById(anyLong())).thenReturn(shoppingCartItemMock);
+
+        // Call the method
+        shoppingCartItemService.disabled(1L);
+
+        // Verify interactions
+        verify(shoppingCartItemRepository).getReferenceById(anyLong());
+        verify(shoppingCartItemMock).disable(); // Corrigido para verificar o mock
+    }
+
 }
