@@ -1,8 +1,8 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute;
+import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataUpdateProductAttribute;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -41,5 +41,13 @@ public class ProductAttribute {
 	public void enable() {
 		this.disabled = false;
 	}
-	
+
+	public void updateProductAttribute(DataUpdateProductAttribute data){
+		if (data.name() != null){
+			this.name = data.name();
+		}
+		if (data.value() != null){
+			this.value = data.value();
+		}
+	}
 }

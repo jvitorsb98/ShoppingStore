@@ -1,11 +1,11 @@
 package br.com.cepedi.ShoppingStore.repository;
 
 
-import br.com.cepedi.ShoppingStore.model.records.productAttribute.details.DataProductAttributeDetails;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import br.com.cepedi.ShoppingStore.model.entitys.ProductAttribute;
@@ -16,9 +16,20 @@ import java.util.List;
 public interface ProductAttributeRepository extends JpaRepository<ProductAttribute, Long> {
 
     @Cacheable
-    Page<ProductAttribute> findAll(Pageable pageable);
+    Page<ProductAttribute> findAllByDisabledFalse(Pageable pageable);
 
-    List<ProductAttribute> findAllByProductId(Long id);
+    @Cacheable
+    Page<ProductAttribute> findAllByDisabledTrue(Pageable pageable);
+
+    List<ProductAttribute> findAllByProductIdAndDisabledIsFalse(Long id);
+
+    List<ProductAttribute> findAllByProductIdAndDisabledIsTrue(Long id);
+
+    @Query("""
+            SELECT p_a.disabled from ProductAttribute p_a
+                WHERE p_a.id = :id
+            """)
+    Boolean findDisabledById(Long id);
 
 }
 
