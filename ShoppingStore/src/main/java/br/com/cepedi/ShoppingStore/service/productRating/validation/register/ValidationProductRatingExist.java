@@ -1,10 +1,12 @@
 package br.com.cepedi.ShoppingStore.service.productRating.validation.register;
 
+import org.springframework.stereotype.Component;
+
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataProductRatingRegister;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
 import br.com.cepedi.ShoppingStore.repository.ProductRatingRepository;
 import jakarta.validation.ValidationException;
-
+@Component
 public class ValidationProductRatingExist implements ValidationProductRatingRegister {
 	
 	private ProductRatingRepository productRatingRepository;

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.model.entitys.ProductRating;
-import br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDetails;
-import br.com.cepedi.ShoppingStore.model.records.productAttribute.details.DataProductAttributeDetails;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.details.DataProductRatingDetails;
 import br.com.cepedi.ShoppingStore.repository.ProductRatingRepository;
@@ -21,34 +19,48 @@ import br.com.cepedi.ShoppingStore.service.productRating.validation.register.Val
 
 @Service
 public class ProductRatingService {
-	
-	@Autowired
-	private  ProductRatingRepository productRatingRepository;
-	
-	private UserRepository userRepository;
-	
-	private ProductRepository productRepository;
-	
-	private List<ValidationProductRatingRegister> validatorsRegister;
-	
-	
-	public DataProductRatingDetails  register(DataRegisterProductRating data) {
-		validatorsRegister.forEach(validatorsRegister -> validatorsRegister.validation(data));
-		
-		Product product = productRepository.getReferenceById(data.productId());
-		User user = userRepository.getReferenceById(data.Userid());
-		ProductRating productRating = new ProductRating(data, user, product);
-		productRatingRepository.save(productRating);
-		
-		return new DataProductRatingDetails(productRating);
-	}
-	
-	public Page<DataProductRatingDetails> list(Pageable pageable) {
+
+    @Autowired
+    private ProductRatingRepository productRatingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private List<ValidationProductRatingRegister> validatorsRegister;
+
+    public DataProductRatingDetails register(DataRegisterProductRating data) {
+        // Validar os dados de entrada usando uma lista de validadores
+        validatorsRegister.forEach(validator -> validator.validation(data));
+
+        // Obter as referências do produto e do usuário pelo ID
+        Product product = productRepository.getReferenceById(data.productId());
+        User user = userRepository.getReferenceById(data.userId());
+
+        // Criar um novo objeto de avaliação de produto
+        ProductRating productRating = new ProductRating(data, user, product);
+
+        // Salvar a avaliação no repositório
+        productRatingRepository.save(productRating);
+
+        // Retornar os detalhes da avaliação registrada
+        return new DataProductRatingDetails(productRating);
+    }
+
+    public Page<DataProductRatingDetails> list(Pageable pageable) {
         return productRatingRepository.findAll(pageable).map(DataProductRatingDetails::new);
     }
-	
-	public DataProductRatingDetails detailsProduct(Long id) {
-		return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
-	}
-	
+
+    public DataProductRatingDetails detailsProduct(Long id) {
+        return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
+    }
+
+    public DataProductRatingDetails deleteProduct(Long id,Pageable pageable) {
+        ProductRating productRating = productRatingRepository.getReferenceById(id);
+        productRatingRepository.delete(productRating);
+        return new DataProductRatingDetails(productRating);
+    }
 }

@@ -26,7 +26,7 @@ public record DataProductRatingRegister(
 		String review,
 		
 		@NotNull(message = "User ID cannot be null")
-		Long Userid) {
+		Long userId) {
 
 
 

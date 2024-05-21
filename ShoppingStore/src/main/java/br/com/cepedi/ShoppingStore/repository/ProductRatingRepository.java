@@ -2,6 +2,8 @@ package br.com.cepedi.ShoppingStore.repository;
 
 import br.com.cepedi.ShoppingStore.model.entitys.ProductRating;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +18,13 @@ public interface ProductRatingRepository extends JpaRepository<ProductRating,Lon
                 WHERE p.id = :id
             """)
 	Boolean findActivatedById(Long id);
+	
+	
+//	@Query("""
+//            SELECT p FROM ProductRating p
+//            WHERE p.user.id = :id
+//            """)
+//	Page<ProductRating> findProductRatingsByUserId(Long id, Pageable pageable);
+
 	
 }
