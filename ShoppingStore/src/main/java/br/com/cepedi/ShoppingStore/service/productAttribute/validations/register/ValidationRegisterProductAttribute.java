@@ -1,7 +1,9 @@
-package br.com.cepedi.ShoppingStore.service.productAttribute.validations;
+package br.com.cepedi.ShoppingStore.service.productAttribute.validations.register;
 
 import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute;
 
-public interface ValidationProductAttribute {
+public interface ValidationRegisterProductAttribute {
+
     void validation(DataRegisterProductAttribute data);
+
 }

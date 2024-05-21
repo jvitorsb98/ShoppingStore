@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.productAttribute.validations;
+package br.com.cepedi.ShoppingStore.service.productAttribute.validations.register;
 
 import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidateIfProductExist implements ValidationProductAttribute {
+public class ValidateIfRegisterProductExist implements ValidationRegisterProductAttribute {
 
     @Autowired
     private ProductRepository productRepository;
