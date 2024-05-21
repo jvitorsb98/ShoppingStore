@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.service.productRating;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -52,4 +53,13 @@ public class ProductRatingService {
 		return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
 	}
 	
+	 public List<DataProductRatingDetails> getProductRatingsByUserId(Long userId) {
+	        List<ProductRating> productRatings = productRatingRepository.findAllByUserId(userId);
+	        return productRatings.stream().map(DataProductRatingDetails::new).collect(Collectors.toList());
+	    }
+	 
+	 public List<DataProductRatingDetails> getProductRatingsByProductId(Long productId) {
+	        List<ProductRating> productRatings = productRatingRepository.findAllByUserId(productId);
+	        return productRatings.stream().map(DataProductRatingDetails::new).collect(Collectors.toList());
+	    }
 }

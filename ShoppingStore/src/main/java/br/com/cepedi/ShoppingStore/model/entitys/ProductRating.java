@@ -30,8 +30,9 @@ public class ProductRating {
 
         @Column(name = "review")
         private String review;
-
-        @Column(name = "user_id")
+        
+        @ManyToOne
+        @JoinColumn(name = "user_id")
         private User user;
 
         private Boolean disabled;
