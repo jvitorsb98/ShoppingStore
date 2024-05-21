@@ -2,6 +2,7 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 
 
 import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets;
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -38,6 +39,16 @@ public class PossibleFacets {
         this.name = data.name();
         this.category = category;
         this.disabled = false;
+    }
+
+    public void updateDataPossibleFacets(DataUpdatePossibleFacets data  , Category category) {
+        if (data.name() != null) {
+            this.name = data.name();
+        }
+        if (category != null) {
+            this.category = category;
+        }
+
     }
 
     public void disable() {

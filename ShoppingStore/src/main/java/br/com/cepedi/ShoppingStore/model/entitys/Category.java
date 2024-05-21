@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
+import br.com.cepedi.ShoppingStore.model.records.category.input.DataUpdateCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -27,6 +28,15 @@ public class Category {
         this.name = data.name();
         this.description = data.description();
         this.disabled = false;
+    }
+
+    public void updateDataCategory(DataUpdateCategory data) {
+        if (data.name() != null) {
+            this.name = data.name();
+        }
+        if (data.description() != null) {
+            this.description = data.description();
+        }
     }
 
     public void disable() {

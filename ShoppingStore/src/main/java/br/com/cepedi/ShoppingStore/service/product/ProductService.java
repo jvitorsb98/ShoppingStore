@@ -1,8 +1,6 @@
 package br.com.cepedi.ShoppingStore.service.product;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,9 +14,9 @@ import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProdu
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
-import br.com.cepedi.ShoppingStore.service.product.cancel.ValidationCancelProduct;
-import br.com.cepedi.ShoppingStore.service.product.register.ValidationProduct;
-import br.com.cepedi.ShoppingStore.service.product.update.ValidationUpdateProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationCancelProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.update.ValidationUpdateProduct;
 
 @Service
 public class ProductService {

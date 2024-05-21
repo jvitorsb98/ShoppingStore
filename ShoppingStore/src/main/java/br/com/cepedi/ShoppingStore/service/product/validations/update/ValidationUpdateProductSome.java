@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.product.update;
+package br.com.cepedi.ShoppingStore.service.product.validations.update;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

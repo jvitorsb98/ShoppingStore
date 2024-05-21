@@ -6,9 +6,9 @@ import br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDeta
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
-import br.com.cepedi.ShoppingStore.service.product.cancel.ValidationCancelProduct;
-import br.com.cepedi.ShoppingStore.service.product.register.ValidationProduct;
-import br.com.cepedi.ShoppingStore.service.product.update.ValidationUpdateProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationCancelProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.register.ValidationProduct;
+import br.com.cepedi.ShoppingStore.service.product.validations.update.ValidationUpdateProduct;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -1,11 +1,10 @@
-package br.com.cepedi.ShoppingStore.service.product.register;
+package br.com.cepedi.ShoppingStore.service.product.validations.register;
 
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
-import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import jakarta.validation.ValidationException;
 
 @Component

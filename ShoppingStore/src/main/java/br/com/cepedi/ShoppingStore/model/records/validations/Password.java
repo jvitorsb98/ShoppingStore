@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.mail.validations;
+package br.com.cepedi.ShoppingStore.model.records.validations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
