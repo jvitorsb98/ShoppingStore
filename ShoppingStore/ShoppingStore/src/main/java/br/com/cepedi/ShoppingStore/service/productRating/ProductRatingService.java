@@ -71,7 +71,7 @@ public class ProductRatingService {
 	}
 
 	public void disableProductRating(Long id) {
-		validatorsDisabled.forEach(validator -> validator.validation(id, null));
+		validatorsDisabled.forEach(validator -> validator.validation(id));
 		ProductRating productRating = productRatingRepository.getReferenceById(id);
 
 		productRating.disable();

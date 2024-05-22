@@ -36,7 +36,7 @@ public class PossibleFacetsService {
     @Autowired
     private List<ValidationUpdatePossibleFacets> validationUpdatePossibleFacetsList;
 
-    @Autowired
+	@Autowired
     private List<ValidationDisabledPossibleFacets> validationDisabledPossibleFacetsList;
 
     public DataPossibleFacetsDetails register(DataRegisterPossibleFacets data) {

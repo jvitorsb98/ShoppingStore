@@ -4,5 +4,7 @@ import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataDisable
 
 public interface ValidationProductRatingDisabled {
 
-    void validation(Long id, DataDisabledProductRating data);
+    void validation(Long id);
+
+
 }
