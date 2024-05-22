@@ -1,7 +1,8 @@
-package br.com.cepedi.ShoppingStore.service.product.validations.cancel;
+package br.com.cepedi.ShoppingStore.service.product.validations.disabled;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
+import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationProductAlreadyDisabledForDisabled;
 import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

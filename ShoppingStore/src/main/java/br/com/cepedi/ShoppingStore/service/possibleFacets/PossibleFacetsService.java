@@ -38,6 +38,12 @@ public class PossibleFacetsService {
 
     @Autowired
     private List<ValidationDisabledPossibleFacets> validationDisabledPossibleFacetsList;
+    
+    @Autowired
+    public PossibleFacetsService(List<ValidationRegisterPossibleFacets> validationRegisterPossibleFacetsList) {
+        this.validationRegisterPossibleFacetsList = validationRegisterPossibleFacetsList;
+    }
+
 
     public DataPossibleFacetsDetails register(DataRegisterPossibleFacets data) {
         validationRegisterPossibleFacetsList.forEach(v -> v.validation(data));

@@ -18,5 +18,7 @@ public record DataCategoryDetails (
         this(category.getId(),category.getName(),category.getDescription());
     }
 
+	
+
 }
    

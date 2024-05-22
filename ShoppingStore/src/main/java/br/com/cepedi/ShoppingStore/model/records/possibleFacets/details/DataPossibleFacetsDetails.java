@@ -1,8 +1,7 @@
 package br.com.cepedi.ShoppingStore.model.records.possibleFacets.details;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
+
 import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
-import lombok.Data;
 
 
 public record DataPossibleFacetsDetails(
@@ -18,5 +17,8 @@ public record DataPossibleFacetsDetails(
     public  DataPossibleFacetsDetails(PossibleFacets possibleFacets){
         this(possibleFacets.getId(),possibleFacets.getName() ,possibleFacets.getCategory().getId());
     }
+    
+    
+    
 
 }
