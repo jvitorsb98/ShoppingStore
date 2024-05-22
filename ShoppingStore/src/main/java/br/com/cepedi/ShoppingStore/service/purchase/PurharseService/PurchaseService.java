@@ -40,8 +40,10 @@ public class PurchaseService {
         );
 
         DataDetailsShoppingCart dataDetailsShoppingCart = shoppingCartService.register(data);
-        List<DataDetailsShoppingCartItem> items = shoppingCartItemService.registerItems(data.items(),dataDetailsShoppingCart.id());
-        return new DataDetailsPurchase(dataDetailsShoppingCart, items);
+
+        DataDetailsPurchase dataDetailsPurchase = shoppingCartItemService.registerItems(data.items(),dataDetailsShoppingCart);
+
+        return dataDetailsPurchase;
     }
 
 }

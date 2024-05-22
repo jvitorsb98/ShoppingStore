@@ -42,6 +42,7 @@ public class ShoppingCart {
     public ShoppingCart(User user){
         this.totalPrice = BigDecimal.ZERO;
         this.user = user;
+        this.disabled = false;
     }
 
     public void disable() {

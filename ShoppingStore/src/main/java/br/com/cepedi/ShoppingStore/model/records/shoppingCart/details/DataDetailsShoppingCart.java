@@ -20,4 +20,9 @@ public record DataDetailsShoppingCart(
         this(shoppingCart.getId() , shoppingCart.getTotalPrice(),shoppingCart.getUser().getId());
     }
 
+    public DataDetailsShoppingCart withTotalPrice(BigDecimal totalPrice) {
+        return new DataDetailsShoppingCart(this.id, totalPrice, this.UserId);
+    }
+
+
 }
