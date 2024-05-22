@@ -1,8 +1,10 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
-
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
+import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating;
+import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
+import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,41 +19,54 @@ import java.math.BigDecimal;
 @Table(name = "product_rating")
 public class ProductRating {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @ManyToOne
-        @JoinColumn(name = "product_id")
-        private Product product;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-        @Column(name = "rating_stars")
-        private BigDecimal ratingStars;
+    @Column(name = "rating_stars")
+    private BigDecimal ratingStars;
 
-        @Column(name = "review")
-        private String review;
-        
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        private User user;
+    @Column(name = "review")
+    private String review;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-        private Boolean disabled;
+    private Boolean disabled;
 
+    public ProductRating(DataRegisterProductRating data, User user, Product product){
+        this.ratingStars = data.ratingStars();
+        this.review = data.review();
+        this.user = user;
+        this.product = product;
+        this.disabled = false;
+    }
 
-        public ProductRating(DataRegisterProductRating data , User user , Product product){
-                this.ratingStars = data.ratingStars();
-                this.review = data.review();
-                this.user = user;
-                this.product = product;
-                this.disabled = false;
+    public void disable() {
+        this.disabled = true;
+    }
+
+    public void enable() {
+        this.disabled = false;
+    }
+
+    public void updateDataProductRating(DataUpdateProductRating data, UserRepository userRepository, ProductRepository productRepository) {
+        if (data.ratingStars() != null) {
+            this.ratingStars = data.ratingStars();
         }
-
-        public void disable() {
-                this.disabled = true;
+        if (data.review() != null) {
+            this.review = data.review();
         }
-
-        public void enable() {
-                this.disabled = false;
+        if (data.userId() != null) {
+            this.user = userRepository.getReferenceById(data.userId());
         }
-
+        if (data.productId() != null) {
+            this.product = productRepository.getReferenceById(data.productId());
+        }
+    }
 }
