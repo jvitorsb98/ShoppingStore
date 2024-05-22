@@ -1,9 +1,11 @@
 package br.com.cepedi.ShoppingStore.security.service;
 
 
+import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.repository.TokenRepository;
 import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
+import br.com.cepedi.ShoppingStore.service.mail.MailService;
 import com.auth0.jwt.JWT;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -34,6 +36,9 @@ public class EmailService {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private MailService mailService;
+
     public void sendResetPasswordEmail(String name, String email, String token) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -47,6 +52,8 @@ public class EmailService {
         helper.setText(htmlBody, true);
 
         emailSender.send(message);
+        DataRegisterMail dataRegisterMail = new DataRegisterMail(email,"shoppingstoreclient@gmail.com",htmlBody,"Password Reset");
+        mailService.register(dataRegisterMail);
     }
 
     public String sendActivationEmail(String name, String email) throws MessagingException {
@@ -66,7 +73,8 @@ public class EmailService {
 
         helper.setText(htmlBody, true);
         emailSender.send(message);
-
+        DataRegisterMail dataRegisterMail = new DataRegisterMail(email,"shoppingstoreclient@gmail.com",htmlBody,"Activation Email");
+        mailService.register(dataRegisterMail);
         return token;
     }
 
