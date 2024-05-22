@@ -58,8 +58,13 @@ public class ProductService {
 	
 	public DataProductDetails updateProduct(DataUpdateProduct data) {
 		validatorsUpdateProduct.forEach(validatorsUpdateProduct -> validatorsUpdateProduct.validation(data));
+        Category category = null;
+        if(data.categoryId()!=null){
+            category = categoryRepository.getReferenceById(data.categoryId());
+        }
+
 		 Product product = productRepository.getReferenceById(data.id());
-		 product.updateDataProduct(data);	
+		 product.updateDataProduct(data,category);
 		 return new DataProductDetails(product);
 	}
 	

@@ -18,6 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v2/categories")
@@ -31,11 +34,12 @@ public class CategoryController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DataCategoryDetails> registerCategory(@Valid @RequestBody DataRegisterCategory data) {
+    public ResponseEntity<DataCategoryDetails> registerCategory(@Valid @RequestBody DataRegisterCategory data ,  UriComponentsBuilder uriBuilder) {
         LOGGER.info("Registering a category");
         DataCategoryDetails categoryDetails = categoryService.registerCategory(data);
+        URI uri = uriBuilder.path("/categories/{id}").buildAndExpand(categoryDetails.id()).toUri();
         LOGGER.info("Category registered successfully");
-        return new ResponseEntity<>(categoryDetails, HttpStatus.CREATED);
+        return ResponseEntity.created(uri).body(categoryDetails);
     }
 
     @GetMapping
@@ -63,11 +67,11 @@ public class CategoryController {
         return new ResponseEntity<>(categoryDetails, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Transactional
     public ResponseEntity<DataCategoryDetails> updateCategory(
-            @PathVariable Long id, @Valid @RequestBody DataUpdateCategory data) {
-        LOGGER.info("Updating category with id: {}", id);
+            @Valid @RequestBody DataUpdateCategory data) {
+        LOGGER.info("Updating category with id: {}", data.id());
         DataCategoryDetails updatedCategory = categoryService.updateCategory(data);
         LOGGER.info("Category updated successfully");
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);

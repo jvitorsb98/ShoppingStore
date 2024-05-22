@@ -14,7 +14,7 @@ public class ProductExistsForRegisterShoppingCartItem implements ValidationsRegi
 
     @Override
     public void validation(DataRegisterShoppingCartItem data) {
-        if (data.productId() != null && !productRepository.existsById(data.productId())) {
+        if (!productRepository.existsById(data.productId())) {
             throw new ValidationException("The provided product id does not exist");
         }
     }

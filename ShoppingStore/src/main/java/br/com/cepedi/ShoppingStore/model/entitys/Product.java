@@ -70,7 +70,7 @@ public class Product {
 			this.disabled = false;
 		}
 
-		public void updateDataProduct(DataUpdateProduct data) {
+		public void updateDataProduct(DataUpdateProduct data, Category category) {
 			 if(data.name() != null){
 				 this.name = data.name();
 			 }
@@ -93,8 +93,8 @@ public class Product {
 				 this.manufacturer = data.manufacturer();
 			 }
 
-			 if(data.categoryId() != null){
-				 this.id = data.id();
+			 if(category!= null){
+				 this.category = category;
 			 }
 
 

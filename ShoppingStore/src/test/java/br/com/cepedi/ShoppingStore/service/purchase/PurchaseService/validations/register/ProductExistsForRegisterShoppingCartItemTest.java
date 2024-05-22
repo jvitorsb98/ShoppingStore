@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.purchase.PurchaseService.register.shoppingCartItem;
+package br.com.cepedi.ShoppingStore.service.purchase.PurchaseService.validations.register;
 
 import br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.input.DataRegisterShoppingCartItem;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;

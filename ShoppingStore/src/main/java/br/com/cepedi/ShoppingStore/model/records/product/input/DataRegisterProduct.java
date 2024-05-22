@@ -41,10 +41,7 @@ public record DataRegisterProduct(
     @Size(max = 100, message = "Manufacturer cannot exceed 100 characters")
     String manufacturer,
 
-    boolean featured
-
-    // List<ProductAttribute> productAttributeList,
-    // List<ProductRating> productRating,
+    Boolean featured
 
 ) {
 }

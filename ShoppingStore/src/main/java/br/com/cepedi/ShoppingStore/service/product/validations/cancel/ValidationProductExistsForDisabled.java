@@ -15,7 +15,7 @@ public class ValidationProductExistsForDisabled implements ValidationDisabledPro
 
     @Override
     public void validation(Long id) {
-        if(productRepository.existsById(id)){
+        if(!productRepository.existsById(id)){
             throw new ValidationException("The required product not exists");
         }
     }

@@ -1,4 +1,4 @@
-package br.com.cepedi.ShoppingStore.service.purchase.PurchaseService.register.shoppingCart;
+package br.com.cepedi.ShoppingStore.service.purchase.PurchaseService.validations.register;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 

@@ -15,7 +15,7 @@ public class ValidationCategoryExists implements ValidationRegisterProduct {
 	
     @Override
     public void validation(DataRegisterProduct data) {
-    	 if (data.categoryId() != null && !categoryRepository.existsById(data.categoryId())) {
+    	 if (!categoryRepository.existsById(data.categoryId())) {
              throw new ValidationException("The provided category id does not exist");
          }
     }

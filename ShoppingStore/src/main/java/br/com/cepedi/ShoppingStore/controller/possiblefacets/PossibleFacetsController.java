@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v2/possible-facets")
-@SecurityRequirement(name = "bearer-key")
+//@SecurityRequirement(name = "bearer-key")
 public class PossibleFacetsController {
 
     @Autowired
@@ -78,12 +78,12 @@ public class PossibleFacetsController {
         return ResponseEntity.ok(facets);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Transactional
-    public ResponseEntity<DataPossibleFacetsDetails> update(@PathVariable Long id, @RequestBody @Valid DataUpdatePossibleFacets data) {
-        log.info("Updating possible facet with ID: {}", id);
+    public ResponseEntity<DataPossibleFacetsDetails> update(@RequestBody @Valid DataUpdatePossibleFacets data) {
+        log.info("Updating possible facet with ID: {}", data.id());
         DataPossibleFacetsDetails updatedFacet = service.update(data);
-        log.info("Updated possible facet with ID: {}", id);
+        log.info("Updated possible facet with ID: {}", data.id());
         return ResponseEntity.ok(updatedFacet);
     }
 
