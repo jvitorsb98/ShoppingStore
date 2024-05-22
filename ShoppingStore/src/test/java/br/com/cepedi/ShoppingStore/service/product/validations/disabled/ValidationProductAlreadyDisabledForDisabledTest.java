@@ -4,6 +4,7 @@ import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.service.product.validations.cancel.ValidationProductAlreadyDisabledForDisabled;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,7 +21,8 @@ public class ValidationProductAlreadyDisabledForDisabledTest {
     @InjectMocks
     private ValidationProductAlreadyDisabledForDisabled validationProductAlreadyDisabledForDisabled;
 
-    public ValidationProductAlreadyDisabledForDisabledTest() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
@@ -40,6 +42,10 @@ public class ValidationProductAlreadyDisabledForDisabledTest {
         assertDoesNotThrow(() -> {
             validationProductAlreadyDisabledForDisabled.validation(productId);
         });
+
+        // Verify interactions
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, times(1)).getReferenceById(productId);
     }
 
     @Test
@@ -55,9 +61,15 @@ public class ValidationProductAlreadyDisabledForDisabledTest {
         when(productRepository.getReferenceById(productId)).thenReturn(disabledProduct);
 
         // Validation
-        assertThrows(ValidationException.class, () -> {
+        ValidationException exception = assertThrows(ValidationException.class, () -> {
             validationProductAlreadyDisabledForDisabled.validation(productId);
         });
+
+        assertEquals("The required product already disabled", exception.getMessage());
+
+        // Verify interactions
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, times(1)).getReferenceById(productId);
     }
 
     @Test
@@ -71,5 +83,10 @@ public class ValidationProductAlreadyDisabledForDisabledTest {
         assertDoesNotThrow(() -> {
             validationProductAlreadyDisabledForDisabled.validation(productId);
         });
+
+        // Verify interactions
+        verify(productRepository, times(1)).existsById(productId);
+        verify(productRepository, never()).getReferenceById(productId);
     }
+
 }

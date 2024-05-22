@@ -7,9 +7,11 @@ import br.com.cepedi.ShoppingStore.security.model.records.input.DataAuth;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +28,18 @@ public class LoginController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid DataAuth data) {
+    public ResponseEntity<Object> efetuarLogin(@RequestBody @Valid DataAuth data) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        var authentication = manager.authenticate(authenticationToken);
+        Authentication authentication = manager.authenticate(authenticationToken);
 
-        var tokenJWT = tokenService.generateToken((User) authentication.getPrincipal());
+        User user = (User) authentication.getPrincipal();
+
+        if (!user.getActivated()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("User is not activated");
+        }
+
+        var tokenJWT = tokenService.generateToken(user);
 
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }

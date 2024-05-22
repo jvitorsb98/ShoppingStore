@@ -17,14 +17,14 @@ public class ActivatedUserController {
     @Autowired
     private TokenService tokenService;
 
-    @PutMapping("/activate-account")
+    @GetMapping("/activate-account")
     public ResponseEntity<String> activateAccount(@RequestParam("token") String token) {
         try {
             if (!tokenService.isValidToken(token)) {
                 return ResponseEntity.badRequest().body("Token invalid");
             }
             authService.activateUser(token);
-            tokenService.revokeToken(token);  // Invalida o token após ativação
+            tokenService.revokeToken(token);
             return ResponseEntity.ok("User account activated successfully");
         } catch (Exception e) {
             e.printStackTrace();

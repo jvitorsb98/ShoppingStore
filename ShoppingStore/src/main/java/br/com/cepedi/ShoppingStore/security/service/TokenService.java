@@ -133,6 +133,7 @@ public class TokenService {
                     .withClaim("id", user.getId())
                     .withClaim("email", user.getEmail())
                     .sign(algorithm);
+            registerToken(token, user);  // Register the token in the database
             return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar o token JWT", exception);
