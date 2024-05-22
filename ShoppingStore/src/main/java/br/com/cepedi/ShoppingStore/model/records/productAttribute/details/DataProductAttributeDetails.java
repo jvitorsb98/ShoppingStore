@@ -7,7 +7,8 @@ public record DataProductAttributeDetails(
     Long id,
     String name,
     String value,
-    Long productId
+    Long productId,
+    Boolean disabled
 ) {
 
     public static DataProductAttributeDetails fromEntity(ProductAttribute productAttribute) {
@@ -15,7 +16,8 @@ public record DataProductAttributeDetails(
                 productAttribute.getId(),
                 productAttribute.getName(),
                 productAttribute.getValue(),
-                productAttribute.getProduct().getId()
+                productAttribute.getProduct().getId(),
+                productAttribute.getDisabled()
         );
     }
 
