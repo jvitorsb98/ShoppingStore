@@ -2,7 +2,10 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 
 
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
+import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating;
+import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
+import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +46,22 @@ public class ProductRating {
                 this.user = user;
                 this.product = product;
                 this.disabled = false;
+        }
+
+        public void updateDataProductRating(DataUpdateProductRating data, User user , Product product) {
+                if (data.ratingStars() != null){
+                        this.ratingStars = data.ratingStars();
+                }
+                if (data.review() != null){
+                        this.review = data.review();
+                }
+
+                if (data.userId() != null){
+                        this.user = user;
+                }
+                if (data.productId() != null){
+                        this.product = product;
+                }
         }
 
 

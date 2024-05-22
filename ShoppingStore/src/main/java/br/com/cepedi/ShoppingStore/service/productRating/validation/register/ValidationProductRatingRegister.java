@@ -4,6 +4,5 @@ import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegiste
 
 public interface ValidationProductRatingRegister {
 
-	//void validation(DataProductRatingRegister data);
 	void validation(DataRegisterProductRating data);
 }
