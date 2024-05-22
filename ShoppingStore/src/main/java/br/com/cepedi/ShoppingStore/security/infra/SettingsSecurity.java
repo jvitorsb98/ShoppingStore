@@ -30,7 +30,7 @@ public class SettingsSecurity {
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.requestMatchers("/auth/reset-password/**").permitAll();
                     req.requestMatchers("/auth/activate-account").permitAll();
-                    req.anyRequest().authenticated();
+                    req.anyRequest().permitAll();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

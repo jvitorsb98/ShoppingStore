@@ -6,6 +6,8 @@ import br.com.cepedi.ShoppingStore.model.records.category.details.DataCategoryDe
 import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
 import br.com.cepedi.ShoppingStore.model.records.category.input.DataUpdateCategory;
 import br.com.cepedi.ShoppingStore.service.category.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v2/categories")
+@SecurityRequirement(name = "bearer-key")
 public class CategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
@@ -27,6 +30,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<DataCategoryDetails> registerCategory(@Valid @RequestBody DataRegisterCategory data) {
         LOGGER.info("Registering a category");
         DataCategoryDetails categoryDetails = categoryService.registerCategory(data);
@@ -60,11 +64,11 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
+    @Transactional
     public ResponseEntity<DataCategoryDetails> updateCategory(
             @PathVariable Long id, @Valid @RequestBody DataUpdateCategory data) {
         LOGGER.info("Updating category with id: {}", id);
-        DataUpdateCategory updatedData = new DataUpdateCategory(id, data.name(), data.description());
-        DataCategoryDetails updatedCategory = categoryService.updateCategory(updatedData);
+        DataCategoryDetails updatedCategory = categoryService.updateCategory(data);
         LOGGER.info("Category updated successfully");
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
     }

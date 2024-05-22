@@ -45,6 +45,8 @@ public class ProductRating {
                 this.disabled = false;
         }
 
+
+
         public void disable() {
                 this.disabled = true;
         }
