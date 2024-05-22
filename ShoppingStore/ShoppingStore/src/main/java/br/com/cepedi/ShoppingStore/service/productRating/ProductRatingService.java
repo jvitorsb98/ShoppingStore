@@ -62,15 +62,8 @@ public class ProductRatingService {
 	ProductRating productRating = productRatingRepository.getReferenceById(id);
 	
 	productRating.updateDataProductRating(data, userRepository, productRepository);
-	
 
+		return new DataProductRatingDetails(productRating);
 
-
-
-		return null;
-	
-
-		
-	}
-
+		}
 }
