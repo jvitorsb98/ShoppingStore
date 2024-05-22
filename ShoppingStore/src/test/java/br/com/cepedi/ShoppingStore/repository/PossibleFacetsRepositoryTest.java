@@ -4,6 +4,7 @@ package br.com.cepedi.ShoppingStore.repository;
 import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
 import com.github.javafaker.Faker;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -33,6 +34,11 @@ public class PossibleFacetsRepositoryTest {
     private PossibleFacetsRepository possibleFacetsRepository;
 
     private Faker faker = new Faker();
+
+    @BeforeEach
+    public void deleteAllPossibleFacets() {
+        possibleFacetsRepository.deleteAll();
+    }
 
     @Test
     public void testSavePossibleFacets() {

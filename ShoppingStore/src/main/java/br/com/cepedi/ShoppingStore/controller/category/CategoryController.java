@@ -75,6 +75,7 @@ public class CategoryController {
 
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<Void> disableCategory(@PathVariable Long id) {
         LOGGER.info("Disabling category with id: {}", id);
         categoryService.disableCategory(id);

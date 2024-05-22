@@ -1,10 +1,7 @@
 package br.com.cepedi.ShoppingStore.repository;
 
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,7 +24,7 @@ public class CategoryRepositoryTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @AfterEach
+    @BeforeEach
     public void deleteAllCategory() {
         categoryRepository.deleteAll();
     }

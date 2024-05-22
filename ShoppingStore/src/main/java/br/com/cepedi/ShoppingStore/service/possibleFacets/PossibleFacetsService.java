@@ -60,8 +60,8 @@ public class PossibleFacetsService {
         return new  DataPossibleFacetsDetails(possibleFacets);
     }
 
-    public Page<DataPossibleFacetsDetails> findByCategory(Category category, Pageable pageable) {
-        return possibleFacetsRepository.findByCategory(category, pageable)
+    public Page<DataPossibleFacetsDetails> findByCategory(Long idCategory, Pageable pageable) {
+        return possibleFacetsRepository.findByCategory(idCategory, pageable)
                 .map(DataPossibleFacetsDetails::new);
     }
 

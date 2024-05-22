@@ -20,8 +20,9 @@ import java.util.List;
 @Repository
 public interface PossibleFacetsRepository extends JpaRepository<PossibleFacets, Long> {
 
-    @Query("SELECT p FROM PossibleFacets p WHERE p.category = :category")
-    Page<PossibleFacets> findByCategory(@Param("category") Category category, Pageable pageable);
+    @Query("SELECT p FROM PossibleFacets p WHERE p.category.id = :category")
+    Page<PossibleFacets> findByCategory(@Param("category") Long idCategory, Pageable pageable);
+
 
     @Query("SELECT p FROM PossibleFacets p WHERE p.category = :category")
     List<PossibleFacets> findByCategoryCustomQuery(@Param("category") Category category);

@@ -32,27 +32,23 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("v2/possible-facets")
+@RequestMapping("/api/v2/possible-facets")
 @SecurityRequirement(name = "bearer-key")
 public class PossibleFacetsController {
 
-    private final PossibleFacetsService service;
-    private final CategoryRepository categoryRepository;
+    @Autowired
+    private PossibleFacetsService service;
+
     private static final Logger log = LoggerFactory.getLogger(PossibleFacetsController.class);
 
-    @Autowired
-    public PossibleFacetsController(PossibleFacetsService service, CategoryRepository categoryRepository) {
-        this.service = service;
-        this.categoryRepository = categoryRepository;
-    }
 
     @PostMapping
     @Transactional
     public ResponseEntity<DataPossibleFacetsDetails> register(@RequestBody @Valid DataRegisterPossibleFacets data, UriComponentsBuilder uriBuilder) {
         log.info("Registering possible facet");
         DataPossibleFacetsDetails createdFacet = service.register(data);
-        URI uri = uriBuilder.path("/possible-facets/{id}").buildAndExpand(createdFacet.getId()).toUri();
-        log.info("Registering possible facet with ID: {}", createdFacet.getId());
+        URI uri = uriBuilder.path("/possible-facets/{id}").buildAndExpand(createdFacet.id()).toUri();
+        log.info("Registering possible facet with ID: {}", createdFacet.id());
         return ResponseEntity.created(uri).body(createdFacet);
     }
 
@@ -60,7 +56,7 @@ public class PossibleFacetsController {
     @GetMapping
     public ResponseEntity<Page<DataPossibleFacetsDetails>> list(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
         log.info("Listing all possible facets");
-        Page<DataPossibleFacetsDetails> facets = service.list(pageable);
+        Page<DataPossibleFacetsDetails> facets = service.listAll(pageable);
         log.info("Listed all possible facets");
         return ResponseEntity.ok(facets);
     }
@@ -77,8 +73,7 @@ public class PossibleFacetsController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<Page<DataPossibleFacetsDetails>> findByCategory(@PathVariable Long categoryId, Pageable pageable) {
         log.info("Fetching possible facets by category ID: {}", categoryId);
-        Category category = categoryRepository.getReferenceById(categoryId);
-        Page<DataPossibleFacetsDetails> facets = service.findByCategory(category, pageable);
+        Page<DataPossibleFacetsDetails> facets = service.findByCategory(categoryId, pageable);
         log.info("Fetched possible facets by category ID: {}", categoryId);
         return ResponseEntity.ok(facets);
     }

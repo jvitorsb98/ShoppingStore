@@ -7,19 +7,19 @@ import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegist
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.repository.PossibleFacetsRepository;
 import br.com.cepedi.ShoppingStore.service.possibleFacets.validations.register.ValidationRegisterPossibleFacets;
-
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PossibleFacetsServiceTest {
@@ -31,23 +31,14 @@ public class PossibleFacetsServiceTest {
     private PossibleFacetsRepository possibleFacetsRepository;
 
     @Mock
-    private ValidationRegisterPossibleFacets validationRegisterPossibleFacets;
+    private List<ValidationRegisterPossibleFacets> validationRegisterPossibleFacets;
 
     @InjectMocks
     private PossibleFacetsService possibleFacetsService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        // Inicializar a lista de validações manualmente
-        List<ValidationRegisterPossibleFacets> validationRegisterPossibleFacetsList = new ArrayList<>();
-        validationRegisterPossibleFacetsList.add(validationRegisterPossibleFacets);
-
-        // Usar reflexão para injetar a lista na instância possível de facetas
-        possibleFacetsService = new PossibleFacetsService(validationRegisterPossibleFacetsList);
-
-        // Configurar mocks dos repositórios
-        when(categoryRepository.getReferenceById(anyLong())).thenReturn(new Category());
-        when(possibleFacetsRepository.save(any(PossibleFacets.class))).thenReturn(new PossibleFacets());
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -57,7 +48,7 @@ public class PossibleFacetsServiceTest {
         category.setId(1L);
         when(categoryRepository.getReferenceById(1L)).thenReturn(category);
 
-        // Dados de entrada para o méto
+        // Dados de entrada para o método
         DataRegisterPossibleFacets data = new DataRegisterPossibleFacets("Example Name", 1L);
 
         // Configurar o possível facet salvo
@@ -70,4 +61,5 @@ public class PossibleFacetsServiceTest {
         // Verificar se o resultado não é nulo
         assertNotNull(result);
     }
+
 }
