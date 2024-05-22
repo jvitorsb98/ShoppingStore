@@ -1,0 +1,2 @@
+ALTER TABLE product_rating
+ADD COLUMN disabled BOOLEAN DEFAULT FALSE;
