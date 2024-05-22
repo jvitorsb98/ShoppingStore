@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.model.entitys.ProductRating;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
+import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating;
 import br.com.cepedi.ShoppingStore.model.records.productRating.details.DataProductRatingDetails;
 import br.com.cepedi.ShoppingStore.repository.ProductRatingRepository;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
 import br.com.cepedi.ShoppingStore.service.productRating.validation.register.ValidationProductRatingRegister;
+import br.com.cepedi.ShoppingStore.service.productRating.validation.update.ValidationProductRatingUpdate;
 
 @Service
 public class ProductRatingService {
@@ -31,13 +33,14 @@ public class ProductRatingService {
 
 	@Autowired
 	private List<ValidationProductRatingRegister> validatorsRegister;
-	
+
+	private List<ValidationProductRatingUpdate> validatorsUpdate;
 	
 	public DataProductRatingDetails  register(DataRegisterProductRating data) {
 		validatorsRegister.forEach(validatorsRegister -> validatorsRegister.validation(data));
 		
 		Product product = productRepository.getReferenceById(data.productId());
-		User user = userRepository.getReferenceById(data.Userid());
+		User user = userRepository.getReferenceById(data.userId());
 		ProductRating productRating = new ProductRating(data, user, product);
 		productRatingRepository.save(productRating);
 		
@@ -52,4 +55,22 @@ public class ProductRatingService {
 		return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
 	}
 	
+	public DataProductRatingDetails UpdateProductRating(Long id, DataUpdateProductRating data) {
+
+	validatorsUpdate.forEach(validatorsUpdate -> validatorsUpdate.validation(id, data));
+	
+	ProductRating productRating = productRatingRepository.getReferenceById(id);
+	
+	productRating.updateDataProductRating(data, userRepository, productRepository);
+	
+
+
+
+
+		return null;
+	
+
+		
+	}
+
 }
