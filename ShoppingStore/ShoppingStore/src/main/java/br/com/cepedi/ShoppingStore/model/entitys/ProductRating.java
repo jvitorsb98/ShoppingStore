@@ -65,10 +65,10 @@ public class ProductRating {
                 }
 
                 if (data.userId() != null){
-                        this.user = new User(data.userId());
+                        this.user = userRepository.getReferenceById(data.userId());
                 }
                 if (data.productId() != null){
-                        this.product = new Product(data.productId());
+                        this.product = productRepository.getReferenceById(data.productId());
                 }       
         }
 
