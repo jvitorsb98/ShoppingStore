@@ -1,0 +1,2 @@
+ALTER TABLE shopping_cart
+ADD COLUMN disabled BOOLEAN DEFAULT FALSE;
