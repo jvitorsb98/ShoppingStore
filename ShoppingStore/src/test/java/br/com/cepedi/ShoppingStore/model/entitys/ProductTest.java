@@ -13,12 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Test entity Product")
 class ProductTest {
 
-    @Test
-    @DisplayName("Basic creation test")
-    public void testProductCreation() {
-        Product product = new Product();
-        assertNotNull(product);
-    }
 
 
 
@@ -35,6 +29,14 @@ class ProductTest {
 
         assertNotEquals(product1, product2);
     }
+
+    @Test
+    @DisplayName("Basic creation test")
+    public void testProductCreation() {
+        Product product = new Product();
+        assertNotNull(product);
+    }
+
 
     @Test
     @DisplayName("Hash code inequality test")
