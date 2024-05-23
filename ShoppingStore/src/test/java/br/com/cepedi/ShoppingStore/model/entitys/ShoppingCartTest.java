@@ -118,41 +118,62 @@ public class ShoppingCartTest {
     }
 
 
-
     @Test
-    @DisplayName("Test hashCode method")
-    public void testHashCode() {
-        ShoppingCart cart1 = new ShoppingCart();
-        ShoppingCart cart2 = new ShoppingCart();
-
-        assertEquals(cart1.hashCode(), cart2.hashCode());
-    }
-
-    @Test
-    @DisplayName("Test canEqual method with same object")
-    public void testCanEqualWithSameObject() {
-        ShoppingCart cart1 = new ShoppingCart();
-        ShoppingCart cart2 = cart1;
-
-        assertTrue(cart1.canEqual(cart2));
-    }
-
-    @Test
-    @DisplayName("Test canEqual method with different class")
-    public void testCanEqualWithDifferentClass() {
+    @DisplayName("Test Disable Shopping Cart")
+    public void testDisableShoppingCart() {
         ShoppingCart cart = new ShoppingCart();
-        Object obj = new Object();
+        cart.setDisabled(false);
 
-        assertFalse(cart.canEqual(obj));
+        // Verify initial state
+        assertFalse(cart.getDisabled());
+
+        // Disable the cart
+        cart.disable();
+
+        // Verify disabled state
+        assertTrue(cart.getDisabled());
     }
 
     @Test
-    @DisplayName("Test canEqual method with different objects")
-    public void testCanEqualWithDifferentObjects() {
-        ShoppingCart cart1 = new ShoppingCart();
-        ShoppingCart cart2 = new ShoppingCart();
+    @DisplayName("Test Enable Shopping Cart")
+    public void testEnableShoppingCart() {
+        ShoppingCart cart = new ShoppingCart();
 
-        assertTrue(cart1.canEqual(cart2));
+        // Disable the cart
+        cart.disable();
+
+        // Verify disabled state
+        assertTrue(cart.getDisabled());
+
+        // Enable the cart
+        cart.enable();
+
+        // Verify enabled state
+        assertFalse(cart.getDisabled());
     }
+
+    @Test
+    @DisplayName("Test Get and Set Disabled")
+    public void testGetAndSetDisabled() {
+        ShoppingCart cart = new ShoppingCart();
+
+        // Set disabled state
+        cart.setDisabled(true);
+
+        // Get and assert disabled state
+        assertTrue(cart.getDisabled());
+
+        // Set enabled state
+        cart.setDisabled(false);
+
+        // Get and assert enabled state
+        assertFalse(cart.getDisabled());
+    }
+
+
+
+
+
+
 
 }

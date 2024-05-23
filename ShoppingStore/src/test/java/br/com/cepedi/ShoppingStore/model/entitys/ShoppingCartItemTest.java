@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -73,4 +73,50 @@ public class ShoppingCartItemTest {
         shoppingCartItem.setId(id);
         assertEquals(id, shoppingCartItem.getId());
     }
+
+    @Test
+    @DisplayName("Test Disable ShoppingCartItem")
+    void testDisableShoppingCartItem() {
+        // Verify initial state
+        assertFalse(shoppingCartItem.getDisabled());
+
+        // Disable the item
+        shoppingCartItem.disable();
+
+        // Verify disabled state
+        assertTrue(shoppingCartItem.getDisabled());
+    }
+
+    @Test
+    @DisplayName("Test Enable ShoppingCartItem")
+    void testEnableShoppingCartItem() {
+        // Disable the item
+        shoppingCartItem.disable();
+
+        // Verify disabled state
+        assertTrue(shoppingCartItem.getDisabled());
+
+        // Enable the item
+        shoppingCartItem.enable();
+
+        // Verify enabled state
+        assertFalse(shoppingCartItem.getDisabled());
+    }
+
+    @Test
+    @DisplayName("Test Get and Set Disabled")
+    void testGetAndSetDisabled() {
+        // Set disabled state
+        shoppingCartItem.setDisabled(true);
+
+        // Get and assert disabled state
+        assertTrue(shoppingCartItem.getDisabled());
+
+        // Set enabled state
+        shoppingCartItem.setDisabled(false);
+
+        // Get and assert enabled state
+        assertFalse(shoppingCartItem.getDisabled());
+    }
+
 }
