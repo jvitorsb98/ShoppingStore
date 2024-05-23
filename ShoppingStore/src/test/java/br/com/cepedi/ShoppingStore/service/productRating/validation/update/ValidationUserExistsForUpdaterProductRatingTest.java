@@ -28,7 +28,7 @@ public class ValidationUserExistsForUpdaterProductRatingTest {
         when(userRepository.existsById(userId)).thenReturn(true);
 
        
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(null, null, null, userId)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,null, null, null, userId)));
     }
 
     @Test
@@ -37,12 +37,13 @@ public class ValidationUserExistsForUpdaterProductRatingTest {
         when(userRepository.existsById(userId)).thenReturn(false);
 
        
-        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(null, null, null, userId)));
+        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(1L,null, null, null, userId)));
     }
 
     @Test
     public void testValidationWithNullUserId() {
         
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(null, null, null, null)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,null, null, null, null)));
     }
+
 }

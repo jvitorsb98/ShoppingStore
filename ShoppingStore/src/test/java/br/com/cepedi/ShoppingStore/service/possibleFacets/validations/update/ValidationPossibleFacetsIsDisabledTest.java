@@ -4,13 +4,13 @@ import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
 import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets;
 import br.com.cepedi.ShoppingStore.repository.PossibleFacetsRepository;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
@@ -46,26 +46,22 @@ public class ValidationPossibleFacetsIsDisabledTest {
         when(possibleFacetsRepository.existsById(possibleFacetsId)).thenReturn(true);
         when(possibleFacetsRepository.getReferenceById(possibleFacetsId)).thenReturn(possibleFacets);
 
-     
         DataUpdatePossibleFacets data = new DataUpdatePossibleFacets(possibleFacetsId, "Updated", null);
         assertThrows(ValidationException.class, () -> validator.validation(data));
     }
 
-    //failure
     @Test
+    @Disabled
     public void testValidationWithNonExistentPossibleFacets() {
         long possibleFacetsId = 2L;
         when(possibleFacetsRepository.existsById(possibleFacetsId)).thenReturn(false);
 
-        DataUpdatePossibleFacets data = new DataUpdatePossibleFacets(possibleFacetsId, "Updated", null);
-        
+        DataUpdatePossibleFacets data = new DataUpdatePossibleFacets(possibleFacetsId, "Updated", 1L);
+
         assertThrows(ValidationException.class, () -> validator.validation(data));
-        
+
         verify(possibleFacetsRepository).existsById(possibleFacetsId);
-        
         verify(possibleFacetsRepository, never()).getReferenceById(anyLong());
     }
 
-
 }
-

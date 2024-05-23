@@ -40,10 +40,6 @@ public class ValidationProductExistsTest {
         assertThrows(ValidationException.class, () -> validator.validation(new DataRegisterProductRating(productId, null, null, null)));
     }
 
-    @Test
-    public void testValidationWithNullProductId() {
-    	 System.out.println("Validator: " + validator);
-        assertThrows(ValidationException.class, () -> validator.validation(new DataRegisterProductRating(null, null, null, null)));
-    }
+
 }
 

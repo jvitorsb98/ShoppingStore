@@ -32,7 +32,7 @@ public class ValidationIfUserIsDisabledForUpdaterProductRatingTest {
         when(userRepository.getReferenceById(userId)).thenReturn(user);
 
        
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(null, null, null, userId)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,null, null, null, userId)));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ValidationIfUserIsDisabledForUpdaterProductRatingTest {
         when(userRepository.getReferenceById(userId)).thenReturn(user);
 
  
-        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(null, null, null, userId)));
+        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(1L,null, null, null, userId)));
     }
 
     @Test
@@ -53,6 +53,6 @@ public class ValidationIfUserIsDisabledForUpdaterProductRatingTest {
         when(userRepository.existsById(userId)).thenReturn(false);
 
      
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(null, null, null, userId)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,null, null, null, userId)));
     }
 }

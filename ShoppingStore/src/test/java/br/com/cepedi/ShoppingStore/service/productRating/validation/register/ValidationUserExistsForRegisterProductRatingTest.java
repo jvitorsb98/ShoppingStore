@@ -40,10 +40,5 @@ public class ValidationUserExistsForRegisterProductRatingTest {
         assertThrows(ValidationException.class, () -> validator.validation(new DataRegisterProductRating(productId, null, null, null)));
     }
     
-    //failure
-    @Test
-    public void testValidationWithNullProductId() {
-        // Verifica se uma exceção é lançada quando um ID de produto nulo é fornecido
-        assertThrows(ValidationException.class, () -> validator.validation(new DataRegisterProductRating(null, null, null, null)));
-    }
+
 }

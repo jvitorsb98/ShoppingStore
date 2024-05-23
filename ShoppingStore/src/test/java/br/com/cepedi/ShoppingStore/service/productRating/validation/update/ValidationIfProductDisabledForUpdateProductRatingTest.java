@@ -32,7 +32,7 @@ public class ValidationIfProductDisabledForUpdateProductRatingTest {
         when(productRepository.getReferenceById(productId)).thenReturn(product);
 
      
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(productId, null, null, null)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,productId, null, null, null)));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ValidationIfProductDisabledForUpdateProductRatingTest {
         when(productRepository.getReferenceById(productId)).thenReturn(product);
 
         
-        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(productId, null, null, null)));
+        assertThrows(ValidationException.class, () -> validator.validation(new DataUpdateProductRating(1L,productId, null, null, null)));
     }
 
     @Test
@@ -53,6 +53,7 @@ public class ValidationIfProductDisabledForUpdateProductRatingTest {
         when(productRepository.existsById(productId)).thenReturn(false);
 
        
-        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(productId, null, null, null)));
+        assertDoesNotThrow(() -> validator.validation(new DataUpdateProductRating(1L,productId, null, null, null)));
     }
+
 }

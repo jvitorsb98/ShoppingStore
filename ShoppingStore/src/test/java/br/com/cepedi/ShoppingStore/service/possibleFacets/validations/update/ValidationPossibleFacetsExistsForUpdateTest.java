@@ -42,5 +42,6 @@ public class ValidationPossibleFacetsExistsForUpdateTest {
 
         assertThrows(ValidationException.class, () -> validator.validation(new DataUpdatePossibleFacets(2L, "Updated", 2L)));
     }
+
 }
 
