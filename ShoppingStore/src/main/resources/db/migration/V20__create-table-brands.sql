@@ -1,0 +1,5 @@
+CREATE TABLE brands (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    disabled BOOLEAN DEFAULT FALSE
+);

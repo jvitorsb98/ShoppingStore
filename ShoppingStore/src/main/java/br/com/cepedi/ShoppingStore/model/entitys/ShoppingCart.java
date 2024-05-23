@@ -5,17 +5,16 @@ import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 //import java.util.HashSet;
 //import java.util.Set;
 
 @Entity
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "shopping_cart")
 public class ShoppingCart {
 
@@ -42,6 +41,7 @@ public class ShoppingCart {
     public ShoppingCart(User user){
         this.totalPrice = BigDecimal.ZERO;
         this.user = user;
+        this.disabled = false;
     }
 
     public void disable() {

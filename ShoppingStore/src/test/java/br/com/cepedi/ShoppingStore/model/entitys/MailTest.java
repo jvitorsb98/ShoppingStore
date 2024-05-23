@@ -13,7 +13,7 @@ public class MailTest {
 
 	@DisplayName("Test mail object creation")
 	@Test
-	void testMailObjectCreation() {
+	public void testMailObjectCreation() {
 		// Arrange
 		Long id = 1L;
 		String from = "test@example.com";
@@ -34,7 +34,7 @@ public class MailTest {
 
 	@DisplayName("Test mail object creation with null values")
 	@Test
-	void testMailObjectCreationWithNullValues() {
+	public void testMailObjectCreationWithNullValues() {
 		// Act
 		Mail mail = new Mail(null, null, null, null, null);
 
@@ -48,7 +48,7 @@ public class MailTest {
 
 	@DisplayName("Test of Mail entity sets")
 	@Test
-	void testOfMailEntitySets() {
+	public void testOfMailEntitySets() {
 		// Arrange
 		Long id = 1L;
 		String from = "test@example.com";
@@ -74,7 +74,7 @@ public class MailTest {
 
 	@DisplayName("Test mail object creation with DataRegisterMail")
 	@Test
-	void testMailObjectCreationWithDataRegisterMail() {
+	public void testMailObjectCreationWithDataRegisterMail() {
 		// Arrange
 		Long id = 1L;
 		String from = "test@example.com";
