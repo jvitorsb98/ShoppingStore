@@ -59,7 +59,16 @@ public class ProductRatingService {
 	public DataProductRatingDetails detailsProduct(Long id) {
 		return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
 	}
-
+	
+	 public Page<DataProductRatingDetails> getProductRatingsByUserId(Long userId,  Pageable pageable) {       
+	        return productRatingRepository.findAllByUserId(userId, pageable).map(DataProductRatingDetails::new);
+	    }
+	 
+	 public Page<DataProductRatingDetails> getProductRatingsByProductId(Long productId, Pageable pageable) {
+	       
+		 return productRatingRepository.findAllByProductId(productId, pageable).map(DataProductRatingDetails::new);
+	    }
+	
 	public DataProductRatingDetails updateProductRating(Long id, DataUpdateProductRating data) {
 		validatorsUpdate.forEach(validator -> validator.validation(data));
 
