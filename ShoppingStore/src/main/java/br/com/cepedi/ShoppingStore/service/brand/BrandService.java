@@ -58,4 +58,7 @@ public class BrandService {
         return brandRepository.findAll(pageable).map(DataBrandDetails::new);
     }
 
+    public Page<DataBrandDetails> listAllBrandsAndDisabledTrue(Pageable pageable) {
+        return brandRepository.findAllByDisabledTrue(pageable).map(DataBrandDetails::new);
+    }
 }

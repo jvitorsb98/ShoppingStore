@@ -46,8 +46,17 @@ public class PaymentService {
                 .map(DataDetailsPayment::new);
     }
 
+    public Page<DataDetailsPayment> listAllPaymentsAndDisabledTrue(Pageable pageable) {
+        return paymentRepository.findAllPaymentsAndDisabledTrue(pageable)
+                .map(DataDetailsPayment::new);
+    }
+
     public Page<DataDetailsPayment> listAllPaymentsForUser(Long idUser , Pageable pageable) {
         return paymentRepository.findAllPaymentsByUserId(idUser,pageable).map(DataDetailsPayment::new);
+    }
+
+    public Page<DataDetailsPayment> listAllPaymentsForUserAndDisabledTrue(Long idUser , Pageable pageable) {
+        return paymentRepository.findAllPaymentsByUserIdAndDisabledTrue(idUser,pageable).map(DataDetailsPayment::new);
     }
 
     public void disable(Long id) {
