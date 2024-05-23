@@ -13,6 +13,7 @@ public class ValidationProductExists implements ValidationProductRatingRegister 
 	@Autowired
 	private ProductRepository productRepository;
 
+	//failures
 	@Override
 	public void validation(DataRegisterProductRating data) {
 		if (data.productId() != null && !productRepository.existsById(data.productId())) {
