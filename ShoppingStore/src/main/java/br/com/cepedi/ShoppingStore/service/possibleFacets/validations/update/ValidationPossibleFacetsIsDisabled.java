@@ -1,6 +1,6 @@
 package br.com.cepedi.ShoppingStore.service.possibleFacets.validations.update;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
+
 import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
 import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets;
 import br.com.cepedi.ShoppingStore.repository.PossibleFacetsRepository;
