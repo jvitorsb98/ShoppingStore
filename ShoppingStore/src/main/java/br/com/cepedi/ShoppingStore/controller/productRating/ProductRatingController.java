@@ -1,5 +1,7 @@
 package br.com.cepedi.ShoppingStore.controller.productRating;
 
+
+
 import br.com.cepedi.ShoppingStore.model.records.productRating.details.DataProductRatingDetails;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating;
@@ -32,6 +34,7 @@ public class ProductRatingController {
     @PostMapping
     @Transactional
     public ResponseEntity<DataProductRatingDetails> register(@RequestBody @Valid DataRegisterProductRating data, UriComponentsBuilder uriBuilder) {
+        System.out.println(data);
         log.info("Registering new ProductRating...");
         DataProductRatingDetails details = service.register(data);
         URI uri = uriBuilder.path("/product-ratings/{id}").buildAndExpand(details.id()).toUri();
@@ -55,7 +58,7 @@ public class ProductRatingController {
         return ResponseEntity.ok(details);
     }
 
-    @GetMapping("/productRating/{productId}")
+    @GetMapping("/product/{productId}")
     public ResponseEntity<Page<DataProductRatingDetails>> listByProduct(
             @PathVariable Long productId,
             @PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
@@ -65,7 +68,7 @@ public class ProductRatingController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/productRating/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<Page<DataProductRatingDetails>> listByUser(
             @PathVariable Long userId,
             @PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
@@ -75,12 +78,12 @@ public class ProductRatingController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Transactional
-    public ResponseEntity<DataProductRatingDetails> update(@PathVariable Long id, @RequestBody @Valid DataUpdateProductRating data) {
-        log.info("Updating ProductRating with ID: {}", id);
-        DataProductRatingDetails details = service.updateProductRating(id, data);
-        log.info("ProductRating with ID {} updated successfully.", id);
+    public ResponseEntity<DataProductRatingDetails> update(@RequestBody @Valid DataUpdateProductRating data) {
+        log.info("Updating ProductRating with ID: {}", data.id());
+        DataProductRatingDetails details = service.updateProductRating(data);
+        log.info("ProductRating with ID {} updated successfully.", data.id());
         return ResponseEntity.ok(details);
     }
 

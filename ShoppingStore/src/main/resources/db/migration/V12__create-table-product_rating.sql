@@ -1,6 +1,6 @@
 CREATE TABLE product_rating (
     id BIGSERIAL PRIMARY KEY,
-    product_id BIGINT,
+    product_id BIGINT NOT NULL,
     rating_stars DECIMAL(4,2) NOT NULL,
     review TEXT,
     user_id BIGINT NOT NULL,

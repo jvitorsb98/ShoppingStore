@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,12 @@ public class ErrorsHandler {
     public ResponseEntity<Object> handle500Error(Exception ex) {
         logger.error("Internal server error occurred.", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + ex.getLocalizedMessage());
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<Object> handleValidationException(ValidationException ex) {
+        logger.error("ValidationException occurred.", ex);
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     private record DataExceptionValidate(String value, String message) {

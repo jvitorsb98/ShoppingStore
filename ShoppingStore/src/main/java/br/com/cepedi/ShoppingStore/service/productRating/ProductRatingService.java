@@ -43,7 +43,6 @@ public class ProductRatingService {
 
 	public DataProductRatingDetails register(DataRegisterProductRating data) {
 		validatorsRegister.forEach(validator -> validator.validation(data));
-
 		Product product = productRepository.getReferenceById(data.productId());
 		User user = userRepository.getReferenceById(data.Userid());
 		ProductRating productRating = new ProductRating(data, user, product);
@@ -69,10 +68,10 @@ public class ProductRatingService {
 		 return productRatingRepository.findAllByProductId(productId, pageable).map(DataProductRatingDetails::new);
 	    }
 	
-	public DataProductRatingDetails updateProductRating(Long id, DataUpdateProductRating data) {
+	public DataProductRatingDetails updateProductRating(DataUpdateProductRating data) {
 		validatorsUpdate.forEach(validator -> validator.validation(data));
 
-		ProductRating productRating = productRatingRepository.getReferenceById(id);
+		ProductRating productRating = productRatingRepository.getReferenceById(data.id());
 		User user = null;
 		Product product = null;
 		if(data.userId() != null){

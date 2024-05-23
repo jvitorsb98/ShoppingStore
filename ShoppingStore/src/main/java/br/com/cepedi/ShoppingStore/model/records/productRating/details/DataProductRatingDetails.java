@@ -8,18 +8,18 @@ import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 
 public record DataProductRatingDetails(
     Long id,
-    Product product,
+    Long idProduct,
     BigDecimal ratingStars,
     String review,
-    User user
+	Long idUser
 ) {
 
 	public DataProductRatingDetails(ProductRating productRating) {
 		this(
 			productRating.getId(),
-			productRating.getProduct(),
+			productRating.getProduct().getId(),
 			productRating.getRatingStars(),
 			productRating.getReview(),
-			productRating.getUser()
+			productRating.getUser().getId()
 		);
 	}}

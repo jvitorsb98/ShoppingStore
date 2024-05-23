@@ -24,7 +24,7 @@ public class ProductRating {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "product_id")
         private Product product;
 
@@ -34,7 +34,8 @@ public class ProductRating {
         @Column(name = "review")
         private String review;
 
-        @Column(name = "user_id")
+        @ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "user_id")
         private User user;
 
         private Boolean disabled;

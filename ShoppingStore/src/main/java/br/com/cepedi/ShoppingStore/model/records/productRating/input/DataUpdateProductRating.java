@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 
 public record DataUpdateProductRating(
 
+        @NotNull
+        Long id,
+
         @NotNull(message = "Product ID cannot be null")
         Long productId,
 
