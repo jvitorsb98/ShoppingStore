@@ -41,6 +41,10 @@ public class CategoryService {
                 .map(DataCategoryDetails::new);
     }
 
+    public Page<DataCategoryDetails> listAllDeactivatedCategories(Pageable pageable){
+        return categoryRepository.findAllByDisabledTrue(pageable).map(DataCategoryDetails::new);
+    }
+
     public Page<DataCategoryDetails> listCategoriesByName(String name, Pageable pageable) {
         return categoryRepository.findByNameContaining(name, pageable)
                 .map(DataCategoryDetails::new);

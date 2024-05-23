@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.repository;
 import br.com.cepedi.ShoppingStore.model.entitys.ProductRating;
 import jakarta.transaction.Transactional;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,9 @@ public interface ProductRatingRepository extends JpaRepository<ProductRating,Lon
 	
     Page<ProductRating> findAll(Pageable pageable);
 
+    @Cacheable
+    Page<ProductRating> findAllByDisabledTrue(Pageable pageable);
+
     @Query("""
             SELECT p.ratingStars, p.review, p.user, p.product FROM ProductRating p
                 WHERE p.id = :id
@@ -22,11 +26,27 @@ public interface ProductRatingRepository extends JpaRepository<ProductRating,Lon
     @Query(value = "SELECT * FROM product_rating WHERE user_id = ?1", nativeQuery = true)
     Page<ProductRating> findAllByUserId(Long userId, Pageable pageable);
 
+    @Cacheable
+    @Query("""
+            SELECT p FROM ProductRating p
+            WHERE p.user.id = :userId
+            AND p.disabled = true
+            """)
+    Page<ProductRating> findAllByUserIdAndDisabledTrue(Long userId, Pageable pageable);
+
     @Query("""
             SELECT p FROM ProductRating p
             WHERE p.product.id = :productId
             """)
     Page<ProductRating> findAllByProductId(Long productId, Pageable pageable);
+
+    @Cacheable
+    @Query("""
+            SELECT p FROM ProductRating p
+            WHERE p.product.id = :productId
+            AND p.disabled = true
+            """)
+    Page<ProductRating> findAllByProductIdAndDisabledTrue(Long productId, Pageable pageable);
 
     @Transactional
     @Modifying

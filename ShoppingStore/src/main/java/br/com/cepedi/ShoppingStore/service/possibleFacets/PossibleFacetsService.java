@@ -19,8 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-import java.util.List;
-
 @Service
 public class PossibleFacetsService {
 
@@ -54,6 +52,10 @@ public class PossibleFacetsService {
                 .map(DataPossibleFacetsDetails::new);
     }
 
+    public Page<DataPossibleFacetsDetails> listAllDeactivated(Pageable pageable){
+        return possibleFacetsRepository.findAllByDisabledTrue(pageable).map(DataPossibleFacetsDetails::new);
+    }
+
     public DataPossibleFacetsDetails findById(Long id) {
         PossibleFacets possibleFacets = possibleFacetsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("PossibleFacets not found"));
@@ -65,6 +67,10 @@ public class PossibleFacetsService {
                 .map(DataPossibleFacetsDetails::new);
     }
 
+    public Page<DataPossibleFacetsDetails> findByCategoryAndIsDisabled(Long idCategory, Pageable pageable){
+        return possibleFacetsRepository.findByCategoryAndIsDisabled(idCategory, pageable)
+                .map(DataPossibleFacetsDetails::new);
+    }
 
     public DataPossibleFacetsDetails update(DataUpdatePossibleFacets data) {
         validationUpdatePossibleFacetsList.forEach(v -> v.validation(data));

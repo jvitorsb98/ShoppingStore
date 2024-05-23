@@ -47,6 +47,10 @@ public class ProductService {
     public Page<DataProductDetails> list(Pageable pageable) {
         return productRepository.findAll(pageable).map(DataProductDetails::new);
     }
+
+    public Page<DataProductDetails> listDeactivated(Pageable pageable){
+        return productRepository.findAllByDisabledTrue(pageable).map(DataProductDetails::new);
+    }
     
 	public DataProductDetails detailsProduct(Long id) {
 		return new DataProductDetails(productRepository.getReferenceById(id));
@@ -55,6 +59,10 @@ public class ProductService {
 	public Page<DataProductDetails> detailsProductCategory(Long id, Pageable pageable) {
 		return productRepository.findAllByCategoryId(id,pageable).map(DataProductDetails::new);
 	}
+
+    public Page<DataProductDetails> detailsProductCategoryAndIsDeactivated(Long id, Pageable pageable) {
+        return productRepository.findAllByCategoryIdAndDisabledIsTrue(id,pageable).map(DataProductDetails::new);
+    }
 	
 	public DataProductDetails updateProduct(DataUpdateProduct data) {
 		validatorsUpdateProduct.forEach(validatorsUpdateProduct -> validatorsUpdateProduct.validation(data));

@@ -1,12 +1,10 @@
 package br.com.cepedi.ShoppingStore.repository;
 
 
-
-
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
-import jakarta.transaction.Transactional;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
@@ -33,7 +31,11 @@ public interface PossibleFacetsRepository extends JpaRepository<PossibleFacets, 
     @Modifying
     @Query("UPDATE PossibleFacets p SET p.name = :name, p.category = :category WHERE p.id = :id")
     void update(@Param("id") Long id, @Param("name") String name, @Param("category") Category category);
-    
-    
+
+    @Cacheable
+    Page<PossibleFacets> findAllByDisabledTrue(Pageable pageable);
+
+    @Query("SELECT p FROM PossibleFacets p WHERE p.category.id = :category AND p.disabled = true")
+    Page<PossibleFacets> findByCategoryAndIsDisabled(@Param("category") Long idCategory, Pageable pageable);
 }
 

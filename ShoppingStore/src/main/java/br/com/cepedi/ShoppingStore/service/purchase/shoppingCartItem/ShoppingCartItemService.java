@@ -8,14 +8,10 @@ import br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.details.DataDe
 import br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.input.DataRegisterShoppingCartItem;
 import br.com.cepedi.ShoppingStore.model.records.purchase.details.DataDetailsPurchase;
 import br.com.cepedi.ShoppingStore.model.records.shoppingCart.details.DataDetailsShoppingCart;
-import br.com.cepedi.ShoppingStore.model.records.shoppingCart.input.DataRegisterShoppingCart;
 import br.com.cepedi.ShoppingStore.repository.ProductRepository;
 import br.com.cepedi.ShoppingStore.repository.ShoppingCartItemRepository;
 import br.com.cepedi.ShoppingStore.repository.ShoppingCartRepository;
-import br.com.cepedi.ShoppingStore.security.model.entitys.User;
-import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

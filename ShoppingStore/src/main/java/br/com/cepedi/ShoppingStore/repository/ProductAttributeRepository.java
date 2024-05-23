@@ -30,6 +30,5 @@ public interface ProductAttributeRepository extends JpaRepository<ProductAttribu
                 WHERE p_a.id = :id
             """)
     Boolean findDisabledById(Long id);
-
 }
 

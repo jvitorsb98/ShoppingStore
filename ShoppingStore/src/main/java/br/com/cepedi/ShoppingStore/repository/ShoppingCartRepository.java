@@ -10,22 +10,27 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart,Long> {
      ShoppingCart findByUserId(Long userId);
 
+     @Cacheable
+     Page<ShoppingCart> findAllByDisabledTrue(Pageable pageable);
 
      @Query("""
             SELECT s FROM ShoppingCart s WHERE s.user.id = :userId
             """)
      Page<ShoppingCart> findAllByUser(Pageable pageable, Long userId);
 
+     @Cacheable
+     @Query("""
+            SELECT s FROM ShoppingCart s WHERE s.user.id = :userId AND s.disabled = true
+            """)
+     Page<ShoppingCart> findAllByUserAndDisabledIsTrue(Pageable pageable, Long userId);
+
      @Query("""
           SELECT sci FROM ShoppingCartItem sci WHERE sci.shoppingCart.id = :shoppingCartId
      """)
      List<ShoppingCartItem> findAllByShoppingCartId(Long shoppingCartId);
-
-
 }

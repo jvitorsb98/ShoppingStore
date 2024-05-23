@@ -55,18 +55,31 @@ public class ProductRatingService {
 		return productRatingRepository.findAll(pageable).map(DataProductRatingDetails::new);
 	}
 
+	public Page<DataProductRatingDetails> listDeactivated(Pageable pageable){
+		return productRatingRepository.findAllByDisabledTrue(pageable).map(DataProductRatingDetails::new);
+	}
+
 	public DataProductRatingDetails detailsProduct(Long id) {
 		return new DataProductRatingDetails(productRatingRepository.getReferenceById(id));
 	}
 	
-	 public Page<DataProductRatingDetails> getProductRatingsByUserId(Long userId,  Pageable pageable) {       
-	        return productRatingRepository.findAllByUserId(userId, pageable).map(DataProductRatingDetails::new);
-	    }
+	public Page<DataProductRatingDetails> getProductRatingsByUserId(Long userId,  Pageable pageable) {
+		return productRatingRepository.findAllByUserId(userId, pageable).map(DataProductRatingDetails::new);
+	}
+
+	public Page<DataProductRatingDetails> getProductRatingsByUserIdAndDisabledTrue(Long userId,  Pageable pageable) {
+		return productRatingRepository.findAllByUserIdAndDisabledTrue(userId, pageable).map(DataProductRatingDetails::new);
+	}
 	 
-	 public Page<DataProductRatingDetails> getProductRatingsByProductId(Long productId, Pageable pageable) {
-	       
-		 return productRatingRepository.findAllByProductId(productId, pageable).map(DataProductRatingDetails::new);
-	    }
+	public Page<DataProductRatingDetails> getProductRatingsByProductId(Long productId, Pageable pageable) {
+
+	 return productRatingRepository.findAllByProductId(productId, pageable).map(DataProductRatingDetails::new);
+	}
+
+	public Page<DataProductRatingDetails> getProductRatingsByProductIdAndDisabledTrue(Long productId, Pageable pageable) {
+
+		return productRatingRepository.findAllByProductIdAndDisabledTrue(productId, pageable).map(DataProductRatingDetails::new);
+	}
 	
 	public DataProductRatingDetails updateProductRating(DataUpdateProductRating data) {
 		validatorsUpdate.forEach(validator -> validator.validation(data));
@@ -93,5 +106,4 @@ public class ProductRatingService {
 
 		productRating.disable();
 	}
-	
 }
