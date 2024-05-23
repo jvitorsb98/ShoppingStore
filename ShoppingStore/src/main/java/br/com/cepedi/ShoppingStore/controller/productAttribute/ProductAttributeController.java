@@ -85,5 +85,14 @@ public class ProductAttributeController {
         return ResponseEntity.ok(details);
     }
     
+    @PutMapping
+	@Transactional
+	public ResponseEntity<DataProductAttributeDetails> update( @RequestBody @Valid DataUpdateProductAttribute data) { 
+		log.info("Updating ProductAttribute with ID: {}", data.id());
+		DataProductAttributeDetails details = service.update( data);
+		log.info("ProductAttribute with ID {} updated successfully.", data.id());
+		return ResponseEntity.ok(details);
+    }
+    
 
 }
