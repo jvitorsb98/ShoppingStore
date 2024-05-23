@@ -1,4 +1,4 @@
-/*package br.com.cepedi.ShoppingStore.controller.category;
+package br.com.cepedi.ShoppingStore.controller.category;
 
 import static org.mockito.Mockito.*;
 
@@ -86,4 +86,4 @@ public class CategoryControllerTest {
     }
 }
 
-*/
+
