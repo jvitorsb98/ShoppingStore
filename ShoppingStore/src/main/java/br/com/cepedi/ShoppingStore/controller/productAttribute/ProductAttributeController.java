@@ -94,5 +94,12 @@ public class ProductAttributeController {
 		return ResponseEntity.ok(details);
     }
     
-
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> disabled(@PathVariable Long id) {
+		log.info("Disabling ProductAttribute with ID: {}", id);
+		service.disabled(id);
+		log.info("ProductAttribute with ID {} disabled successfully.", id);
+		return ResponseEntity.noContent().build();
+	}
 }
