@@ -15,7 +15,7 @@ public class ValidationCategoryDisabledForUpdateProduct implements ValidationUpd
 
     @Override
     public void validation(DataUpdateProduct data) {
-        if (categoryRepository.existsById(data.categoryId())) {
+        if (data.categoryId() != null && categoryRepository.existsById(data.categoryId())) {
             Category category = categoryRepository.getReferenceById(data.categoryId());
             if(category.getDisabled()){
                 throw new ValidationException("The provided category is disabled");

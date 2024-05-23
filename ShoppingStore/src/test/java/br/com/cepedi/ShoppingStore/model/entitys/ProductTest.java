@@ -2,19 +2,20 @@ package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
-import org.junit.jupiter.api.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.Random.class)
 @DisplayName("Test entity Product")
 class ProductTest {
-
-
-
 
     @Test
     @DisplayName("Inequality test")
@@ -36,7 +37,6 @@ class ProductTest {
         Product product = new Product();
         assertNotNull(product);
     }
-
 
     @Test
     @DisplayName("Hash code inequality test")
@@ -72,22 +72,27 @@ class ProductTest {
     }
 
     @Test
-    @DisplayName("Test setCategory and getCategory")
-    public void testSetAndGetCategory() {
+    @DisplayName("Test setBrand and getBrand")
+    public void testSetAndGetBrand() {
         Product product = new Product();
-        Category category = new Category();
-        category.setId(1L);
-        product.setCategory(category);
-        assertEquals(category, product.getCategory());
+        Brand brand = new Brand();
+        brand.setId(1L);
+        product.setBrand(brand);
+        assertEquals(brand, product.getBrand());
     }
 
     @Test
-    @DisplayName("Test creation of product from register data and category")
-    public void testProductCreationFromRegisterDataAndCategory() {
+    @DisplayName("Test creation of product from register data, category, and brand")
+    public void testProductCreationFromRegisterDataCategoryAndBrand() {
         // Create a category
         Category category = new Category();
         category.setId(1L);
         category.setName("Electronics");
+
+        // Create a brand
+        Brand brand = new Brand();
+        brand.setId(1L);
+        brand.setName("Samsung");
 
         // Create data for product registration
         DataRegisterProduct data = new DataRegisterProduct(
@@ -98,12 +103,12 @@ class ProductTest {
                 "https://example.com/image.jpg",
                 category.getId(),
                 BigInteger.valueOf(10),
-                "Manufacturer",
+                brand.getId(),
                 true
         );
 
-        // Create a new product based on the registration data and category
-        Product product = new Product(data, category);
+        // Create a new product based on the registration data, category, and brand
+        Product product = new Product(data, category, brand);
 
         // Assert that the product is not null
         assertNotNull(product);
@@ -115,64 +120,10 @@ class ProductTest {
         assertEquals(data.sku(), product.getSku());
         assertEquals(data.imageUrl(), product.getImageUrl());
         assertEquals(data.quantity(), product.getQuantity());
-        assertEquals(data.manufacturer(), product.getManufacturer());
+        assertEquals(brand, product.getBrand());
         assertEquals(data.featured(), product.getFeatured());
         assertEquals(category, product.getCategory());
         assertFalse(product.getDisabled());
     }
-
-//    @Test
-//    @DisplayName("Test updateDataProduct")
-//    public void testUpdateDataProduct() {
-//        // Create a category
-//        Category category = new Category();
-//        category.setId(1L);
-//        category.setName("Electronics");
-//
-//        // Create initial data for the product
-//        DataRegisterProduct initialData = new DataRegisterProduct(
-//                "Smartphone",
-//                "A smartphone description",
-//                BigDecimal.valueOf(999.99),
-//                "SKU123",
-//                "https://example.com/image.jpg",
-//                category.getId(),
-//                BigInteger.valueOf(10),
-//                "Manufacturer",
-//                true
-//        );
-//
-//        // Create a new product based on the initial data and category
-//        Product product = new Product(initialData, category);
-//
-//        // Create updated data for the product
-//        DataUpdateProduct updatedData = new DataUpdateProduct(
-//                product.getId(),
-//                "Updated Smartphone",
-//                "An updated smartphone description",
-//                BigDecimal.valueOf(1299.99),
-//                "UPDATEDSKU123",
-//                "https://example.com/updated-image.jpg",
-//                category.getId(),
-//                BigInteger.valueOf(20),
-//                "Updated Manufacturer",
-//                false
-//        );
-//
-//        // Update the product with the updated data
-//        product.updateDataProduct(updatedData);
-//
-//        // Assert that the product has been updated correctly
-//        assertEquals(updatedData.name(), product.getName());
-//        assertEquals(updatedData.description(), product.getDescription());
-//        assertEquals(updatedData.price(), product.getPrice());
-//        assertEquals(updatedData.sku(), product.getSku());
-//        assertEquals(updatedData.imageUrl(), product.getImageUrl());
-//        assertEquals(updatedData.quantity(), product.getQuantity());
-//        assertEquals(updatedData.manufacturer(), product.getManufacturer());
-////        assertFalse(product.isFeatured());
-//    }
-
-
 
 }

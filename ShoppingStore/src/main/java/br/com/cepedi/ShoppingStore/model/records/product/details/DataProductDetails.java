@@ -16,7 +16,7 @@ public record DataProductDetails(
     String imageUrl,
     Long categoryId,
     BigInteger quantity,
-    String manufacturer,
+    Long brandId,
     boolean featured
  // List<ProductAttribute> productAttributeList,
  // List<ProductRating> productRating
@@ -31,7 +31,7 @@ public record DataProductDetails(
             product.getImageUrl(),
             product.getCategory().getId(),
             product.getQuantity(),
-            product.getManufacturer(),
+            product.getBrand().getId(),
             product.getFeatured()//Aqui usamos isFeatured()em vez de get() para boolean no Lombok
        );
     }

@@ -1,23 +1,21 @@
 package br.com.cepedi.ShoppingStore.service.product.validations.update;
 
-
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct;
-import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
+import br.com.cepedi.ShoppingStore.repository.BrandRepository;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidationCategoryExistsForUpdateProduct implements ValidationUpdateProduct {
+public class ValidationIfBrandExistisForUpdateProduct implements ValidationUpdateProduct{
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
+    private BrandRepository brandRepository;
 
     @Override
     public void validation(DataUpdateProduct data) {
-        if ( data.categoryId() != null  && !categoryRepository.existsById(data.categoryId())) {
-            throw new ValidationException("The provided category id does not exist");
+        if ( data.brandId() != null  && !brandRepository.existsById(data.brandId())) {
+            throw new ValidationException("The provided brand id does not exist");
         }
     }
 }

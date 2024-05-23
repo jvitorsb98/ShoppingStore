@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import br.com.cepedi.ShoppingStore.model.entitys.Brand;
 import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import br.com.cepedi.ShoppingStore.model.entitys.Product;
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
@@ -52,12 +53,13 @@ class ProductRepositoryTest {
                 "http://example.com/image.jpg",
                 category.getId(),
                 BigInteger.valueOf(10),
-                "Manufacturer",
+                1L,
                 false
         );
 
+        Brand brand = new Brand(); // Criando uma instância de Brand
         // Arrange
-        Product product = new Product(dataRegisterProduct, category);
+        Product product = new Product(dataRegisterProduct, category, brand);
 
         // Act
         Product savedProduct = productRepository.save(product);

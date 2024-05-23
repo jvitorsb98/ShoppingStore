@@ -2,6 +2,8 @@ package br.com.cepedi.ShoppingStore.service.product;
 
 import java.util.List;
 
+import br.com.cepedi.ShoppingStore.model.entitys.Brand;
+import br.com.cepedi.ShoppingStore.repository.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private BrandRepository brandRepository;
+
 	@Autowired
     private List<ValidationRegisterProduct> validatorsRegister;
 	
@@ -39,7 +44,8 @@ public class ProductService {
     public DataProductDetails register(DataRegisterProduct data) {
         validatorsRegister.forEach(validator -> validator.validation(data));
         Category category = categoryRepository.getReferenceById(data.categoryId());
-        Product product = new Product(data, category);
+        Brand brand = brandRepository.getReferenceById(data.brandId());
+        Product product = new Product(data, category, brand);
         productRepository.save(product);
         return new DataProductDetails(product);
     }

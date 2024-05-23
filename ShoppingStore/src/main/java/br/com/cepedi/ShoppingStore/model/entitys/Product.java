@@ -32,13 +32,16 @@ public class Product {
 	    private String sku;
 	    private String imageUrl;  
 	    private BigInteger quantity;
-	    private String manufacturer;
+
 	    private Boolean featured;
 
 		private Boolean disabled;
 
+		@JoinColumn(name = "brand_id")
+		@ManyToOne
+		private Brand brand;
 
-	@JoinColumn(name = "category_id")
+		@JoinColumn(name = "category_id")
 	    @ManyToOne 
 	    private Category category;
 
@@ -49,14 +52,14 @@ public class Product {
 //	    private List<ProductRating> productRating;
 
 
-		public Product(DataRegisterProduct data, Category category){
+		public Product(DataRegisterProduct data, Category category, Brand brand){
 			this.name = data.name();
 			this.description = data.description();
 			this.price = data.price();
 			this.sku = data.sku();
 			this.imageUrl = data.imageUrl();
 			this.quantity = data.quantity();
-			this.manufacturer = data.manufacturer();
+			this.brand = brand;
 			this.featured = data.featured();
 			this.category = category;
 			this.disabled = false;
@@ -89,8 +92,8 @@ public class Product {
 			 if(data.quantity() != null){
 				 this.quantity = data.quantity();
 			 }
-			 if(data.manufacturer() != null){
-				 this.manufacturer = data.manufacturer();
+			 if(brand != null){
+				 this.brand = brand;
 			 }
 
 			 if(category!= null){

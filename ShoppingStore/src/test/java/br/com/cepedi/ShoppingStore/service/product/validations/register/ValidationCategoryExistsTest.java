@@ -3,6 +3,7 @@ package br.com.cepedi.ShoppingStore.service.product.validations.register;
 import br.com.cepedi.ShoppingStore.repository.CategoryRepository;
 import br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct;
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,7 +23,8 @@ public class ValidationCategoryExistsTest {
     @InjectMocks
     private ValidationCategoryExists validationCategoryExists;
 
-    public ValidationCategoryExistsTest() {
+    @BeforeEach
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
@@ -38,7 +40,7 @@ public class ValidationCategoryExistsTest {
                 "http://example.com/image.jpg",
                 categoryId,
                 BigInteger.valueOf(10),
-                "Manufacturer ABC",
+                1L, // Using brandId directly
                 true
         );
 
@@ -62,15 +64,20 @@ public class ValidationCategoryExistsTest {
                 "http://example.com/image.jpg",
                 categoryId,
                 BigInteger.valueOf(10),
-                "Manufacturer ABC",
+                1L, // Using brandId directly
                 true
         );
 
         when(categoryRepository.existsById(categoryId)).thenReturn(false);
 
         // Validation
-        assertThrows(ValidationException.class, () -> {
+        ValidationException exception = assertThrows(ValidationException.class, () -> {
             validationCategoryExists.validation(dataRegisterProduct);
         });
+
+        // Verify
+        assertEquals("The provided category id does not exist", exception.getMessage());
     }
+
+
 }

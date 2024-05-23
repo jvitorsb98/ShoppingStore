@@ -35,8 +35,7 @@ public record DataUpdateProduct(
     @Positive(message = "Quantity must be a positive value")
     BigInteger quantity,
 
-    @Size(max = 100, message = "Manufacturer cannot exceed 100 characters")
-    String manufacturer,
+    Long brandId,
 
     boolean featured
 

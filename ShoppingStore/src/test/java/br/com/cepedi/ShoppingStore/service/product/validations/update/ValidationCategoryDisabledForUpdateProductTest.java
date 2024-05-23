@@ -12,7 +12,8 @@ import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 public class ValidationCategoryDisabledForUpdateProductTest {
@@ -40,7 +41,7 @@ public class ValidationCategoryDisabledForUpdateProductTest {
                 "http://example.com/image.jpg",
                 categoryId,
                 BigInteger.valueOf(10),
-                "Manufacturer ABC",
+                1L,
                 true
         );
 
@@ -70,7 +71,7 @@ public class ValidationCategoryDisabledForUpdateProductTest {
                 "http://example.com/image.jpg",
                 categoryId,
                 BigInteger.valueOf(10),
-                "Manufacturer ABC",
+                1L,
                 true
         );
 
@@ -99,7 +100,7 @@ public class ValidationCategoryDisabledForUpdateProductTest {
                 "http://example.com/image.jpg",
                 categoryId,
                 BigInteger.valueOf(10),
-                "Manufacturer ABC",
+                1L,
                 true
         );
 
@@ -110,4 +111,5 @@ public class ValidationCategoryDisabledForUpdateProductTest {
             validationCategoryDisabledForUpdateProduct.validation(dataUpdateProduct);
         });
     }
+
 }

@@ -37,9 +37,8 @@ public record DataRegisterProduct(
     @Positive(message = "Quantity must be a positive value")
     BigInteger quantity,
 
-    @NotBlank(message = "Manufacturer cannot be null or empty")
-    @Size(max = 100, message = "Manufacturer cannot exceed 100 characters")
-    String manufacturer,
+    @NotNull(message = "brandId cannot be null ")
+    Long brandId,
 
     Boolean featured
 
