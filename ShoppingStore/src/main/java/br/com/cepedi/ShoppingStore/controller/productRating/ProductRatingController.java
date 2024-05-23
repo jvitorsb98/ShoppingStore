@@ -1,6 +1,5 @@
 package br.com.cepedi.ShoppingStore.controller.productRating;
 
-
 import br.com.cepedi.ShoppingStore.model.records.productRating.details.DataProductRatingDetails;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating;
 import br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating;
@@ -30,22 +29,21 @@ public class ProductRatingController {
     @Autowired
     private ProductRatingService service;
 
-
     @PostMapping
     @Transactional
-    public ResponseEntity<DataProductRatingDetails> register(@RequestBody @Valid DataRegisterProductRating data , UriComponentsBuilder uriBuilder) {
-        log.info("Scheduling new ProductRating...");
+    public ResponseEntity<DataProductRatingDetails> register(@RequestBody @Valid DataRegisterProductRating data, UriComponentsBuilder uriBuilder) {
+        log.info("Registering new ProductRating...");
         DataProductRatingDetails details = service.register(data);
         URI uri = uriBuilder.path("/product-ratings/{id}").buildAndExpand(details.id()).toUri();
-        log.info("ProductRating scheduled successfully.");
+        log.info("ProductRating registered successfully with ID: {}", details.id());
         return ResponseEntity.created(uri).body(details);
-	}
-    
+    }
+
     @GetMapping
     public ResponseEntity<Page<DataProductRatingDetails>> list(@PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
-        log.info("Fetching list of ProductRating...");
+        log.info("Fetching list of ProductRatings...");
         Page<DataProductRatingDetails> page = service.list(pageable);
-        log.info("List of ProductRating fetched successfully.");
+        log.info("List of ProductRatings fetched successfully. Total elements: {}", page.getTotalElements());
         return ResponseEntity.ok(page);
     }
 
@@ -56,43 +54,42 @@ public class ProductRatingController {
         log.info("Details of ProductRating with ID {} fetched successfully.", id);
         return ResponseEntity.ok(details);
     }
-    
+
     @GetMapping("/productRating/{productId}")
     public ResponseEntity<Page<DataProductRatingDetails>> listByProduct(
             @PathVariable Long productId,
             @PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
-        log.info("Fetching list of ProductRating by product with ID: {}", productId);
+        log.info("Fetching list of ProductRatings by product with ID: {}", productId);
         Page<DataProductRatingDetails> page = service.getProductRatingsByProductId(productId, pageable);
-        log.info("List of ProductRating by product with ID {} fetched successfully.", productId);
+        log.info("List of ProductRatings by product with ID {} fetched successfully. Total elements: {}", productId, page.getTotalElements());
         return ResponseEntity.ok(page);
     }
-    
+
     @GetMapping("/productRating/{userId}")
     public ResponseEntity<Page<DataProductRatingDetails>> listByUser(
             @PathVariable Long userId,
             @PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
-        log.info("Fetching list of ProductRating by user with ID: {}", userId);
+        log.info("Fetching list of ProductRatings by user with ID: {}", userId);
         Page<DataProductRatingDetails> page = service.getProductRatingsByUserId(userId, pageable);
-        log.info("List of ProductRating by user with ID {} fetched successfully.", userId);
+        log.info("List of ProductRatings by user with ID {} fetched successfully. Total elements: {}", userId, page.getTotalElements());
         return ResponseEntity.ok(page);
     }
-    
-	@PutMapping
-	@Transactional
-	public ResponseEntity<DataProductRatingDetails> update(@PathVariable Long id, @RequestBody @Valid DataUpdateProductRating data) {
-		log.info("Updating ProductRating with ID: {}", id);
-		DataProductRatingDetails details = service.updateProductRating(id, data);
-		log.info("ProductRating with ID {} updated successfully.", id);
-		return ResponseEntity.ok(details);
-	}
-	
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		log.info("Deleting ProductRating with ID: {}", id);
-		service.disableProductRating(id);
-		log.info("ProductRating with ID {} deleted successfully.", id);
-		return ResponseEntity.noContent().build();
-	}
-}   
-    
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DataProductRatingDetails> update(@PathVariable Long id, @RequestBody @Valid DataUpdateProductRating data) {
+        log.info("Updating ProductRating with ID: {}", id);
+        DataProductRatingDetails details = service.updateProductRating(id, data);
+        log.info("ProductRating with ID {} updated successfully.", id);
+        return ResponseEntity.ok(details);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("Deleting ProductRating with ID: {}", id);
+        service.disableProductRating(id);
+        log.info("ProductRating with ID {} deleted successfully.", id);
+        return ResponseEntity.noContent().build();
+    }
+}
