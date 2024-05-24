@@ -5,6 +5,7 @@ import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.model.records.details.DadosTokenJWT;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataAuth;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class LoginController {
     private TokenService tokenService;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<Object> efetuarLogin(@RequestBody @Valid DataAuth data) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         Authentication authentication = manager.authenticate(authenticationToken);

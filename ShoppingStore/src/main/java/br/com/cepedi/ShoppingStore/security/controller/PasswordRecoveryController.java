@@ -8,6 +8,7 @@ import br.com.cepedi.ShoppingStore.security.service.EmailService;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
 import br.com.cepedi.ShoppingStore.security.service.UserService;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,7 @@ public class PasswordRecoveryController {
     private EmailService emailService;
 
     @PutMapping("/reset-password/request")
+    @Transactional
     public ResponseEntity<String> resetPasswordRequest(@RequestBody @Validated DataRequestResetPassword dataResetPassword) {
         User user = userService.getUserActivatedByEmail(dataResetPassword.email());
 
@@ -49,6 +51,7 @@ public class PasswordRecoveryController {
     }
 
     @PutMapping("/reset-password/reset")
+    @Transactional
     public ResponseEntity<String> resetPassword(@RequestBody @Validated DataResetPassword dataResetPassword) {
         if (tokenService.isValidToken(dataResetPassword.token())) {
             String email = tokenService.getEmailByToken(dataResetPassword.token());

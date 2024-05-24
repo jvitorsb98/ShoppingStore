@@ -8,6 +8,7 @@ import br.com.cepedi.ShoppingStore.security.service.AuthService;
 import br.com.cepedi.ShoppingStore.security.service.EmailService;
 import com.auth0.jwt.JWT;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ public class RegisterController {
     private EmailService emailService;
 
     @PostMapping("/register")
+    @Transactional
     public ResponseEntity<String> registerUser(@RequestBody @Valid DataRegisterUser data) throws MessagingException {
         DataDetailsRegisterUser dataDetailsRegisterUser = authService.register(data);
         String tokenForActivate = emailService.sendActivationEmail(data.name(), data.email());

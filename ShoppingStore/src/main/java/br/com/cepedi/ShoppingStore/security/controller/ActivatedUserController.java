@@ -2,6 +2,7 @@ package br.com.cepedi.ShoppingStore.security.controller;
 
 import br.com.cepedi.ShoppingStore.security.service.AuthService;
 import br.com.cepedi.ShoppingStore.security.service.TokenService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class ActivatedUserController {
     private TokenService tokenService;
 
     @GetMapping("/activate-account")
+    @Transactional
     public ResponseEntity<String> activateAccount(@RequestParam("token") String token) {
         try {
             if (!tokenService.isValidToken(token)) {

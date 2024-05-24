@@ -4,8 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record DataRegisterMail(
-    Long id,
-    
+
     @Email
     @NotBlank(message = "Value of the emailFrom field cannot be null or empty")
     String from,

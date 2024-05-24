@@ -1,11 +1,7 @@
 package br.com.cepedi.ShoppingStore.security.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -21,8 +17,10 @@ public class Mail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+    @Column(name = "sender")
     private String from;
+    @Column(name = "recipient")
     private String to;
     private String content;
     private String subject;

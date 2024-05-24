@@ -62,6 +62,7 @@ public class TokenService {
 
     private void registerToken(String tokenValue, User user) {
         Instant expiresAt = JWT.decode(tokenValue).getExpiresAtAsInstant();
+        System.out.println(expiresAt);
         DataRegisterToken dataRegisterToken = new DataRegisterToken(tokenValue, user.getId(), expiresAt);
         Token tokenEntity = new Token(dataRegisterToken, user);
         tokenRepository.save(tokenEntity);
