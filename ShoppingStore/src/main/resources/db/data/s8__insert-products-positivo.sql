@@ -226,3 +226,148 @@ VALUES ('Servidor SuperServer 6039P-E1CR16H',
         100,
         2,
         true);
+
+-- Inserindo informações do servidor Positivo SuperServer 6049P-E1CR24H(SuperServer 6049P-E1CR24H) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SuperServer 6049P-E1CR24H',
+        'Servidor SuperServer 6049P-E1CR24H',
+        1000.00,
+        '6049P-E1CR24H',
+        'https://www.positivoservers.com.br/wp-content/uploads/2018/08/SuperServer-6049P-E1CR24H.jpg',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo SuperServer 6029P-E1CR24H(SuperServer 6029P-E1CR24H) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SuperServer 6029P-E1CR24H',
+        'Servidor SuperServer 6029P-E1CR24H',
+        1000.00,
+        '6029P-E1CR24H',
+        'https://www.positivoservers.com.br/wp-content/uploads/2018/08/SuperServer-6029P-E1CR24H.jpg',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo SuperServer 6049P-E1CR36HH(SuperServer 6049P-E1CR36H) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SuperServer 6049P-E1CR36H',
+        'Servidor SuperServer 6049P-E1CR36H',
+        1000.00,
+        '6049P-E1CR36H',
+        'https://www.positivoservers.com.br/wp-content/uploads/2018/08/SuperServer-6049P-E1CR36H.jpg',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo SuperServer 6049P-E1CR36HH(SuperServer 6049P-E1CR36H) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SuperServer 6049P-E1CR45H',
+        'Servidor SuperServer 6049P-E1CR45H',
+        1000.00,
+        '6049P-E1CR45H',
+        'https://www.positivoservers.com.br/wp-content/uploads/2018/08/SuperServer-6049P-E1CR45H.jpg',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo SuperServer 6049P-E1CR60H(SuperServer 6049P-E1CR60H) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SuperServer 6049P-E1CR60H',
+        'Servidor SuperServer 6049P-E1CR60H',
+        1000.00,
+        '6049P-E1CR60H',
+        'https://www.positivoservers.com.br/wp-content/uploads/2018/08/SuperServer-6049P-E1CR60H.jpg',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo Torre GPU Server SYS-420GP-TNR(Torre GPU Server SYS-420GP-TNR) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor Torre GPU Server SYS-420GP-TNR',
+        'Servidor Torre GPU Server SYS-420GP-TNR',
+        1000.00,
+        'SYS-420GP-TNR',
+        'https://www.positivoservers.com.br/wp-content/uploads/2021/04/GPU-SuperServer-SYS-420GP-TNR-150x150.png',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo Torre GPU Server SYS-740GP-TNRT(Torre GPU Server SYS-740GP-TNRT) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor GPU SuperServer SYS-740GP-TNRT',
+        'Servidor GPU SuperServer SYS-740GP-TNRT',
+        1000.00,
+        'SYS-740GP-TNRT',
+        'https://www.positivoservers.com.br/wp-content/uploads/2021/04/GPU-SuperServer-SYS-740GP-TNRT-150x150.png',
+        1,
+        100,
+        2,
+        true);
+
+
+-- Inserindo informações do servidor Positivo Edge Computing HYPER-E SYS-220HE-FTNR(HYPER-E SYS-220HE-FTNR) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor Edge Computing HYPER-E SYS-220HE-FTNR',
+        'Servidor Edge Computing HYPER-E SYS-220HE-FTNRT',
+        1000.00,
+        'SYS-220HE-FTNR',
+        'https://www.positivoservers.com.br/wp-content/uploads/2022/03/projeto-1.png',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo Edge Computing HYPER-E SYS-210P-FRDN6T(SYS-210P-FRDN6T) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor Edge Rackmount Compacto SYS-210P-FRDN6T',
+        'Servidor Edge Rackmount Compacto SYS-210P-FRDN6T',
+        1000.00,
+        'SYS-210P-FRDN6T',
+        'https://www.positivoservers.com.br/wp-content/uploads/2022/03/projeto-2.png',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo Ultra SuperServer SYS-220U-MTNR(SYS-220U-MTNR) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor Ultra SuperServer SYS-220U-MTNR',
+        'Servidor Ultra SuperServer SYS-220U-MTNR',
+        1000.00,
+        'SYS-220U-MTNR',
+        'https://www.positivoservers.com.br/wp-content/uploads/2022/03/projeto-3.png',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo SUPER SERVER E100-12T-C(E100-12T-C) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Servidor SUPER SERVER E100-12T-C',
+        'Servidor SUPER SERVER E100-12T-C',
+        1000.00,
+        'E100-12T-C',
+        'https://www.positivoservers.com.br/wp-content/uploads/2022/03/projeto-4.png',
+        1,
+        100,
+        2,
+        true);
+
+-- Inserindo informações do servidor Positivo Outdoor Edge E403-9D-16C-IPD2(E403-9D-16C-IPD2) na tabela "product"
+INSERT INTO product (name, description, price, sku, image_url, category_id, quantity, brand_id, featured)
+VALUES ('Outdoor Edge E403-9D-16C-IPD2',
+        'Outdoor Edge E403-9D-16C-IPD2',
+        1000.00,
+        'E403-9D-16C-IPD2',
+        'https://www.positivoservers.com.br/wp-content/uploads/2022/03/projeto-5.png',
+        1,
+        100,
+        2,
+        true);
