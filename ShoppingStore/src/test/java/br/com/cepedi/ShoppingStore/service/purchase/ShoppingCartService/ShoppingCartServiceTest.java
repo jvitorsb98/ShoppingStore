@@ -109,6 +109,24 @@ public class ShoppingCartServiceTest {
     }
 
     @Test
+    public void testListDeactivated() {
+        // Mock repository behavior
+        shoppingCart.disable();
+        when(shoppingCartRepository.findAllByDisabledTrue(pageable)).thenReturn(new PageImpl<>(Collections.singletonList(shoppingCart)));
+
+        // Call the method
+        Page<DataDetailsShoppingCart> result = shoppingCartService.listDeactivated(pageable);
+
+        // Verify the result
+        assertEquals(1, result.getContent().size());
+        assertEquals(new DataDetailsShoppingCart(shoppingCart), result.getContent().get(0));
+        assertEquals(true, result.getContent().get(0).disabled());
+
+        // Verify interactions
+        verify(shoppingCartRepository).findAllByDisabledTrue(pageable);
+    }
+
+    @Test
     public void testDetails() {
         // Mock data
         Long id = 1L;
@@ -143,6 +161,27 @@ public class ShoppingCartServiceTest {
 
         // Verify interactions
         verify(shoppingCartRepository).findAllByUser(pageable, userId);
+    }
+
+    @Test
+    public void testListByUserAndDisabledTrue() {
+        // Mock data
+        Long userId = 1L;
+
+        // Mock repository behavior
+        shoppingCart.disable();
+        when(shoppingCartRepository.findAllByUserAndDisabledIsTrue(pageable, userId)).thenReturn(new PageImpl<>(Collections.singletonList(shoppingCart)));
+
+        // Call the method
+        Page<DataDetailsShoppingCart> result = shoppingCartService.listByUserAndDisabledTrue(pageable, userId);
+
+        // Verify the result
+        assertEquals(1, result.getContent().size());
+        assertEquals(new DataDetailsShoppingCart(shoppingCart), result.getContent().get(0));
+        assertEquals(true, result.getContent().get(0).disabled());
+
+        // Verify interactions
+        verify(shoppingCartRepository).findAllByUserAndDisabledIsTrue(pageable, userId);
     }
 
     @Test

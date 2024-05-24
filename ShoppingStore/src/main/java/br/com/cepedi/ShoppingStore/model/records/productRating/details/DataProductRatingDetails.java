@@ -11,7 +11,8 @@ public record DataProductRatingDetails(
     Long idProduct,
     BigDecimal ratingStars,
     String review,
-	Long idUser
+	Long idUser,
+	Boolean disabled
 ) {
 
 	public DataProductRatingDetails(ProductRating productRating) {
@@ -20,6 +21,8 @@ public record DataProductRatingDetails(
 			productRating.getProduct().getId(),
 			productRating.getRatingStars(),
 			productRating.getReview(),
-			productRating.getUser().getId()
+			productRating.getUser().getId(),
+			productRating.getDisabled()
 		);
-	}}
+	}
+}

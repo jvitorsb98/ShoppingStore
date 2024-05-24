@@ -12,16 +12,18 @@ public record DataDetailsShoppingCart(
 
         BigDecimal totalPrice,
 
-        Long UserId
+        Long UserId,
+
+        Boolean disabled
 
 ) {
 
     public DataDetailsShoppingCart(ShoppingCart shoppingCart){
-        this(shoppingCart.getId() , shoppingCart.getTotalPrice(),shoppingCart.getUser().getId());
+        this(shoppingCart.getId() , shoppingCart.getTotalPrice(),shoppingCart.getUser().getId(), shoppingCart.getDisabled());
     }
 
     public DataDetailsShoppingCart withTotalPrice(BigDecimal totalPrice) {
-        return new DataDetailsShoppingCart(this.id, totalPrice, this.UserId);
+        return new DataDetailsShoppingCart(this.id, totalPrice, this.UserId, this.disabled);
     }
 
 
