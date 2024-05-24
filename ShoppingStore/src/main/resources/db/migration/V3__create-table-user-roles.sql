@@ -6,4 +6,3 @@ CREATE TABLE user_roles (
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
 
-INSERT INTO user_roles VALUES (1, 1);

@@ -3,4 +3,3 @@ CREATE TABLE roles (
     name VARCHAR(255) UNIQUE NOT NULL
 );
 
-INSERT INTO roles (name) VALUES ('ADMIN');
