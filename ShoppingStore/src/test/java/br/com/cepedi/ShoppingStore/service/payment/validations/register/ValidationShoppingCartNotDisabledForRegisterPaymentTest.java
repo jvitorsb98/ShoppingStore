@@ -1,44 +1,64 @@
 package br.com.cepedi.ShoppingStore.service.payment.validations.register;
 
-import com.github.javafaker.Faker;
-
+import br.com.cepedi.ShoppingStore.model.records.payments.input.DataRegisterPayment;
 import br.com.cepedi.ShoppingStore.model.entitys.ShoppingCart;
 import br.com.cepedi.ShoppingStore.model.enums.PaymentType;
-import br.com.cepedi.ShoppingStore.model.records.payments.input.DataRegisterPayment;
 import br.com.cepedi.ShoppingStore.repository.ShoppingCartRepository;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ActiveProfiles;
-
 import jakarta.validation.ValidationException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@ActiveProfiles("test")
-public class ValidationShoppingCartNotDisabledForRegisterPaymentTest {
+@ExtendWith(MockitoExtension.class)
+class ValidationShoppingCartNotDisabledForRegisterPaymentTest {
 
-    @Autowired
-    private ValidationShoppingCartNotDisabledForRegisterPayment validation;
-
-    @MockBean
+    @Mock
     private ShoppingCartRepository shoppingCartRepository;
 
-    private final Faker faker = new Faker();
+    @InjectMocks
+    private ValidationShoppingCartNotDisabledForRegisterPayment validation;
 
     @Test
-    public void testValidation_ShoppingCartIsDisabled() {
-        long shoppingCartId = faker.number().randomNumber();
+    void testValidation_ShoppingCartIsDisabled() {
+        // Configurar o cenário do teste
+        long shoppingCartId = 1L;
+        DataRegisterPayment dataRegisterPayment = new DataRegisterPayment(shoppingCartId, PaymentType.CREDIT_CARD);
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setId(shoppingCartId);
+        shoppingCart.setDisabled(true); // Carrinho de compras desativado
 
         when(shoppingCartRepository.existsById(shoppingCartId)).thenReturn(true);
-        ShoppingCart disabledShoppingCart = new ShoppingCart();
-        disabledShoppingCart.setDisabled(true);
-        when(shoppingCartRepository.getReferenceById(shoppingCartId)).thenReturn(disabledShoppingCart);
+        when(shoppingCartRepository.getReferenceById(shoppingCartId)).thenReturn(shoppingCart);
 
-        assertThrows(ValidationException.class, () -> validation.validation(new DataRegisterPayment(shoppingCartId, PaymentType.DEBIT_CARD)));
+        // Verificar se uma exceção é lançada
+        assertThrows(ValidationException.class, () -> validation.validation(dataRegisterPayment));
     }
+
+    @Test
+    void testValidation_ShoppingCartIsNotDisabled() {
+        // Configurar o cenário do teste
+        long shoppingCartId = 1L;
+        DataRegisterPayment dataRegisterPayment = new DataRegisterPayment(shoppingCartId, PaymentType.CREDIT_CARD);
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setId(shoppingCartId);
+        shoppingCart.setDisabled(false); // Carrinho de compras não está desativado
+
+        // Configurar mock do shoppingCartRepository para retornar o shoppingCart válido
+        when(shoppingCartRepository.existsById(shoppingCartId)).thenReturn(true);
+        when(shoppingCartRepository.getReferenceById(shoppingCartId)).thenReturn(shoppingCart);
+
+        // Verificar se nenhuma exceção é lançada
+        assertDoesNotThrow(() -> validation.validation(dataRegisterPayment)); // Não deve lançar exceção
+    }
+
+
+
 }
