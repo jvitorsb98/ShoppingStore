@@ -1,9 +1,13 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
+import br.com.cepedi.ShoppingStore.model.records.category.input.DataUpdateCategory;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.github.javafaker.Faker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 class CategoryTest {
 
+	 private final Faker faker = new Faker();
+	
     @Test
     @DisplayName("Teste de criação básico")
     public void testCategoryCreation() {
@@ -97,4 +103,57 @@ class CategoryTest {
         assertEquals("Livros", category.getName());
         assertEquals("Categoria de livros", category.getDescription());
     }
+    
+    @Test
+    public void testSetName() {
+        Category category = new Category();
+
+        String name = faker.commerce().department();
+        category.setName(name);
+
+        assertEquals(name, category.getName());
+    }
+
+    @Test
+    public void testSetDescription() {
+        Category category = new Category();
+
+        String description = faker.lorem().sentence();
+        category.setDescription(description);
+
+        assertEquals(description, category.getDescription());
+    }
+
+    @Test
+    public void testSetDisabled() {
+        Category category = new Category();
+
+        boolean disabled = true;
+        category.setDisabled(disabled);
+
+        assertEquals(disabled, category.getDisabled());
+    }
+    
+    @Test
+    public void testUpdateDataCategory() {
+        // Criando uma nova categoria
+        Category category = new Category();
+        category.setName("Old Name");
+        category.setDescription("Old Description");
+
+        // Criando dados de atualização
+        String updatedName = faker.commerce().department();
+        String updatedDescription = faker.lorem().sentence();
+        Long categoryId = faker.number().randomNumber();
+        DataUpdateCategory dataUpdateCategory = new DataUpdateCategory(categoryId, updatedName, updatedDescription);
+
+        // Atualizando os dados da categoria
+        category.updateDataCategory(dataUpdateCategory);
+
+        // Verificando se os dados foram atualizados corretamente
+        assertEquals(updatedName, category.getName());
+        assertEquals(updatedDescription, category.getDescription());
+    }
+
+    
 }
