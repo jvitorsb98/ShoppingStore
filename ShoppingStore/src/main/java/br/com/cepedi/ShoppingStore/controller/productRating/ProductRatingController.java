@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.http.MediaType;
 
 import java.net.URI;
 
@@ -31,16 +32,16 @@ public class ProductRatingController {
     @Autowired
     private ProductRatingService service;
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<DataProductRatingDetails> register(@RequestBody @Valid DataRegisterProductRating data, UriComponentsBuilder uriBuilder) {
-        System.out.println(data);
         log.info("Registering new ProductRating...");
         DataProductRatingDetails details = service.register(data);
         URI uri = uriBuilder.path("/product-ratings/{id}").buildAndExpand(details.id()).toUri();
         log.info("ProductRating registered successfully with ID: {}", details.id());
-        return ResponseEntity.created(uri).body(details);
+        return ResponseEntity.created(uri).contentType(MediaType.APPLICATION_JSON).body(details);
     }
+
 
     @GetMapping
     public ResponseEntity<Page<DataProductRatingDetails>> list(@PageableDefault(size = 5, sort = {"id"}) Pageable pageable) {
@@ -95,4 +96,5 @@ public class ProductRatingController {
         log.info("ProductRating with ID {} deleted successfully.", id);
         return ResponseEntity.noContent().build();
     }
+    
 }
