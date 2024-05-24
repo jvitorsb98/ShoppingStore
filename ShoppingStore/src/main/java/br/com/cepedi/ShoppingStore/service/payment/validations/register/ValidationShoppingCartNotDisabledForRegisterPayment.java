@@ -16,7 +16,7 @@ public class ValidationShoppingCartNotDisabledForRegisterPayment implements Vali
 
     @Override
     public void validation(DataRegisterPayment dataRegisterPayment) {
-        if(!shoppingCartRepository.existsById(dataRegisterPayment.shoppingCartId())){
+        if(shoppingCartRepository.existsById(dataRegisterPayment.shoppingCartId())){
             ShoppingCart shoppingCart = shoppingCartRepository.getReferenceById(dataRegisterPayment.shoppingCartId());
             if(shoppingCart.getDisabled()){
                 throw new ValidationException("The required Shopping Cart is disabled");
