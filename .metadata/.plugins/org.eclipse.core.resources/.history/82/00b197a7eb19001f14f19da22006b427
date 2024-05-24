@@ -1,0 +1,5 @@
+package br.com.cepedi.ShoppingStore.controller.productattributetest;
+
+public class ProductAttributeControllerTest {
+
+}

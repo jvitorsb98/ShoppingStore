@@ -1,0 +1,56 @@
+package br.com.cepedi.ShoppingStore.controller.brandtest;
+
+/**
+@WebMvcTest
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+public class BrandControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private BrandService brandService;
+
+    @Test
+    void testRegisterBrand() throws Exception {
+        String requestBody = "{\"name\":\"Test Brand\"}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/brands")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    void testListAllBrands() throws Exception {
+        Page<BrandDetails> brands = new PageImpl<>(Collections.emptyList());
+        when(brandService.listAllBrands(any())).thenReturn(brands);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/brands"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testGetBrandById() throws Exception {
+        BrandDetails brand = new BrandDetails(1L, "Test Brand");
+        when(brandService.getBrandById(any())).thenReturn(brand);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/brands/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testUpdateBrand() throws Exception {
+        String requestBody = "{\"name\":\"Updated Test Brand\"}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v2/brands/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testDisableBrand() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v2/brands/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+}
+*/

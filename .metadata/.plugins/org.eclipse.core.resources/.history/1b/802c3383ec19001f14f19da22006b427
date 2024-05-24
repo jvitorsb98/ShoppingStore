@@ -1,0 +1,57 @@
+package br.com.cepedi.ShoppingStore.controller.paymenttest;
+
+
+/**
+@WebMvcTest
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+public class PaymentControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private PaymentService paymentService;
+
+    @Test
+    void testRegisterPayment() throws Exception {
+        String requestBody = "{\"method\":\"Credit Card\"}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/payments")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    void testListAllPayments() throws Exception {
+        Page<PaymentDetails> payments = new PageImpl<>(Collections.emptyList());
+        when(paymentService.listAllPayments(any())).thenReturn(payments);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/payments"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testGetPaymentById() throws Exception {
+        PaymentDetails payment = new PaymentDetails(1L, "Credit Card");
+        when(paymentService.getPaymentById(any())).thenReturn(payment);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/payments/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testUpdatePayment() throws Exception {
+        String requestBody = "{\"method\":\"Debit Card\"}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v2/payments/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testDisablePayment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v2/payments/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+}
+*/

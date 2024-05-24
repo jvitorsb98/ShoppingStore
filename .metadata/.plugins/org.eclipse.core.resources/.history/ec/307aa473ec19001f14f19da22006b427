@@ -1,0 +1,56 @@
+package br.com.cepedi.ShoppingStore.controller.producttest;
+
+/**
+@WebMvcTest
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+public class ProductControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private ProductService productService;
+
+    @Test
+    void testRegisterProduct() throws Exception {
+        String requestBody = "{\"name\":\"Test Product\",\"price\":100.0,\"sku\":\"SKU123\",\"categoryId\":1}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    void testListAllProducts() throws Exception {
+        Page<ProductDetails> products = new PageImpl<>(Collections.emptyList());
+        when(productService.listAllProducts(any())).thenReturn(products);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/products"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testGetProductById() throws Exception {
+        ProductDetails product = new ProductDetails(1L, "Test Product", 100.0, "SKU123", 1L);
+        when(productService.getProductById(any())).thenReturn(product);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/products/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testUpdateProduct() throws Exception {
+        String requestBody = "{\"name\":\"Updated Test Product\",\"price\":150.0,\"sku\":\"SKU123\",\"categoryId\":1}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v2/products/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testDisableProduct() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v2/products/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+}
+*/

@@ -1,0 +1,64 @@
+package br.com.cepedi.ShoppingStore.controller.purchasecontrollertest;
+
+import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import br.com.cepedi.ShoppingStore.service.purchase.PurharseService.PurchaseService;
+
+@WebMvcTest
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+public class PurchaseControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private PurchaseService purchaseService;
+
+    @Test
+    void testRegisterPurchase() throws Exception {
+        String requestBody = "{\"userId\":1,\"productIds\":[1,2,3],\"totalAmount\":300.0}";
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/purchases")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
+    void testListAllPurchases() throws Exception {
+        Page<PurchaseDetails> purchases = new PageImpl<>(Collections.emptyList());
+        when(purchaseService.listAllPurchases(any())).thenReturn(purchases);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/purchases"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testGetPurchaseById() throws Exception {
+        PurchaseDetails purchase = new PurchaseDetails(1L, 1L, Arrays.asList(1L, 2L, 3L), 300.0);
+        when(purchaseService.getPurchaseById(any())).thenReturn(purchase);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/purchases/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testUpdatePurchase() throws Exception {
+        String requestBody = "{\"userId\":1,\"productIds\":[1,2,3,4],\"totalAmount\":400.0}";
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v2/purchases/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void testCancelPurchase() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v2/purchases/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+}
