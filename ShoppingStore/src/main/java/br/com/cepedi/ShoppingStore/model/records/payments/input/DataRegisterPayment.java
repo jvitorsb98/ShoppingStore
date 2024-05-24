@@ -12,4 +12,6 @@ public record DataRegisterPayment (
         PaymentType paymentType
 
 ){
+
+
 }

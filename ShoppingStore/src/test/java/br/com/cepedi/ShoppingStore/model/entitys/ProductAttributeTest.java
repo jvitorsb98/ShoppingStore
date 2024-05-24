@@ -1,7 +1,10 @@
 package br.com.cepedi.ShoppingStore.model.entitys;
 
 import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute;
+import br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataUpdateProductAttribute;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,5 +70,22 @@ class ProductAttributeTest {
         assertEquals(product, productAttribute.getProduct());
         assertTrue(productAttribute.getDisabled());
     }
+    @Test
+    @DisplayName("Test updateDataProductAttribute method of ProductAttribute")
+    void testUpdateDataProductAttribute() {
+        // Criação de instância de ProductAttribute com estado inicial
+        ProductAttribute productAttribute = new ProductAttribute();
+        
+        // Criação de instância de DataUpdateProductAttribute com novos dados
+        DataUpdateProductAttribute updateData = new DataUpdateProductAttribute(1L, "New Name", "New Value");
+        
+        // Chamada do método updateDataProductAttribute com os novos dados
+        productAttribute.updateProductAttribute(updateData);
+
+        // Verificação se a entidade ProductAttribute foi atualizada corretamente
+        assertEquals("New Name", productAttribute.getName(), "Name should be updated");
+        assertEquals("New Value", productAttribute.getValue(), "Value should be updated");
+    }
+
 
 }

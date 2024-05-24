@@ -53,19 +53,22 @@ public class PossibleFacetsTest {
     @Test
     @DisplayName("Test setters and getters")
     void testSettersAndGetters() {
-        // Create PossibleFacets instance
         PossibleFacets possibleFacetsSetters = new PossibleFacets();
 
-        // Set values
+        Long id = 1L;
+        possibleFacetsSetters.setId(id);
+        
+        assertEquals(id, possibleFacetsSetters.getId(), "ID should be set correctly");
+
         possibleFacetsSetters.setName("Updated Facet");
         possibleFacetsSetters.setCategory(mockCategory);
         possibleFacetsSetters.setDisabled(true);
 
-        // Assertions
-        assertEquals("Updated Facet", possibleFacetsSetters.getName());
-        assertEquals(mockCategory, possibleFacetsSetters.getCategory());
-        assertTrue(possibleFacetsSetters.getDisabled());
+        assertEquals("Updated Facet", possibleFacetsSetters.getName(), "Name should be set correctly");
+        assertEquals(mockCategory, possibleFacetsSetters.getCategory(), "Category should be set correctly");
+        assertTrue(possibleFacetsSetters.getDisabled(), "Disabled should be set correctly");
     }
+
 
     @Test
     @DisplayName("Test update data PossibleFacets")
@@ -92,4 +95,8 @@ public class PossibleFacetsTest {
         possibleFacets.enable();
         assertFalse(possibleFacets.getDisabled());
     }
+    
 }
+
+
+
