@@ -34,7 +34,7 @@
 //@AutoConfigureMockMvc
 //public class PossibleFacetsControllerTest {
 //
-//    @Autowired
+//   @Autowired
 //    private MockMvc mockMvc;
 //
 //    @Autowired
@@ -58,7 +58,7 @@
 //        // Setting up data for the test
 //        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets(null, null);
 //
-//        // Making HTTP request and checking status
+//         Making HTTP request and checking status
 //        mockMvc.perform(post("/v2/possible-facets")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content(objectMapper.writeValueAsString(data)))
@@ -69,10 +69,10 @@
 //    @DisplayName("Test for registering a possible facet with invalid data")
 //    @WithMockUser(username = "user", roles = {"USER"})
 //    void createPossibleFacetWithInvalidData() throws Exception {
-//        // Setting up invalid data for the test
+//       Setting up invalid data for the test
 //        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets(null, null);
 //
-//        // Making HTTP request and checking status for BadRequest
+//        Making HTTP request and checking status for BadRequest
 //        mockMvc.perform(post("/v2/possible-facets")
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content(objectMapper.writeValueAsString(data)))
@@ -83,7 +83,7 @@
 //    @DisplayName("Test for getting all activated possible facets")
 //    @WithMockUser
 //    void getAllActivatedPossibleFacets() throws Exception {
-//        // Simulating data and mock service behavior
+//        Simulating data and mock service behavior
 //        List<DataRegisterPossibleFacets> expectedDetails = ;
 //
 //        Page<DataRegisterPossibleFacets> simulatedPage = new PageImpl<>(expectedDetails);
@@ -105,9 +105,8 @@
 //	}
 //
 //	private MockHttpServletRequestBuilder get(String string) {
-
 //		return null;
 //	}
 //
-//    // Additional tests for other controller methods
+//   Additional tests for other controller methods
 //}
