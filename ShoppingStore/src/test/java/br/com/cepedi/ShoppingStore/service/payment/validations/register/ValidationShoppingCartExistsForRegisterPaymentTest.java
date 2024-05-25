@@ -1,57 +1,62 @@
 package br.com.cepedi.ShoppingStore.service.payment.validations.register;
 
-import br.com.cepedi.ShoppingStore.model.enums.PaymentType;
-import br.com.cepedi.ShoppingStore.model.records.payments.input.DataRegisterPayment;
-import br.com.cepedi.ShoppingStore.repository.PaymentRepository;
-import com.github.javafaker.Faker;
-import jakarta.validation.ValidationException;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import com.github.javafaker.Faker;
+
+import br.com.cepedi.ShoppingStore.model.records.payments.input.DataRegisterPayment;
+import br.com.cepedi.ShoppingStore.model.enums.PaymentType;
+import br.com.cepedi.ShoppingStore.repository.ShoppingCartRepository;
+import jakarta.validation.ValidationException;
 
 @ExtendWith(MockitoExtension.class)
-public class ValidationShoppingCartExistsForRegisterPaymentTest {
+class ValidationShoppingCartExistsForRegisterPaymentTest {
 
     @Mock
-    private PaymentRepository paymentRepository;
+    private ShoppingCartRepository shoppingCartRepository;
 
     @InjectMocks
-    private ValidationIfExistsPaymentTrueForShoppingCart validationIfExistsPaymentTrueForShoppingCart;
+    private ValidationShoppingCartExistsForRegisterPayment validation;
 
-    private final Faker faker = new Faker();
+    private Faker faker;
+    private long shoppingCartId;
+    private DataRegisterPayment dataRegisterPayment;
 
-    @Test
-    public void testValidation_ShoppingCartContainsActivePayment() {
-        Long shoppingCartId = faker.number().randomNumber();
-        PaymentType paymentType = PaymentType.CREDIT_CARD;
-
-        when(paymentRepository.existsEnabledPaymentByShoppingCartId(shoppingCartId)).thenReturn(true);
-
-        assertThrows(ValidationException.class, () -> {
-            validationIfExistsPaymentTrueForShoppingCart.validation(new DataRegisterPayment(shoppingCartId, paymentType));
-        });
-
-        verify(paymentRepository, times(1)).existsEnabledPaymentByShoppingCartId(shoppingCartId);
+    @BeforeEach
+    void setup() {
+        faker = new Faker();
+        shoppingCartId = faker.number().randomNumber();
+        dataRegisterPayment = new DataRegisterPayment(shoppingCartId, PaymentType.CREDIT_CARD);
     }
 
     @Test
-    public void testValidation_ShoppingCartDoesNotContainActivePayment() {
-        Long shoppingCartId = faker.number().randomNumber();
-        PaymentType paymentType = PaymentType.DEBIT_CARD;
+    void testValidation_ShoppingCartDoesNotExist() {
+        // Arrange
+        when(shoppingCartRepository.existsById(shoppingCartId)).thenReturn(false);
 
-        when(paymentRepository.existsEnabledPaymentByShoppingCartId(shoppingCartId)).thenReturn(false);
-
-        assertDoesNotThrow(() -> {
-            validationIfExistsPaymentTrueForShoppingCart.validation(new DataRegisterPayment(shoppingCartId, paymentType));
+        // Act & Assert
+        ValidationException exception = assertThrows(ValidationException.class, () -> {
+            validation.validation(dataRegisterPayment);
         });
 
-        verify(paymentRepository, times(1)).existsEnabledPaymentByShoppingCartId(shoppingCartId);
+        assertEquals("The required Shopping Cart Not Exists", exception.getMessage());
+    }
+
+    @Test
+    void testValidation_ShoppingCartExists() {
+        // Arrange
+        when(shoppingCartRepository.existsById(shoppingCartId)).thenReturn(true);
+
+        // Act & Assert
+        assertDoesNotThrow(() -> validation.validation(dataRegisterPayment));
     }
 }
 
