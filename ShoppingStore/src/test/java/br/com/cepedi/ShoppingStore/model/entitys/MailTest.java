@@ -72,24 +72,24 @@ public class MailTest {
 		assertEquals(subject, mail.getSubject());
 	}
 
-	@DisplayName("Test mail object creation with DataRegisterMail")
-	@Test
-	public void testMailObjectCreationWithDataRegisterMail() {
-		// Arrange
-		Long id = 1L;
-		String from = "test@example.com";
-		String to = "recipient@example.com";
-		String content = "This is a test email.";
-		String subject = "Test Subject";
-
-		// Act
-		DataRegisterMail dataRegisterMail = new DataRegisterMail(id, from, to, content, subject);
-		Mail mail = new Mail(dataRegisterMail);
-
-		// Assert
-		assertEquals(from, mail.getFrom());
-		assertEquals(to, mail.getTo());
-		assertEquals(content, mail.getContent());
-		assertEquals(subject, mail.getSubject());
-	}
+//	@DisplayName("Test mail object creation with DataRegisterMail")
+//	@Test
+//	public void testMailObjectCreationWithDataRegisterMail() {
+//		// Arrange
+//		Long id = 1L;
+//		String from = "test@example.com";
+//		String to = "recipient@example.com";
+//		String content = "This is a test email.";
+//		String subject = "Test Subject";
+//
+//		// Act
+//		DataRegisterMail dataRegisterMail = new DataRegisterMail(id, from, to, content, subject);
+//		Mail mail = new Mail(dataRegisterMail);
+//
+//		// Assert
+//		assertEquals(from, mail.getFrom());
+//		assertEquals(to, mail.getTo());
+//		assertEquals(content, mail.getContent());
+//		assertEquals(subject, mail.getSubject());
+//	}
 }

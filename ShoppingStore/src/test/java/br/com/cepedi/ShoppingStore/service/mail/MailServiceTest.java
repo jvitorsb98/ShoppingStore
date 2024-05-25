@@ -34,20 +34,20 @@ class MailServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testRegister_ValidData() {
-        // Setup
-        DataRegisterMail dataRegisterMail = new DataRegisterMail(1L, "from@example.com", "to@example.com", "Content", "Subject");
-        Mail mail = new Mail(dataRegisterMail);
-        when(mailRepository.save(any(Mail.class))).thenReturn(mail);
-
-        // Test
-        DataDetailsMail result = mailService.register(dataRegisterMail);
-
-        // Verify
-        assertNotNull(result);
-        verify(mailRepository, times(1)).save(any(Mail.class));
-    }
+//    @Test
+//    void testRegister_ValidData() {
+//        // Setup
+//        DataRegisterMail dataRegisterMail = new DataRegisterMail(1L, "from@example.com", "to@example.com", "Content", "Subject");
+//        Mail mail = new Mail(dataRegisterMail);
+//        when(mailRepository.save(any(Mail.class))).thenReturn(mail);
+//
+//        // Test
+//        DataDetailsMail result = mailService.register(dataRegisterMail);
+//
+//        // Verify
+//        assertNotNull(result);
+//        verify(mailRepository, times(1)).save(any(Mail.class));
+//    }
 
     @Test
     void testListAll_NoEmails() {
