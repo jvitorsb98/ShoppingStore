@@ -15,9 +15,9 @@ public class ProductWithQuantityEnough implements ValidationsRegisterShoppingCar
 
     @Override
     public void validation(DataRegisterShoppingCartItem data) {
-        if(data.productId() != null && !productRepository.existsById(data.productId())){
+        if (data.productId() != null && productRepository.existsById(data.productId())) {
             Product product = productRepository.getReferenceById(data.productId());
-            if(product.getQuantity().compareTo(data.quantity()) <= 0){
+            if (product.getQuantity().compareTo(data.quantity()) <= 0) {
                 throw new ValidationException("Requested quantity is not in stock.");
             }
         }
