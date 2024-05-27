@@ -42,7 +42,7 @@ public class PurchaseController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<DataDetailsPurchase> disable(@PathVariable Long id) {
+    public ResponseEntity<Void> disabled(@PathVariable Long id) {
         log.info("Disabling shoppingCart with ID: {}", id);
         shoppingCartService.disabled(id);
         log.info("shoppingCart with ID {} disabled successfully.", id);
