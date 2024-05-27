@@ -9,11 +9,11 @@ import java.math.BigInteger;
 
 public record DataRegisterShoppingCartItem(
 
-        @NotNull
-        @Positive
+        @NotNull(message = "{notnull.shoppingCartItem.quantity}")
+        @Positive(message = "{positive.shoppingCartItem.quantity}")
         BigInteger quantity,
 
-        @NotNull
+        @NotNull(message = "{notnull.shoppingCartItem.productId}")
         Long productId
 
 ) {

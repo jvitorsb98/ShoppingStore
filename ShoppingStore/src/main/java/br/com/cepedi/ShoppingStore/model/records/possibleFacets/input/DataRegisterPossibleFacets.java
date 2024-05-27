@@ -6,10 +6,10 @@ import lombok.Data;
 
 public record DataRegisterPossibleFacets (
 
-        @NotBlank
+        @NotBlank(message = "{notblank.facets.name}")
         String name,
 
-        @NotNull
+        @NotNull(message = "{notnull.facets.idCategory}")
         Long idCategory
 
 

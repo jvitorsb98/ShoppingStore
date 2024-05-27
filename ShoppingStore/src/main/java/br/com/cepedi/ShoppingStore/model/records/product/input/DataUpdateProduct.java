@@ -1,11 +1,8 @@
 package br.com.cepedi.ShoppingStore.model.records.product.input;
 
-
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,31 +10,31 @@ import jakarta.validation.constraints.Size;
 
 public record DataUpdateProduct(
 
-    @NotNull
-    Long id,
+        @NotNull(message = "{notnull.product.id}")
+        Long id,
 
-    @Size(max = 100, message = "Name cannot exceed 100 characters")
-    String name,
+        @Size(max = 100, message = "{size.product.name}")
+        String name,
 
-    @Size(max = 500, message = "Description cannot exceed 500 characters")
-    String description,
+        @Size(max = 500, message = "{size.product.description}")
+        String description,
 
-    @Positive(message = "Price must be a positive value")
-    BigDecimal price,
+        @Positive(message = "{positive.product.price}")
+        BigDecimal price,
 
-    @Size(max = 50, message = "SKU cannot exceed 50 characters")
-    String sku,
+        @Size(max = 50, message = "{size.product.sku}")
+        String sku,
 
-    String imageUrl,
+        String imageUrl,
 
-    Long categoryId,
+        Long categoryId,
 
-    @Positive(message = "Quantity must be a positive value")
-    BigInteger quantity,
+        @Positive(message = "{positive.product.quantity}")
+        BigInteger quantity,
 
-    Long brandId,
+        Long brandId,
 
-    boolean featured
+        boolean featured
 
 ) {
 }

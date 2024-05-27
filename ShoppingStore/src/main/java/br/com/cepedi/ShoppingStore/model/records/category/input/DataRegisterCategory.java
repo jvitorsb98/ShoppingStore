@@ -6,10 +6,10 @@ import lombok.Data;
 
 public record DataRegisterCategory(
 
-        @NotBlank
+        @NotBlank(message = "{notblank.category.name}")
         String name,
 
-        @NotBlank
+        @NotBlank(message = "{notblank.category.description}")
         String description
 
 ) {

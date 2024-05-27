@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record DataUpdatePossibleFacets(
 
-        @NotNull
+        @NotNull(message = "{notnull.facets.id}")
         Long id,
 
         String name,

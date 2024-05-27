@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 
 public record DataRegisterPayment (
 
-        @NotNull(message = "Shopping cart ID cannot be null")
+        @NotNull(message = "{notnull.payment.shoppingCartId}")
         Long shoppingCartId,
 
-        @NotNull(message = "Payment type cannot be null")
+        @NotNull(message = "{notnull.payment.paymentType}")
         PaymentType paymentType
 
 ){

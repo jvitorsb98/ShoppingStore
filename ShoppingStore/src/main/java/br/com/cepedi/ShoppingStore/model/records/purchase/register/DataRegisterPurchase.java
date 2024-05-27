@@ -9,12 +9,12 @@ import java.util.List;
 
 public record DataRegisterPurchase(
 
-        @NotNull
-        @NotBlank
+        @NotNull(message = "{notnull.purchase.shoppingCart}")
+        @NotBlank(message = "{notblank.purchase.shoppingCart}")
         DataRegisterShoppingCart dataRegisterShoppingCart,
 
-        @NotNull
-        @NotBlank
+        @NotNull(message = "{notnull.purchase.items}")
+        @NotBlank(message = "{notblank.purchase.items}")
         List<DataRegisterShoppingCartItem> items
 
 ) {

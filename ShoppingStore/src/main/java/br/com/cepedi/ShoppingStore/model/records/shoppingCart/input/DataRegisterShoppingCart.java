@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DataRegisterShoppingCart(
 
-        @NotBlank(message = "User Id must be a valid valor")
+        @NotBlank(message = "{notblank.shoppingCart.userId}")
         Long userId
 
 ) {

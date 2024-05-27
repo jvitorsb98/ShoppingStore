@@ -1,33 +1,22 @@
 package br.com.cepedi.ShoppingStore.model.records.productRating.input;
 
 import jakarta.validation.constraints.*;
-
 import java.math.BigDecimal;
-
-import br.com.cepedi.ShoppingStore.model.entitys.Product;
 
 public record DataRegisterProductRating(
 
-		@NotNull(message = "User ID cannot be null")
+		@NotNull(message = "{notnull.productRating.productId}")
 		Long productId,
 
-		@NotNull(message = "Rating Stars cannot be null")
-		@DecimalMin(value = "0.0", message = "Rating Stars must be at least 0.0")
-		@DecimalMax(value = "5.0", message = "Rating Stars must be at most 5.0")
+		@NotNull(message = "{notnull.productRating.ratingStars}")
+		@DecimalMin(value = "0.0", message = "{decimalmin.productRating.ratingStars}")
+		@DecimalMax(value = "5.0", message = "{decimalmax.productRating.ratingStars}")
 		BigDecimal ratingStars,
-		
-		@NotBlank(message = "Description cannot be null or empty")
-        @Size(min = 10, max = 200, message = "Review must be between 10 and 200 characters")
+
+		@NotBlank(message = "{notblank.productRating.review}")
+		@Size(min = 10, max = 200, message = "{size.productRating.review}")
 		String review,
-		
-		@NotNull(message = "User ID cannot be null")
-        Long Userid
 
-
-) {
-
-
-
-
-
-}
+		@NotNull(message = "{notnull.productRating.userId}")
+		Long userId
+) {}

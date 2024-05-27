@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record DataUpdateBrand(
 
-        @NotNull
+        @NotNull(message = "{notnull.brand.id}")
         Long id,
 
         String name

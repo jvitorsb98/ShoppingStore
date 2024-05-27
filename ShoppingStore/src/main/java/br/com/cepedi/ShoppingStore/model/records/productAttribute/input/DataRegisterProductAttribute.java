@@ -4,9 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DataRegisterProductAttribute(
-    @NotBlank(message = "Name cannot be blank") String name,
-    @NotBlank(message = "Value cannot be blank") String value,
+        @NotBlank(message = "{notblank.productAttribute.name}")
+        String name,
+        @NotBlank(message = "{notblank.productAttribute.value}")
+        String value,
 
-    @NotNull
-    Long productId
+        @NotNull(message = "{notnull.productAttribute.productId}")
+        Long productId
 ) {}

@@ -3,7 +3,6 @@ package br.com.cepedi.ShoppingStore.model.records.product.input;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import br.com.cepedi.ShoppingStore.model.entitys.Category;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -11,36 +10,36 @@ import jakarta.validation.constraints.Size;
 
 public record DataRegisterProduct(
 
-    @NotBlank(message = "Name cannot be null or empty")
-    @Size(max = 100, message = "Name cannot exceed 100 characters")
-    String name,
+        @NotBlank(message = "{notblank.product.name}")
+        @Size(max = 100, message = "{size.product.name}")
+        String name,
 
-    @NotBlank(message = "Description cannot be null or empty")
-    @Size(max = 500, message = "Description cannot exceed 500 characters")
-    String description,
+        @NotBlank(message = "{notblank.product.description}")
+        @Size(max = 500, message = "{size.product.description}")
+        String description,
 
-    @NotNull(message = "Price cannot be null")
-    @Positive(message = "Price must be a positive value")
-    BigDecimal price,
+        @NotNull(message = "{notnull.product.price}")
+        @Positive(message = "{positive.product.price}")
+        BigDecimal price,
 
-    @NotBlank(message = "SKU cannot be null or empty")
-    @Size(max = 50, message = "SKU cannot exceed 50 characters")
-    String sku,
+        @NotBlank(message = "{notblank.product.sku}")
+        @Size(max = 50, message = "{size.product.sku}")
+        String sku,
 
-    @NotBlank(message = "Image URL cannot be null or empty")
-    String imageUrl,
+        @NotBlank(message = "{notblank.product.imageUrl}")
+        String imageUrl,
 
-    @NotNull(message = "Category ID cannot be null")
-    Long categoryId,
+        @NotNull(message = "{notnull.product.categoryId}")
+        Long categoryId,
 
-    @NotNull(message = "Quantity cannot be null")
-    @Positive(message = "Quantity must be a positive value")
-    BigInteger quantity,
+        @NotNull(message = "{notnull.product.quantity}")
+        @Positive(message = "{positive.product.quantity}")
+        BigInteger quantity,
 
-    @NotNull(message = "brandId cannot be null ")
-    Long brandId,
+        @NotNull(message = "{notnull.product.brandId}")
+        Long brandId,
 
-    Boolean featured
+        Boolean featured
 
 ) {
 }

@@ -5,16 +5,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record DataRegisterUser(
-        @NotBlank
+        @NotBlank(message = "{notblank.user.login}")
         String login,
 
-        @NotBlank
-        @Email
+        @NotBlank(message = "{notblank.user.email}")
+        @Email(message = "{email.user.email}")
         String email,
-        @NotBlank
-        String name ,
 
-        @NotBlank
-        @Password
-        String password) {
-}
+        @NotBlank(message = "{notblank.user.name}")
+        String name,
+
+        @NotBlank(message = "{notblank.user.password}")
+        @Password(message = "{password.user.password}")
+        String password
+) {}

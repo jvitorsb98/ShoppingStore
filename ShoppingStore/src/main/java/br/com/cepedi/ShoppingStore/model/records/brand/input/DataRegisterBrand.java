@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DataRegisterBrand(
 
-        @NotBlank
+        @NotBlank(message = "{notblank.brand.name}")
         String name
 
 ) {

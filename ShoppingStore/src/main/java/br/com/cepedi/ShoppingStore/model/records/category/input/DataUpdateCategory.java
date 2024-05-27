@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record DataUpdateCategory(
 
-        @NotNull
+        @NotNull(message = "{notnull.category.id}")
         Long id,
 
         String name,

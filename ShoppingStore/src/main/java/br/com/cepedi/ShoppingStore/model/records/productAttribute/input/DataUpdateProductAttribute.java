@@ -4,7 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DataUpdateProductAttribute(
-        @NotNull(message = "Id must not be null") Long id,
-        @NotBlank(message = "Name must have be valid") String name,
-        @NotBlank(message = "Value must haver be valid") String value
+        @NotNull(message = "{notnull.productAttribute.id}")
+        Long id,
+
+        String name,
+        String value
 ) {}

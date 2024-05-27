@@ -5,15 +5,15 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DataRegisterMail(
 
-    @Email
-    @NotBlank(message = "Value of the emailFrom field cannot be null or empty")
+    @Email(message = "{invalid.email.from}")
+    @NotBlank(message = "{notblank.email.from}")
     String from,
-    
-    @Email
-    @NotBlank(message = "Value of the emailTo field cannot be null or empty")
+
+    @Email(message = "{invalid.email.to}")
+    @NotBlank(message = "{notblank.email.to}")
     String to,
 
-    @NotBlank(message = "Value of the content field cannot be null or empty")
+    @NotBlank(message = "{notblank.email.content}")
     String content,
     
     String subject
