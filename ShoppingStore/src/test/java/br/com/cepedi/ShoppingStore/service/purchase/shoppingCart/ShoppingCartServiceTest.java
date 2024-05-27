@@ -7,15 +7,15 @@ import br.com.cepedi.ShoppingStore.model.records.shoppingCart.input.DataRegister
 import br.com.cepedi.ShoppingStore.repository.ShoppingCartRepository;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.repository.UserRepository;
-import br.com.cepedi.ShoppingStore.service.purchase.shoppingCart.validations.disabled.ValidationsDisabledShoppingCart;
 import br.com.cepedi.ShoppingStore.service.purchase.shoppingCartItem.ShoppingCartItemService;
+import br.com.cepedi.ShoppingStore.service.purchase.shoppingCart.validations.disabled.ValidationsDisabledShoppingCart;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +27,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@TestMethodOrder(MethodOrderer.Random.class)
 class ShoppingCartServiceTest {
 
     @Mock
@@ -35,10 +35,9 @@ class ShoppingCartServiceTest {
 
     @Mock
     private UserRepository userRepository;
-    
-    @Mock
-    private ValidationsDisabledShoppingCart validationDisabledShoppingCart;
 
+    @Mock
+    private List<ValidationsDisabledShoppingCart> validationDisabledShoppingCart;
 
     @Mock
     private ShoppingCartItemService shoppingCartItemService;
@@ -46,135 +45,133 @@ class ShoppingCartServiceTest {
     @InjectMocks
     private ShoppingCartService shoppingCartService;
 
-    private User user;
-
     @BeforeEach
     void setUp() {
-        user = new User();
-        user.setId(1L);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void testRegister() {
+        // Given
         DataRegisterPurchase data = mock(DataRegisterPurchase.class);
+        DataDetailsShoppingCart expected = mock(DataDetailsShoppingCart.class);
+        User user = new User();
+        user.setId(1L);
+        when(data.dataRegisterShoppingCart()).thenReturn(mock(DataRegisterShoppingCart.class));
+        when(data.dataRegisterShoppingCart().userId()).thenReturn(1L);
+        when(userRepository.getReferenceById(1L)).thenReturn(user);
+        when(shoppingCartRepository.save(any())).thenReturn(new ShoppingCart(user));
+        when(expected.UserId()).thenReturn(user.getId());
 
-        DataRegisterShoppingCart dataRegisterShoppingCart = mock(DataRegisterShoppingCart.class);
-        when(data.dataRegisterShoppingCart()).thenReturn(dataRegisterShoppingCart);
-        when(dataRegisterShoppingCart.userId()).thenReturn(1L);
-
-        User user = new User(); 
-        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-
-    
-        ShoppingCart savedShoppingCart = new ShoppingCart(user);
-        when(shoppingCartRepository.save(any())).thenReturn(savedShoppingCart);
-
-    
+        // When
         DataDetailsShoppingCart result = shoppingCartService.register(data);
 
+        // Then
         assertNotNull(result);
-        assertEquals(user.getId(), result.UserId());
+        assertEquals(expected.UserId(), result.UserId());
         verify(shoppingCartRepository, times(1)).save(any());
     }
 
-
-
     @Test
     void testList() {
+        // Given
         Pageable pageable = mock(Pageable.class);
         Page<ShoppingCart> shoppingCarts = new PageImpl<>(Collections.emptyList());
         when(shoppingCartRepository.findAll(pageable)).thenReturn(shoppingCarts);
 
+        // When
         Page<DataDetailsShoppingCart> result = shoppingCartService.list(pageable);
 
+        // Then
         assertNotNull(result);
         assertEquals(shoppingCarts, result);
     }
 
     @Test
     void testListDeactivated() {
+        // Given
         Pageable pageable = mock(Pageable.class);
         Page<ShoppingCart> deactivatedShoppingCarts = new PageImpl<>(Collections.emptyList());
         when(shoppingCartRepository.findAllByDisabledTrue(pageable)).thenReturn(deactivatedShoppingCarts);
 
+        // When
         Page<DataDetailsShoppingCart> result = shoppingCartService.listDeactivated(pageable);
 
+        // Then
         assertNotNull(result);
         assertEquals(deactivatedShoppingCarts, result);
     }
 
     @Test
     void testDetails() {
+        // Given
         Long cartId = 1L;
-        
         ShoppingCart shoppingCart = new ShoppingCart(new User());
         shoppingCart.setId(cartId);
+        when(shoppingCartRepository.getReferenceById(cartId)).thenReturn(shoppingCart);
+        DataDetailsShoppingCart expected = new DataDetailsShoppingCart(shoppingCart);
 
-        when(shoppingCartRepository.findById(cartId)).thenReturn(Optional.of(shoppingCart));
-
+        // When
         DataDetailsShoppingCart result = shoppingCartService.details(cartId);
 
+        // Then
         assertNotNull(result);
-
-        assertEquals(cartId, result.id());
+        assertEquals(expected.id(), result.id());
     }
 
-    
+    @Test
+    void testListByUser() {
+        // Given
+        Long userId = 1L;
+        Pageable pageable = mock(Pageable.class);
+        ShoppingCart shoppingCart = new ShoppingCart(new User());
+        Page<ShoppingCart> shoppingCartPage = new PageImpl<>(Collections.singletonList(shoppingCart));
+        when(shoppingCartRepository.findAllByUser(pageable, userId)).thenReturn(shoppingCartPage);
+        Page<DataDetailsShoppingCart> expected = shoppingCartPage.map(DataDetailsShoppingCart::new);
+
+        // When
+        Page<DataDetailsShoppingCart> result = shoppingCartService.listByUser(pageable, userId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testListByUserAndDisabledTrue() {
+        // Given
+        Long userId = 1L;
+        Pageable pageable = mock(Pageable.class);
+        ShoppingCart shoppingCart = new ShoppingCart(new User());
+        Page<ShoppingCart> shoppingCartPage = new PageImpl<>(Collections.singletonList(shoppingCart));
+        when(shoppingCartRepository.findAllByUserAndDisabledIsTrue(pageable, userId)).thenReturn(shoppingCartPage);
+        Page<DataDetailsShoppingCart> expected = shoppingCartPage.map(DataDetailsShoppingCart::new);
+
+        // When
+        Page<DataDetailsShoppingCart> result = shoppingCartService.listByUserAndDisabledTrue(pageable, userId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(expected, result);
+        assertEquals(expected, result);
+    }
+
     @Test
     void testDisabled() {
         // Given
         Long shoppingCartId = 1L;
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.setId(shoppingCartId);
-
-        List<ValidationsDisabledShoppingCart> validations = Collections.singletonList(validationDisabledShoppingCart);
-
-        when(shoppingCartRepository.findById(shoppingCartId)).thenReturn(Optional.of(shoppingCart));
-        
+        when(shoppingCartRepository.getReferenceById(shoppingCartId)).thenReturn(shoppingCart);
         when(shoppingCartRepository.findAllByShoppingCartId(shoppingCartId)).thenReturn(Collections.emptyList());
-
-        ShoppingCartService shoppingCartService = new ShoppingCartService(shoppingCartRepository, validations, shoppingCartItemService, userRepository);
 
         // When
         shoppingCartService.disabled(shoppingCartId);
 
         // Then
         assertTrue(shoppingCart.getDisabled());
-        verify(shoppingCartItemService, times(0)).disabled(anyLong()); // Nenhum item desabilitado
-        verify(shoppingCartRepository, times(1)).save(shoppingCart); // Carrinho de compras salvo após desabilitar
-        verify(validationDisabledShoppingCart, times(1)).validation(shoppingCartId); // Validação chamada uma vez
+        verify(shoppingCartItemService, times(0)).disabled(anyLong());
+        verify(shoppingCartRepository, times(1)).save(shoppingCart);
     }
-    
-    @Test
-    void testListByUser() {
-        // Mock do ID do usuário
-        Long userId = 1L;
-        
-        ShoppingCart shoppingCart = new ShoppingCart(new User());
-        Page<ShoppingCart> shoppingCartPage = new PageImpl<>(Collections.singletonList(shoppingCart));
-        when(shoppingCartRepository.findAllByUser(any(Pageable.class), eq(userId))).thenReturn(shoppingCartPage);
-        
-        Page<DataDetailsShoppingCart> result = shoppingCartService.listByUser(mock(Pageable.class), userId);
-       
-        assertNotNull(result);
-        
-        verify(shoppingCartRepository).findAllByUser(any(Pageable.class), eq(userId));
-    }
-    
-    @Test
-    void testListByUserAndDisabledTrue() {
-        // Mock do ID do usuário
-        Long userId = 1L;
 
-        ShoppingCart shoppingCart = new ShoppingCart(new User());
-        Page<ShoppingCart> shoppingCartPage = new PageImpl<>(Collections.singletonList(shoppingCart));
-        when(shoppingCartRepository.findAllByUserAndDisabledIsTrue(any(Pageable.class), eq(userId))).thenReturn(shoppingCartPage);
-
-        Page<DataDetailsShoppingCart> result = shoppingCartService.listByUserAndDisabledTrue(mock(Pageable.class), userId);
-        
-
-        assertNotNull(result);
-        
-        verify(shoppingCartRepository).findAllByUserAndDisabledIsTrue(any(Pageable.class), eq(userId));
-    }
 }

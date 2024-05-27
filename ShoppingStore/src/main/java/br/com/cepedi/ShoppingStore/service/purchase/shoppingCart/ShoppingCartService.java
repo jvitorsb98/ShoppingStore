@@ -23,30 +23,21 @@ public class ShoppingCartService {
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
 
-    @Autowired
-    private List<ValidationsDisabledShoppingCart> validationsDisabledShoppingCarts;
+
 
     @Autowired
     private ShoppingCartItemService shoppingCartItemService;
+
+    @Autowired
+    private List<ValidationsDisabledShoppingCart> validationsDisabledShoppingCart;
 
     
     @Autowired
     private UserRepository userRepository;
 
-    public ShoppingCartService(ShoppingCartRepository shoppingCartRepository,
-			List<ValidationsDisabledShoppingCart> validationsDisabledShoppingCarts,
-			ShoppingCartItemService shoppingCartItemService, UserRepository userRepository) {
-		super();
-		this.shoppingCartRepository = shoppingCartRepository;
-		this.validationsDisabledShoppingCarts = validationsDisabledShoppingCarts;
-		this.shoppingCartItemService = shoppingCartItemService;
-		this.userRepository = userRepository;
-	}
 
 	public DataDetailsShoppingCart register(DataRegisterPurchase data){
-        User user = userRepository.findById(data.dataRegisterShoppingCart().userId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + data.dataRegisterShoppingCart().userId()));
-
+        User user = userRepository.getReferenceById(data.dataRegisterShoppingCart().userId());
         ShoppingCart shoppingCart = new ShoppingCart(user);
         shoppingCartRepository.save(shoppingCart);
         return new DataDetailsShoppingCart(shoppingCart);
@@ -61,8 +52,7 @@ public class ShoppingCartService {
     }
 
     public DataDetailsShoppingCart details(Long id){
-        return new DataDetailsShoppingCart(shoppingCartRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Shopping cart not found with id: " + id)));
+        return new DataDetailsShoppingCart(shoppingCartRepository.getReferenceById(id));
     }
 
     public Page<DataDetailsShoppingCart> listByUser(Pageable pageable , Long id){
@@ -74,9 +64,8 @@ public class ShoppingCartService {
     }
 
     public void disabled(Long id){
-        validationsDisabledShoppingCarts.forEach(v -> v.validation(id));
-        ShoppingCart shoppingCart = shoppingCartRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Shopping cart not found with id: " + id));
+        validationsDisabledShoppingCart.forEach(v -> v.validation(id));
+        ShoppingCart shoppingCart = shoppingCartRepository.getReferenceById(id);
         shoppingCart.disable();
         shoppingCartRepository.save(shoppingCart); // Salva o carrinho de compras desativado de volta no repositório
         List<ShoppingCartItem> shoppingCartItems = shoppingCartRepository.findAllByShoppingCartId(id);
