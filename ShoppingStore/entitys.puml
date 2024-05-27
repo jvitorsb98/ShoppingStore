@@ -1,0 +1,109 @@
+@startuml
+class br.com.cepedi.ShoppingStore.model.entitys.ProductRating {
+- Long id
+- Product product
+- BigDecimal ratingStars
+- String review
+- User user
+- Boolean disabled
++ void updateDataProductRating(DataUpdateProductRating,User,Product)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Category {
+- Long id
+- String name
+- String description
+- Boolean disabled
++ void updateDataCategory(DataUpdateCategory)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ProductAttribute {
+- Long id
+- String name
+- String value
+- Product product
+- Boolean disabled
++ void disable()
++ void enable()
++ void updateProductAttribute(DataUpdateProductAttribute)
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ShoppingCartItem {
+- Long id
+- String name
+- BigDecimal pricePurchase
+- ShoppingCart shoppingCart
+- BigInteger quantity
+- Product product
+- Boolean disabled
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets {
+- Long id
+- String name
+- Category category
+- Boolean disabled
++ void updateDataPossibleFacets(DataUpdatePossibleFacets,Category)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Payment {
+- Long id
+- ShoppingCart shoppingCart
+- PaymentType paymentType
+- boolean disabled
++ void disable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ShoppingCart {
+- Long id
+- BigDecimal totalPrice
+- User user
+- Boolean disabled
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Product {
+- Long id
+- String name
+- String description
+- BigDecimal price
+- String sku
+- String imageUrl
+- BigInteger quantity
+- Boolean featured
+- Boolean disabled
+- Brand brand
+- Category category
++ void disable()
++ void enable()
++ void updateDataProduct(DataUpdateProduct,Category)
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Brand {
+- Long id
+- String name
+- Boolean disabled
++ void updateDataBrand(DataUpdateBrand)
++ void disable()
++ void enable()
+}
+
+
+@enduml

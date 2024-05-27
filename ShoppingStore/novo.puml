@@ -1,0 +1,436 @@
+@startuml
+class br.com.cepedi.ShoppingStore.model.entitys.ProductRating {
+- Long id
+- Product product
+- BigDecimal ratingStars
+- String review
+- User user
+- Boolean disabled
++ void updateDataProductRating(DataUpdateProductRating,User,Product)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets {
+- Long id
+- String name
+- Long categoryId
++ Long id()
++ String name()
++ Long categoryId()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.shoppingCart.input.DataRegisterShoppingCart {
+- Long userId
++ Long userId()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataRegisterProductAttribute {
+- String name
+- String value
+- Long productId
++ Long productId()
++ String value()
++ String name()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.mail.details.DataDetailsMail {
+- Long id
+- String from
+- String to
+- String content
+- String subject
++ String to()
++ String from()
++ String subject()
++ String content()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Category {
+- Long id
+- String name
+- String description
+- Boolean disabled
++ void updateDataCategory(DataUpdateCategory)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory {
+- String name
+- String description
++ String name()
++ String description()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ShoppingCartItem {
+- Long id
+- String name
+- BigDecimal pricePurchase
+- ShoppingCart shoppingCart
+- BigInteger quantity
+- Product product
+- Boolean disabled
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Product {
+- Long id
+- String name
+- String description
+- BigDecimal price
+- String sku
+- String imageUrl
+- BigInteger quantity
+- Boolean featured
+- Boolean disabled
+- Brand brand
+- Category category
++ void disable()
++ void enable()
++ void updateDataProduct(DataUpdateProduct,Category)
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.shoppingCart.details.DataDetailsShoppingCart {
+- Long id
+- BigDecimal totalPrice
+- Long UserId
++ DataDetailsShoppingCart withTotalPrice(BigDecimal)
++ BigDecimal totalPrice()
++ Long UserId()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productAttribute.input.DataUpdateProductAttribute {
+- Long id
+- String name
+- String value
++ Long id()
++ String name()
++ String value()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.category.details.DataCategoryDetails {
+- Long id
+- String name
+- String description
++ String description()
++ String name()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.mail.input.DataRegisterMail {
+- String from
+- String to
+- String content
+- String subject
++ String content()
++ String subject()
++ String to()
++ String from()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.purchase.register.DataRegisterPurchase {
+- DataRegisterShoppingCart dataRegisterShoppingCart
+- List<DataRegisterShoppingCartItem> items
++ DataRegisterShoppingCart dataRegisterShoppingCart()
++ List<DataRegisterShoppingCartItem> items()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.brand.input.DataRegisterBrand {
+- String name
++ String name()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.category.input.DataUpdateCategory {
+- Long id
+- String name
+- String description
++ Long id()
++ String description()
++ String name()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.product.input.DataUpdateProduct {
+- Long id
+- String name
+- String description
+- BigDecimal price
+- String sku
+- String imageUrl
+- Long categoryId
+- BigInteger quantity
+- Long brandId
+- boolean featured
++ String description()
++ Long id()
++ BigInteger quantity()
++ String imageUrl()
++ Long brandId()
++ boolean featured()
++ String sku()
++ BigDecimal price()
++ String name()
++ Long categoryId()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.purchase.details.DataDetailsPurchase {
+- DataDetailsShoppingCart detailsShoppingCart
+- List<DataDetailsShoppingCartItem> detailsShoppingCartItems
++ DataDetailsShoppingCart detailsShoppingCart()
++ List<DataDetailsShoppingCartItem> detailsShoppingCartItems()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.brand.input.DataUpdateBrand {
+- Long id
+- String name
++ Long id()
++ String name()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ShoppingCart {
+- Long id
+- BigDecimal totalPrice
+- User user
+- Boolean disabled
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productAttribute.details.DataProductAttributeDetails {
+- Long id
+- String name
+- String value
+- Long productId
+- Boolean disabled
++ {static} DataProductAttributeDetails fromEntity(ProductAttribute)
++ String value()
++ Boolean disabled()
++ Long productId()
++ String name()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.product.details.DataProductDetails {
+- Long id
+- String name
+- String description
+- BigDecimal price
+- String sku
+- String imageUrl
+- Long categoryId
+- BigInteger quantity
+- Long brandId
+- boolean featured
++ String sku()
++ BigDecimal price()
++ String description()
++ String imageUrl()
++ Long brandId()
++ boolean featured()
++ BigInteger quantity()
++ String name()
++ Long id()
++ Long categoryId()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.input.DataRegisterShoppingCartItem {
+- BigInteger quantity
+- Long productId
++ Long productId()
++ BigInteger quantity()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.ShoppingCartItem.details.DataDetailsShoppingCartItem {
+- String name
+- BigDecimal price
+- BigInteger quantity
+- Long idProduct
++ BigDecimal price()
++ Long idProduct()
++ BigInteger quantity()
++ String name()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.product.input.DataRegisterProduct {
+- String name
+- String description
+- BigDecimal price
+- String sku
+- String imageUrl
+- Long categoryId
+- BigInteger quantity
+- Long brandId
+- Boolean featured
++ String name()
++ String imageUrl()
++ Boolean featured()
++ BigInteger quantity()
++ Long categoryId()
++ BigDecimal price()
++ String sku()
++ Long brandId()
++ String description()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.brand.details.DataBrandDetails {
+- Long id
+- String name
++ String name()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.ProductAttribute {
+- Long id
+- String name
+- String value
+- Product product
+- Boolean disabled
++ void disable()
++ void enable()
++ void updateProductAttribute(DataUpdateProductAttribute)
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Brand {
+- Long id
+- String name
+- Boolean disabled
++ void updateDataBrand(DataUpdateBrand)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets {
+- String name
+- Long idCategory
++ Long idCategory()
++ String name()
+}
+
+
+enum br.com.cepedi.ShoppingStore.model.enums.PaymentType {
++  CREDIT_CARD
++  DEBIT_CARD
++  PAYPAL
++  BANK_TRANSFER
+}
+
+class br.com.cepedi.ShoppingStore.model.records.payments.details.DataDetailsPayment {
+- Long id
+- Long idShoppingCart
+- PaymentType paymentType
++ PaymentType paymentType()
++ Long id()
++ Long idShoppingCart()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productRating.details.DataProductRatingDetails {
+- Long id
+- Long idProduct
+- BigDecimal ratingStars
+- String review
+- Long idUser
++ BigDecimal ratingStars()
++ String review()
++ Long idUser()
++ Long idProduct()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.possibleFacets.details.DataPossibleFacetsDetails {
+- Long id
+- String name
+- Long idCategory
++ Long idCategory()
++ String name()
++ Long id()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productRating.input.DataRegisterProductRating {
+- Long productId
+- BigDecimal ratingStars
+- String review
+- Long Userid
++ Long Userid()
++ Long productId()
++ BigDecimal ratingStars()
++ String review()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.payments.input.DataRegisterPayment {
+- Long shoppingCartId
+- PaymentType paymentType
++ PaymentType paymentType()
++ Long shoppingCartId()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets {
+- Long id
+- String name
+- Category category
+- Boolean disabled
++ void updateDataPossibleFacets(DataUpdatePossibleFacets,Category)
++ void disable()
++ void enable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.entitys.Payment {
+- Long id
+- ShoppingCart shoppingCart
+- PaymentType paymentType
+- boolean disabled
++ void disable()
+}
+
+
+class br.com.cepedi.ShoppingStore.model.records.productRating.input.DataUpdateProductRating {
+- Long id
+- Long productId
+- BigDecimal ratingStars
+- String review
+- Long userId
++ Long productId()
++ Long id()
++ Long userId()
++ BigDecimal ratingStars()
++ String review()
+}
+
+
+@enduml
