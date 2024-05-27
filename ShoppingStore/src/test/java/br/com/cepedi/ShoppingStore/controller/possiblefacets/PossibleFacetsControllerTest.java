@@ -1,112 +1,113 @@
-//package br.com.cepedi.ShoppingStore.controller.possiblefacets;
-//
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.when;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//import java.awt.print.Pageable;
-//import java.util.List;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.boot.test.mock.mockito.MockBean;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageImpl;
-//import org.springframework.http.MediaType;
-//import org.springframework.security.test.context.support.WithMockUser;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.ResultMatcher;
-//import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-//import org.springframework.data.domain.Pageable;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.github.javafaker.Faker;
-//
-//import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets;
-//import br.com.cepedi.ShoppingStore.service.possibleFacets.PossibleFacetsService;
-//
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//public class PossibleFacetsControllerTest {
-//
-//   @Autowired
-//    private MockMvc mockMvc;
-//
-//    @Autowired
-//    private ObjectMapper objectMapper;
-//
-//    @MockBean
-//    private PossibleFacetsService possibleFacetsService;
-//
-//    private static final Faker faker = new Faker();
-//
-//    @BeforeEach
-//    void setup() {
-//        // Setting up mock service behavior
-//        when(possibleFacetsService.register(any(DataRegisterPossibleFacets.class))).thenReturn(null);
-//    }
-//
-//    @Test
-//    @DisplayName("Test for registering a possible facet with valid data")
-//    @WithMockUser(username = "user", roles = {"USER"})
-//    void createPossibleFacetWithValidData() throws Exception {
-//        // Setting up data for the test
-//        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets(null, null);
-//
-//         Making HTTP request and checking status
-//        mockMvc.perform(post("/v2/possible-facets")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(data)))
-//                .andExpect(status().isCreated());
-//    }
-//
-//    @Test
-//    @DisplayName("Test for registering a possible facet with invalid data")
-//    @WithMockUser(username = "user", roles = {"USER"})
-//    void createPossibleFacetWithInvalidData() throws Exception {
-//       Setting up invalid data for the test
-//        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets(null, null);
-//
-//        Making HTTP request and checking status for BadRequest
-//        mockMvc.perform(post("/v2/possible-facets")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(objectMapper.writeValueAsString(data)))
-//                .andExpect(status().isBadRequest());
-//    }
-//
-//    @Test
-//    @DisplayName("Test for getting all activated possible facets")
-//    @WithMockUser
-//    void getAllActivatedPossibleFacets() throws Exception {
-//        Simulating data and mock service behavior
-//        List<DataRegisterPossibleFacets> expectedDetails = ;
-//
-//        Page<DataRegisterPossibleFacets> simulatedPage = new PageImpl<>(expectedDetails);
-//        when(possibleFacetsService.listAll((org.springframework.data.domain.Pageable) any(Pageable.class))).thenReturn(simulatedPage);
-//
-//        // Making HTTP request and checking status and content
-//        mockMvc.perform(get("/v2/possible-facets")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.content", hasSize(expectedDetails.size())));
-//    }
-//
-//	private ResultMatcher jsonPath(String string, Object hasSize) {
-//		return null;
-//	}
-//
-//	private Object hasSize(int size) {
-//		return null;
-//	}
-//
-//	private MockHttpServletRequestBuilder get(String string) {
-//		return null;
-//	}
-//
-//   Additional tests for other controller methods
-//}
+package br.com.cepedi.ShoppingStore.controller.possiblefacets;
+
+
+import br.com.cepedi.ShoppingStore.model.entitys.PossibleFacets;
+
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.details.DataPossibleFacetsDetails;
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataRegisterPossibleFacets;
+import br.com.cepedi.ShoppingStore.model.records.possibleFacets.input.DataUpdatePossibleFacets;
+import br.com.cepedi.ShoppingStore.service.possibleFacets.PossibleFacetsService;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+class PossibleFacetsControllerTest {
+
+    @InjectMocks
+    private PossibleFacetsController possibleFacetsController;
+
+    @Mock
+    private PossibleFacetsService possibleFacetsService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testRegister() {
+        DataRegisterPossibleFacets data = new DataRegisterPossibleFacets("Facet 1", 1L);
+        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(1L, "Facet 1", 1L);
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
+
+        when(possibleFacetsService.register(data)).thenReturn(details);
+
+        ResponseEntity<DataPossibleFacetsDetails> response = possibleFacetsController.register(data, uriBuilder);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(details, response.getBody());
+        verify(possibleFacetsService, times(1)).register(data);
+    }
+
+    @Test
+    void testGetById() {
+        Long id = 1L;
+        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(id, "Facet 1", 1L);
+
+        when(possibleFacetsService.findById(id)).thenReturn(details);
+
+        ResponseEntity<DataPossibleFacetsDetails> response = possibleFacetsController.findById(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(details, response.getBody());
+        verify(possibleFacetsService, times(1)).findById(id);
+    }
+
+    @Test
+    void testUpdate() {
+        DataUpdatePossibleFacets data = new DataUpdatePossibleFacets(1L, "Updated Facet", 1L);
+        DataPossibleFacetsDetails updatedDetails = new DataPossibleFacetsDetails(1L, "Updated Facet", 1L);
+
+        when(possibleFacetsService.update(data)).thenReturn(updatedDetails);
+
+        ResponseEntity<DataPossibleFacetsDetails> response = possibleFacetsController.update(data);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedDetails, response.getBody());
+        verify(possibleFacetsService, times(1)).update(data);
+    }
+
+    @Test
+    void testDisable() {
+        Long id = 1L;
+
+        doNothing().when(possibleFacetsService).disable(id);
+
+        ResponseEntity<Object> response = possibleFacetsController.disabled(id);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(possibleFacetsService, times(1)).disable(id);
+    }
+
+    @Test
+    void testListAll() {
+        Page<DataPossibleFacetsDetails> facetsPage = new PageImpl<>(List.of(
+                new DataPossibleFacetsDetails(1L, "Facet 1", 1L),
+                new DataPossibleFacetsDetails(2L, "Facet 2", 1L)
+        ));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(possibleFacetsService.listAll(pageable)).thenReturn(facetsPage);
+
+        ResponseEntity<Page<DataPossibleFacetsDetails>> response = possibleFacetsController.list(pageable);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(facetsPage, response.getBody());
+        verify(possibleFacetsService, times(1)).listAll(pageable);
+    }
+}
