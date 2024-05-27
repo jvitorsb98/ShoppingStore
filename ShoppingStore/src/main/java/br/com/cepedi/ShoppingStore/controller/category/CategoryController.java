@@ -86,5 +86,7 @@ public class CategoryController {
         LOGGER.info("Category disabled successfully");
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    
 }
 

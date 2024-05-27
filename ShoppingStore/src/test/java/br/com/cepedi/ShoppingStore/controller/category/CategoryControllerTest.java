@@ -1,89 +1,127 @@
-/*package br.com.cepedi.ShoppingStore.controller.category;
-
-import static org.mockito.Mockito.*;
-
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+package br.com.cepedi.ShoppingStore.controller.category;
 
 import br.com.cepedi.ShoppingStore.model.records.category.details.DataCategoryDetails;
+import br.com.cepedi.ShoppingStore.model.records.category.input.DataRegisterCategory;
+import br.com.cepedi.ShoppingStore.model.records.category.input.DataUpdateCategory;
 import br.com.cepedi.ShoppingStore.service.category.CategoryService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.Collections;
+import java.net.URI;
+import java.util.List;
 
-@WebMvcTest
-@AutoConfigureMockMvc
-@ExtendWith(MockitoExtension.class)
-@ExtendWith(SpringExtension.class)
-public class CategoryControllerTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-    @Autowired
-    private MockMvc mockMvc;
+class CategoryControllerTest {
 
-    @MockBean
+    @InjectMocks
+    private CategoryController categoryController;
+
+    @Mock
     private CategoryService categoryService;
 
-    @Test
-    void testRegisterCategory() throws Exception {
-        String requestBody = "{\"name\":\"Test Category\",\"description\":\"Test Description\"}";
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v2/categories")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testListAllCategories() throws Exception {
-        Page<DataCategoryDetails> categories = new PageImpl<>(Collections.emptyList());
-        when(categoryService.listAllCategories(any())).thenReturn(categories);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/categories"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+    void testRegister() {
+        DataRegisterCategory data = new DataRegisterCategory("Category Name", "Category Description");
+        DataCategoryDetails details = new DataCategoryDetails(1L, "Category Name", "Category Description");
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
+
+        when(categoryService.registerCategory(data)).thenReturn(details);
+
+        ResponseEntity<DataCategoryDetails> response = categoryController.registerCategory(data, uriBuilder);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(details, response.getBody());
+        verify(categoryService, times(1)).registerCategory(data);
+    }
+    
+    @Test
+    void testGetCategoryById() {
+        Long id = 1L;
+        DataCategoryDetails categoryDetails = new DataCategoryDetails(id, "Category Name", "Category Description");
+
+        when(categoryService.getCategoryById(id)).thenReturn(categoryDetails);
+
+        ResponseEntity<DataCategoryDetails> response = categoryController.getCategoryById(id);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(categoryDetails, response.getBody());
+        verify(categoryService, times(1)).getCategoryById(id);
     }
 
     @Test
-    void testListCategoriesByName() throws Exception {
-        Page<DataCategoryDetails> categories = new PageImpl<>(Collections.emptyList());
-        when(categoryService.listCategoriesByName(any(), any())).thenReturn(categories);
+    void testDisable() {
+        Long id = 1L;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/categories/search?name=test"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        ResponseEntity<Void> response = categoryController.disableCategory(id);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(categoryService, times(1)).disableCategory(id);
     }
-
+    
     @Test
-    void testGetCategoryById() throws Exception {
-        DataCategoryDetails category = new DataCategoryDetails(1L, "Test Category", "Test Description");
-        when(categoryService.getCategoryById(any())).thenReturn(category);
+    void testUpdate() {
+        Long id = 1L;
+        DataUpdateCategory data = new DataUpdateCategory(id, "Updated Category Name", "Updated Category Description");
+        DataCategoryDetails updatedCategory = new DataCategoryDetails(id, "Updated Category Name", "Updated Category Description");
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v2/categories/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        when(categoryService.updateCategory(data)).thenReturn(updatedCategory);
+
+        ResponseEntity<DataCategoryDetails> response = categoryController.updateCategory(data);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(updatedCategory, response.getBody());
+        verify(categoryService, times(1)).updateCategory(data);
     }
-
-
+    
     @Test
-    void testUpdateCategory() throws Exception {
-        String requestBody = "{\"name\":\"Updated Test Category\",\"description\":\"Updated Test Description\"}";
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v2/categories/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+    void testListAllCategories() {
+        Page<DataCategoryDetails> categoryPage = new PageImpl<>(List.of(
+                new DataCategoryDetails(1L, "Category 1", "Description 1"),
+                new DataCategoryDetails(2L, "Category 2", "Description 2")
+        ));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(categoryService.listAllCategories(pageable)).thenReturn(categoryPage);
+
+        ResponseEntity<Page<DataCategoryDetails>> response = categoryController.listAllCategories(pageable);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(categoryPage, response.getBody());
+        verify(categoryService, times(1)).listAllCategories(pageable);
     }
-
+    
     @Test
-    void testDisableCategory() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v2/categories/1"))
-                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    void testListCategoriesByName() {
+        String name = "Category";
+        Page<DataCategoryDetails> categoryPage = new PageImpl<>(List.of(
+                new DataCategoryDetails(1L, "Category 1", "Description 1"),
+                new DataCategoryDetails(2L, "Category 2", "Description 2")
+        ));
+        Pageable pageable = PageRequest.of(0, 10);
+
+        when(categoryService.listCategoriesByName(name, pageable)).thenReturn(categoryPage);
+
+        ResponseEntity<Page<DataCategoryDetails>> response = categoryController.listCategoriesByName(name, pageable);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(categoryPage, response.getBody());
+        verify(categoryService, times(1)).listCategoriesByName(name, pageable);
     }
 }
-*/
-
