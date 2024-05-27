@@ -34,10 +34,20 @@ public class PaymentController {
     public ResponseEntity<DataDetailsPayment> registerPayment(@Valid @RequestBody DataRegisterPayment data, UriComponentsBuilder uriBuilder) {
         LOGGER.info("Registering a payment");
         DataDetailsPayment dataDetailsPayment = paymentService.register(data);
-        URI uri = uriBuilder.path("/payments/{id}").buildAndExpand(dataDetailsPayment.id()).toUri();
-        LOGGER.info("Payment registered successfully");
-        return ResponseEntity.created(uri).body(dataDetailsPayment);
+        
+        Long id = dataDetailsPayment.id();
+        if (id != null) {
+            URI uri = uriBuilder.path("/payments/{id}").buildAndExpand(id).toUri(); // Corrigido para /payments/{id}
+            LOGGER.info("Payment registered successfully");
+            LOGGER.info("ID: {}", id);
+            return ResponseEntity.created(uri).body(dataDetailsPayment);
+        } else {
+            // Tratar o caso em que o id é null
+            LOGGER.error("Failed to register payment: ID is null");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
 
     @GetMapping
     public ResponseEntity<Page<DataDetailsPayment>> listAllPayments(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
