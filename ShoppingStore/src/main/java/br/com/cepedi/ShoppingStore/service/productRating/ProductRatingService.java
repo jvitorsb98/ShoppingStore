@@ -44,7 +44,7 @@ public class ProductRatingService {
 	public DataProductRatingDetails register(DataRegisterProductRating data) {
 		validatorsRegister.forEach(validator -> validator.validation(data));
 		Product product = productRepository.getReferenceById(data.productId());
-		User user = userRepository.getReferenceById(data.Userid());
+		User user = userRepository.getReferenceById(data.userId());
 		ProductRating productRating = new ProductRating(data, user, product);
 		productRatingRepository.save(productRating);
 
