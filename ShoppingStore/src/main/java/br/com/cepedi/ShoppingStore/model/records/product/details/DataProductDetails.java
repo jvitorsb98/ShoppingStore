@@ -17,7 +17,8 @@ public record DataProductDetails(
     Long categoryId,
     BigInteger quantity,
     Long brandId,
-    boolean featured
+    boolean featured,
+    Boolean disabled
  // List<ProductAttribute> productAttributeList,
  // List<ProductRating> productRating
 ) {
@@ -32,7 +33,8 @@ public record DataProductDetails(
             product.getCategory().getId(),
             product.getQuantity(),
             product.getBrand().getId(),
-            product.getFeatured()//Aqui usamos isFeatured()em vez de get() para boolean no Lombok
+            product.getFeatured(), //Aqui usamos isFeatured()em vez de get() para boolean no Lombok
+            product.getDisabled()
        );
     }
 }

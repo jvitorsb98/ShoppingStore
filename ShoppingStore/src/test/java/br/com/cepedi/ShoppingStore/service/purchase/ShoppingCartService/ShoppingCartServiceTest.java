@@ -121,6 +121,8 @@ public class ShoppingCartServiceTest {
         assertEquals(1, result.getContent().size());
         assertEquals(new DataDetailsShoppingCart(shoppingCart), result.getContent().get(0));
 
+        assertEquals(true, result.getContent().get(0).disabled());
+
         // Verify interactions
         verify(shoppingCartRepository).findAllByDisabledTrue(pageable);
     }
@@ -177,6 +179,8 @@ public class ShoppingCartServiceTest {
         // Verify the result
         assertEquals(1, result.getContent().size());
         assertEquals(new DataDetailsShoppingCart(shoppingCart), result.getContent().get(0));
+
+        assertEquals(true, result.getContent().get(0).disabled());
 
         // Verify interactions
         verify(shoppingCartRepository).findAllByUserAndDisabledIsTrue(pageable, userId);

@@ -90,7 +90,7 @@ public class ProductRatingServiceTest {
         productRating.setReview(ModelMocks.review);
         productRating.enable();
         data = new DataRegisterProductRating(ModelMocks.idProduct, ModelMocks.ratingStarsProductRating, ModelMocks.review, ModelMocks.idUser);
-        expected = new DataProductRatingDetails(ModelMocks.idProductRating, ModelMocks.idProduct, ModelMocks.ratingStarsProductRating, ModelMocks.review, ModelMocks.idUser);
+        expected = new DataProductRatingDetails(ModelMocks.idProductRating, ModelMocks.idProduct, ModelMocks.ratingStarsProductRating, ModelMocks.review, ModelMocks.idUser, false);
     }
 
     @Test
@@ -128,6 +128,8 @@ public class ProductRatingServiceTest {
         assertEquals(ModelMocks.review, expectedDetails.get(0).review());
         assertEquals(ModelMocks.idProduct, expectedDetails.get(0).idProduct());
         assertEquals(ModelMocks.idUser, expectedDetails.get(0).idUser());
+
+        assertEquals(false, expectedDetails.get(0).disabled());
     }
 
     @Test
@@ -150,6 +152,8 @@ public class ProductRatingServiceTest {
         assertEquals(ModelMocks.review, expectedDetails.get(0).review());
         assertEquals(ModelMocks.idProduct, expectedDetails.get(0).idProduct());
         assertEquals(ModelMocks.idUser, expectedDetails.get(0).idUser());
+
+        assertEquals(true, expectedDetails.get(0).disabled());
     }
 
     @Test
@@ -189,6 +193,8 @@ public class ProductRatingServiceTest {
             assertEquals(ModelMocks.review, result.getContent().get(i).review());
             assertEquals(ModelMocks.idUser, result.getContent().get(i).idUser());
             assertEquals(ModelMocks.idProduct, result.getContent().get(i).idProduct());
+
+            assertEquals(false, result.getContent().get(i).disabled());
         }
     }
 
@@ -219,6 +225,8 @@ public class ProductRatingServiceTest {
             assertEquals(ModelMocks.review, result.getContent().get(i).review());
             assertEquals(ModelMocks.idUser, result.getContent().get(i).idUser());
             assertEquals(ModelMocks.idProduct, result.getContent().get(i).idProduct());
+
+            assertEquals(true, result.getContent().get(i).disabled());
         }
     }
 
@@ -248,6 +256,8 @@ public class ProductRatingServiceTest {
             assertEquals(ModelMocks.review, result.getContent().get(i).review());
             assertEquals(ModelMocks.idUser, result.getContent().get(i).idUser());
             assertEquals(ModelMocks.idProduct, result.getContent().get(i).idProduct());
+
+            assertEquals(false, result.getContent().get(i).disabled());
         }
     }
 
@@ -278,6 +288,8 @@ public class ProductRatingServiceTest {
             assertEquals(ModelMocks.review, result.getContent().get(i).review());
             assertEquals(ModelMocks.idUser, result.getContent().get(i).idUser());
             assertEquals(ModelMocks.idProduct, result.getContent().get(i).idProduct());
+
+            assertEquals(true, result.getContent().get(i).disabled());
         }
     }
 
