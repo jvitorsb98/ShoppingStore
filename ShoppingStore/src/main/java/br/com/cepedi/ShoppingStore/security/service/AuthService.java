@@ -1,6 +1,7 @@
 package br.com.cepedi.ShoppingStore.security.service;
 
 
+import br.com.cepedi.ShoppingStore.security.service.validations.register.ValidationRegisterUser;
 import br.com.cepedi.ShoppingStore.security.model.entitys.User;
 import br.com.cepedi.ShoppingStore.security.model.records.details.DataDetailsRegisterUser;
 import br.com.cepedi.ShoppingStore.security.model.records.input.DataRegisterUser;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthService implements UserDetailsService {
 
@@ -22,13 +25,16 @@ public class AuthService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private List<ValidationRegisterUser> validationRegister;
+
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         return repository.findByLogin(login);
     }
 
-
     public DataDetailsRegisterUser register(DataRegisterUser dataRegisterUser){
+        validationRegister.forEach(v -> v.validation(dataRegisterUser));
         User user = new User(dataRegisterUser, passwordEncoder);
         repository.save(user);
         return new DataDetailsRegisterUser(user);
