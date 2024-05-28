@@ -59,7 +59,8 @@ public class ProductControllerTest {
                 1L,
                 BigInteger.valueOf(10),
                 1L,
-                true,true
+                true,
+                false
         );
 
         when(productService.register(requestData)).thenReturn(responseData);
@@ -101,7 +102,8 @@ public class ProductControllerTest {
                 1L,
                 BigInteger.valueOf(10),
                 1L,
-                true,true
+                true,
+                false
         );
 
         when(productService.detailsProduct(productId)).thenReturn(responseData);
@@ -154,7 +156,8 @@ public class ProductControllerTest {
                 1L,
                 BigInteger.valueOf(20),
                 1L,
-                true,true
+                true,
+                false
         );
 
         when(productService.updateProduct(requestData)).thenReturn(responseData);

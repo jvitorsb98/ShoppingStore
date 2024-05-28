@@ -42,7 +42,7 @@ class PossibleFacetsControllerTest {
     @Test
     void testRegister() {
         DataRegisterPossibleFacets data = new DataRegisterPossibleFacets("Facet 1", 1L);
-        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(1L, "Facet 1", 1L);
+        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(1L, "Facet 1", 1L, false);
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
 
         when(possibleFacetsService.register(data)).thenReturn(details);
@@ -57,7 +57,7 @@ class PossibleFacetsControllerTest {
     @Test
     void testGetById() {
         Long id = 1L;
-        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(id, "Facet 1", 1L);
+        DataPossibleFacetsDetails details = new DataPossibleFacetsDetails(id, "Facet 1", 1L, false);
 
         when(possibleFacetsService.findById(id)).thenReturn(details);
 
@@ -71,7 +71,7 @@ class PossibleFacetsControllerTest {
     @Test
     void testUpdate() {
         DataUpdatePossibleFacets data = new DataUpdatePossibleFacets(1L, "Updated Facet", 1L);
-        DataPossibleFacetsDetails updatedDetails = new DataPossibleFacetsDetails(1L, "Updated Facet", 1L);
+        DataPossibleFacetsDetails updatedDetails = new DataPossibleFacetsDetails(1L, "Updated Facet", 1L, false);
 
         when(possibleFacetsService.update(data)).thenReturn(updatedDetails);
 
@@ -97,8 +97,8 @@ class PossibleFacetsControllerTest {
     @Test
     void testListAll() {
         Page<DataPossibleFacetsDetails> facetsPage = new PageImpl<>(List.of(
-                new DataPossibleFacetsDetails(1L, "Facet 1", 1L),
-                new DataPossibleFacetsDetails(2L, "Facet 2", 1L)
+                new DataPossibleFacetsDetails(1L, "Facet 1", 1L, false),
+                new DataPossibleFacetsDetails(2L, "Facet 2", 1L, false)
         ));
         Pageable pageable = PageRequest.of(0, 10);
 

@@ -41,7 +41,7 @@ public class PaymentControllerTest {
 	void testRegisterPayment() {
 		// Configurar os dados de entrada e saída do teste
 		DataRegisterPayment data = new DataRegisterPayment(1L, PaymentType.CREDIT_CARD);
-		DataDetailsPayment details = new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD);
+		DataDetailsPayment details = new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD, false);
 		when(paymentService.register(any(DataRegisterPayment.class))).thenReturn(details);
 		
 		// Executar o método a ser testado
@@ -60,8 +60,8 @@ public class PaymentControllerTest {
 	void testGetAllPayments() {
 		// Configurar os dados de entrada e saída do teste
 		List<DataDetailsPayment> payments = new ArrayList<>();
-		payments.add(new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD));
-		payments.add(new DataDetailsPayment(2L, 2L, PaymentType.CREDIT_CARD));
+		payments.add(new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD, false));
+		payments.add(new DataDetailsPayment(2L, 2L, PaymentType.CREDIT_CARD, false));
 		Page<DataDetailsPayment> page = new PageImpl<>(payments);
 		when(paymentService.listAllPayments(any(Pageable.class))).thenReturn(page);
 		
@@ -80,8 +80,8 @@ public class PaymentControllerTest {
 	void testGetPaymentsByUser() {
 	    // Configurar os dados de entrada e saída do teste
 	    List<DataDetailsPayment> payments = new ArrayList<>();
-	    payments.add(new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD));
-	    payments.add(new DataDetailsPayment(2L, 2L, PaymentType.CREDIT_CARD));
+	    payments.add(new DataDetailsPayment(1L, 1L, PaymentType.CREDIT_CARD, false));
+	    payments.add(new DataDetailsPayment(2L, 2L, PaymentType.CREDIT_CARD, false));
 	    Page<DataDetailsPayment> page = new PageImpl<>(payments);
 
 	    // Configurar o comportamento do mock

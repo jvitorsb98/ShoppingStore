@@ -315,7 +315,6 @@ public class ProductRatingServiceTest {
     @Test
     void disabledTestWithSuccess(){
         when(productRatingRepository.getReferenceById(anyLong())).thenReturn(productRating);
-        productRating.disable();
 
         productRatingService.disableProductRating(ModelMocks.idProductRating);
 
