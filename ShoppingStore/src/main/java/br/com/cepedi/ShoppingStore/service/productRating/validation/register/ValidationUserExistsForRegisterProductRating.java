@@ -14,7 +14,7 @@
 	
 	    @Override
 	    public void validation(DataRegisterProductRating data) {
-	        if (data.Userid() != null && !userRepository.existsById(data.Userid())) {
+	        if (data.userId() != null && !userRepository.existsById(data.userId())) {
 	            throw new ValidationException("The provided user id does not exist");
 	        }
 	    }

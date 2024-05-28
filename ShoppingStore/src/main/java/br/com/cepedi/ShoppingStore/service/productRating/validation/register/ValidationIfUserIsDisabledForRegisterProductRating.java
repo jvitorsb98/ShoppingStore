@@ -16,8 +16,8 @@ public class ValidationIfUserIsDisabledForRegisterProductRating implements Valid
 
     @Override
     public void validation(DataRegisterProductRating data) {
-        if (userRepository.existsById(data.Userid())) {
-            User user = userRepository.getReferenceById(data.Userid());
+        if (userRepository.existsById(data.userId())) {
+            User user = userRepository.getReferenceById(data.userId());
             if(!user.getActivated()){
                 throw new ValidationException("The provided user id is disabled");
             }

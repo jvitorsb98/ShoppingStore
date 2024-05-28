@@ -39,7 +39,7 @@ class BrandControllerTest {
     @Test
     void testRegister() {
         DataRegisterBrand dataRegisterBrand = new DataRegisterBrand("Test Brand");
-        DataBrandDetails dataBrandDetails = new DataBrandDetails(1L, "Test Brand");
+        DataBrandDetails dataBrandDetails = new DataBrandDetails(1L, "Test Brand", false);
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.newInstance();
 
         when(brandService.register(any(DataRegisterBrand.class))).thenReturn(dataBrandDetails);
@@ -54,7 +54,7 @@ class BrandControllerTest {
     @Test
     void testGetBrandById() {
         Long id = 1L;
-        DataBrandDetails dataBrandDetails = new DataBrandDetails(id, "Test Brand");
+        DataBrandDetails dataBrandDetails = new DataBrandDetails(id, "Test Brand", false);
 
         when(brandService.getBrandById(id)).thenReturn(dataBrandDetails);
 
@@ -68,8 +68,8 @@ class BrandControllerTest {
     @Test
     void testListAllBrands() {
         PageRequest pageable = PageRequest.of(0, 10);
-        DataBrandDetails dataBrandDetails1 = new DataBrandDetails(1L, "Test Brand 1");
-        DataBrandDetails dataBrandDetails2 = new DataBrandDetails(2L, "Test Brand 2");
+        DataBrandDetails dataBrandDetails1 = new DataBrandDetails(1L, "Test Brand 1", false);
+        DataBrandDetails dataBrandDetails2 = new DataBrandDetails(2L, "Test Brand 2", false);
         Page<DataBrandDetails> page = new PageImpl<>(Arrays.asList(dataBrandDetails1, dataBrandDetails2));
 
         when(brandService.listAllBrands(pageable)).thenReturn(page);
@@ -84,7 +84,7 @@ class BrandControllerTest {
     @Test
     void testUpdate() {
         DataUpdateBrand dataUpdateBrand = new DataUpdateBrand(1L, "Updated Brand");
-        DataBrandDetails updatedBrandDetails = new DataBrandDetails(1L, "Updated Brand");
+        DataBrandDetails updatedBrandDetails = new DataBrandDetails(1L, "Updated Brand", false);
 
         when(brandService.update(dataUpdateBrand)).thenReturn(updatedBrandDetails);
 

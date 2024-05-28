@@ -10,12 +10,13 @@ public record DataPossibleFacetsDetails(
 
         String name,
 
-        Long idCategory
+        Long idCategory,
 
+        Boolean disabled
 ) {
 
     public  DataPossibleFacetsDetails(PossibleFacets possibleFacets){
-        this(possibleFacets.getId(),possibleFacets.getName() ,possibleFacets.getCategory().getId());
+        this(possibleFacets.getId(),possibleFacets.getName() ,possibleFacets.getCategory().getId(), possibleFacets.getDisabled());
     }
     
     

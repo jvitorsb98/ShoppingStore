@@ -9,13 +9,13 @@ public record DataDetailsPayment(
 
         Long idShoppingCart,
 
-        PaymentType paymentType
+        PaymentType paymentType,
 
-
+        Boolean disabled
 ) {
 
     public DataDetailsPayment(Payment payment){
-        this(payment.getId(),payment.getShoppingCart().getId(),payment.getPaymentType());
+        this(payment.getId(),payment.getShoppingCart().getId(),payment.getPaymentType(), payment.isDisabled());
     }
 
 }

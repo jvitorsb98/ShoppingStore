@@ -6,12 +6,13 @@ public record DataBrandDetails(
 
         Long id,
 
-        String name
+        String name,
 
+        Boolean disabled
 ) {
 
     public DataBrandDetails(Brand brand){
-        this(brand.getId(),brand.getName());
+        this(brand.getId(),brand.getName(), brand.getDisabled());
     }
 
 }
