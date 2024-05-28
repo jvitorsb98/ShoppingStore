@@ -55,9 +55,6 @@ public class SettingsSecurity {
                     req.requestMatchers(HttpMethod.PUT, "/api/v2/productsAttributte/**").hasRole("ADMIN");
                     req.requestMatchers(HttpMethod.DELETE, "/api/v2/productsAttributte/**").hasRole("ADMIN");
 
-                    req.requestMatchers(HttpMethod.POST, "/api/v2/productsRating/**").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.PUT, "/api/v2/productsRating/**").hasRole("ADMIN");
-                    req.requestMatchers(HttpMethod.DELETE, "/api/v2/productsRating/**").hasRole("ADMIN");
 
                     req.requestMatchers(HttpMethod.GET, "/api/v2/payments/users/{userId}").authenticated();
                     req.requestMatchers(HttpMethod.GET, "/api/v2/payments").hasRole("ADMIN");
