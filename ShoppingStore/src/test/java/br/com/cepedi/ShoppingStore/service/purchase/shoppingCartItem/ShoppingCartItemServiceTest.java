@@ -46,7 +46,7 @@ public class ShoppingCartItemServiceTest {
         User user = new User();
         user.setId(1L);
 
-        DataDetailsShoppingCart dataDetailsShoppingCart = new DataDetailsShoppingCart(1L, BigDecimal.ZERO, user.getId());
+        DataDetailsShoppingCart dataDetailsShoppingCart = new DataDetailsShoppingCart(1L, BigDecimal.ZERO, user.getId(),false);
 
         DataRegisterShoppingCartItem item1 = new DataRegisterShoppingCartItem(BigInteger.TEN, 1L);
         DataRegisterShoppingCartItem item2 = new DataRegisterShoppingCartItem(BigInteger.ONE, 2L);

@@ -57,7 +57,8 @@ public class ProductRatingControllerTest {
                 1L, // productId
                 BigDecimal.valueOf(4.5), // ratingStars
                 "Produto ótimo!", // review
-                1L // userId
+                1L, // userId,
+            true
         );
 
         // Simulação da resposta do serviço
@@ -87,8 +88,8 @@ public class ProductRatingControllerTest {
     void testListProductRatings() {
         // Dados fictícios
         List<DataProductRatingDetails> ratingsList = new ArrayList<>();
-        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L));
-        ratingsList.add(new DataProductRatingDetails(2L, 2L, BigDecimal.valueOf(3.5), "Produto razoável", 2L));
+        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L,true));
+        ratingsList.add(new DataProductRatingDetails(2L, 2L, BigDecimal.valueOf(3.5), "Produto razoável", 2L,true));
         Page<DataProductRatingDetails> page = new PageImpl<>(ratingsList);
 
         // Simulação da resposta do serviço
@@ -109,7 +110,7 @@ public class ProductRatingControllerTest {
     void testGetProductRatingDetails() {
         // Dados fictícios
         Long productId = 1L;
-        DataProductRatingDetails details = new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L);
+        DataProductRatingDetails details = new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L,true);
 
         // Simulação da resposta do serviço
         when(service.detailsProduct(productId)).thenReturn(details);
@@ -130,8 +131,8 @@ public class ProductRatingControllerTest {
         // Dados fictícios
         Long productId = 1L;
         List<DataProductRatingDetails> ratingsList = new ArrayList<>();
-        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L));
-        ratingsList.add(new DataProductRatingDetails(2L, 1L, BigDecimal.valueOf(3.5), "Produto razoável", 2L));
+        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L,false));
+        ratingsList.add(new DataProductRatingDetails(2L, 1L, BigDecimal.valueOf(3.5), "Produto razoável", 2L,false));
         Page<DataProductRatingDetails> page = new PageImpl<>(ratingsList);
 
         // Simulação da resposta do serviço
@@ -153,8 +154,8 @@ public class ProductRatingControllerTest {
         // Dados fictícios
         Long userId = 1L;
         List<DataProductRatingDetails> ratingsList = new ArrayList<>();
-        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L));
-        ratingsList.add(new DataProductRatingDetails(2L, 2L, BigDecimal.valueOf(3.5), "Produto razoável", 1L));
+        ratingsList.add(new DataProductRatingDetails(1L, 1L, BigDecimal.valueOf(4.5), "Produto ótimo!", 1L,false));
+        ratingsList.add(new DataProductRatingDetails(2L, 2L, BigDecimal.valueOf(3.5), "Produto razoável", 1L,false));
         Page<DataProductRatingDetails> page = new PageImpl<>(ratingsList);
 
         // Simulação da resposta do serviço
@@ -187,7 +188,8 @@ public class ProductRatingControllerTest {
                 1L, // productId
                 BigDecimal.valueOf(4.5), // ratingStars
                 "Produto excelente!", // review
-                1L // userId
+                1L, // userId
+                false
         );
 
         // Simulação da resposta do serviço
