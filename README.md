@@ -121,15 +121,4 @@ O projeto foi gerenciado utilizando a metodologia Scrum, com o auxílio do Trell
 
 A documentação completa do projeto, incluindo o relatório técnico e diagramas de sequência, está disponível na pasta `Documentacao`. Abaixo está a estrutura de arquivos relevantes:
 
-### Estrutura de Arquivos Relevantes
-Documentacao/
-├── Relatório_de_Desenvolvimento___Shopping_Store.pdf
-├── ShoppingStore Apresentação.pdf
-└── ShoppingStore Apresentação.pptx
-
-
-- **Relatório Técnico:** O arquivo `Relatório_de_Desenvolvimento___Shopping_Store.pdf` contém uma descrição detalhada do projeto, incluindo objetivos, desafios, soluções implementadas e resultados obtidos.
-
-- **Apresentações:** Os arquivos `ShoppingStore Apresentação.pdf` e `ShoppingStore Apresentação.pptx` fornecem uma visão geral do projeto, com foco nas decisões técnicas e no planejamento.
-
 
