@@ -43,8 +43,8 @@ O projeto foi gerenciado utilizando a metodologia Scrum, com o auxílio do Trell
 
 ## Divisão das Sprints e Backlog
 
-![Divisão das Sprints](link_para_imagem_sprints.png)
-![Divisão do Backlog](link_para_imagem_backlog.png)
+![Divisão das Sprints](divisao_sprints.png)
+![Divisão do Backlog](divisao_backlog.png)
 
 ## Modelo do Banco de Dados
 
@@ -116,16 +116,20 @@ O projeto foi gerenciado utilizando a metodologia Scrum, com o auxílio do Trell
 - Listar Pagamentos por Usuário
 - Desabilitar Pagamento
 
-## Como Contribuir
 
-Para contribuir com o projeto, siga os passos abaixo:
+## Documentação do Projeto
 
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
-3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`).
-4. Push para a branch (`git push origin feature/nova-feature`).
-5. Abra um Pull Request.
+A documentação completa do projeto, incluindo o relatório técnico e diagramas de sequência, está disponível na pasta `Documentacao`. Abaixo está a estrutura de arquivos relevantes:
 
-## Licença
+### Estrutura de Arquivos Relevantes
+Documentacao/
+├── Relatório_de_Desenvolvimento___Shopping_Store.pdf
+├── ShoppingStore Apresentação.pdf
+└── ShoppingStore Apresentação.pptx
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+- **Relatório Técnico:** O arquivo `Relatório_de_Desenvolvimento___Shopping_Store.pdf` contém uma descrição detalhada do projeto, incluindo objetivos, desafios, soluções implementadas e resultados obtidos.
+
+- **Apresentações:** Os arquivos `ShoppingStore Apresentação.pdf` e `ShoppingStore Apresentação.pptx` fornecem uma visão geral do projeto, com foco nas decisões técnicas e no planejamento.
+
+
