@@ -48,7 +48,7 @@ O projeto foi gerenciado utilizando a metodologia Scrum, com o auxílio do Trell
 
 ## Modelo do Banco de Dados
 
-![Modelo do Banco de Dados](link_para_imagem_banco_de_dados.png)
+![Modelo do Banco de Dados](banco_de_dados.png)
 
 ## Funcionalidades Desenvolvidas
 
